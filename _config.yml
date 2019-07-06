@@ -3,7 +3,7 @@ description: "A blog/portfolio and a place for me to post tools I like to use. A
 author:
   name: "Jake"
   email: "someone@somewebsite.somedomain"
-  url: "https://ashishchaudhary.in/hacker-blog"
+  url: "https://jake-olsen.github.io/"
 
 baseurl: /blog
 
