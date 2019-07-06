@@ -1,0 +1,33 @@
+title: Jake's Blog
+description: "A blog/portfolio and a place for me to post tools I like to use. Along with some guides that I'd like to be in a more permanent place."
+author:
+  name: "Jake"
+  email: "someone@somewebsite.somedomain"
+  url: "https://ashishchaudhary.in/hacker-blog"
+
+baseurl: /blog
+
+
+source: .
+destination: ./_site
+permalink: /:title
+paginate: 3
+paginate_path: /page/:num/
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+future: true
+plugins:
+  - jekyll-seo-tag
+  - jekyll-paginate
+  - jekyll-sitemap
+
+# Custom variables
+owner : "Jake"
+year : "2018-2019"
