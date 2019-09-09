@@ -11,16 +11,16 @@ A few recent bugs.
 
 There are other bugs or features that don't fully work since it is a limited simulation, however I was able to learn most of the CCENT topics without the need of hardware. So, it was extremely useful up to this point.
 
-I was looking into GNS3, but they don't include any cisco software. The IOSv is a bit expensive at $1000. If I wanted to use GNS3 economically and legally I could purchase hardware then upload the IOS to my PC after looking through some GNS discussions. Basically, Cisco IOS can't be obtained and used for Free. You can either get a license or buy the hardware and "extract an IOS image (i.e. using TFTP) from a router you have access" 
+I was looking into GNS3, but they don't include any cisco software. The IOSv is a bit expensive at $1000. If I wanted to use GNS3 economically and legally I could purchase hardware, then upload the IOS to my PC after looking through some GNS discussions. Basically, Cisco IOS can't be obtained and used for Free. You can either get a license or buy the hardware and "extract an IOS image (i.e. using TFTP) from a router you have access" 
  <a href="https://gns3.com/community/discussion/code-of-conduct-amp-gns3-faq">[2]</a> 
 
-However GN3 doesn't support all Cisco IOS, so it looks like the better option in the short term would to buy the hardware and just use it directly.
+However, GN3 doesn't support all Cisco IOS, so it looks like the better option in the short term would to buy the hardware and just use it directly.
 
 For the past few days I've just been looking into what hardware I should buy that I could use for what is left of my ICND1 and ICND2 course. One of my friends led me to this site that shows the "topics" that will be tested.  
 <https://learningnetwork.cisco.com/community/certifications/ccent/icnd1/exam-topics>
 <https://learningnetwork.cisco.com/community/certifications/ccna/icnd2/exam-topics>
 
-So I've been looking through eBay at Cisco hardware then looking up documentation to see what will cover most of it.
+So, I've been looking through eBay at Cisco hardware then looking up documentation to see what will cover most of it.
 Some coworkers recommended I also take a look at the Cisco 800 series
 
 Here are some of the resources I found along the way while looking for a solution  

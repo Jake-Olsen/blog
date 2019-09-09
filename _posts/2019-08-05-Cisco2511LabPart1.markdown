@@ -1,0 +1,166 @@
+---
+layout: post
+title:  "Cisco 2511 Part 1"
+date:   2019-08-05 01:02:03 -0700
+---
+
+I got the lab network working, and I got recommended another book to review before the test from the coworker that I bought the hardware from. Cisco CCNA in 60 Days by Paul Browning. It’s been a great structured review so far with the review text, exercises, practice labs, and practice exams. I’m currently through Day 5.
+
+
+Another cool piece of tech that my coworker gave me was an old Cisco 2511 Access Server / Router. There is this cable referred as an “Octal to RJ45.” It is cabled in such a way that allows you to plug into the ASYNC port on the Cisco 2511 then connect up to 8 devices via their console port. This will be great because when I practice remotely, I can make mistakes without being locked out of my equipment at home. I can also regularly clear out the config. I’ve had it for a couple weeks but didn’t have time to play with it. (The 2511 is at the bottom of the stack in the picture below)
+
+<picture>
+  <img 
+    src="\assets\images\CiscoLab-V2.0-Wired.jpg" 
+    alt="Cisco Lab V2">
+</picture>
+
+Today I finally went to go use it, and the config that was saved on it when he gave to me was lost. So, lesson learned to save the config even in a lab environment. Especially on something you don’t know how to operate yet. I was able to google search a bit to find the answer and I got it working!
+
+<details>
+  <summary>Cisco 2511 Working Config File</summary>
+{% highlight raw%}
+
+R_2511#show run
+Building configuration...
+
+Current configuration : 1099 bytes
+!
+version 12.1
+no service single-slot-reload-enable
+service timestamps debug uptime
+service timestamps log uptime
+no service password-encryption
+!
+hostname R_2511
+!
+!
+username myusername privilege 15 password 0 mypassword
+!
+!
+!
+!
+ip subnet-zero
+ip domain-list cisco.com
+no ip domain-lookup
+ip host SW2 2008 172.21.1.1
+ip host SW1 2006 172.21.1.1
+ip host R3 2007 172.21.1.1
+ip host R2 2002 172.21.1.1
+ip host R1 2001 172.21.1.1
+!
+!
+!
+!
+interface Loopback0
+ ip address 172.21.1.1 255.255.255.255
+!
+interface Ethernet0
+ ip address 172.16.25.11 255.255.255.192
+ no ip mroute-cache
+!
+interface Serial0
+ no ip address
+ no ip mroute-cache
+ shutdown
+!
+interface Serial1
+ no ip address
+ shutdown
+!
+ip default-gateway 172.16.25.1
+ip classless
+ip route 0.0.0.0 0.0.0.0 172.16.25.1
+no ip http server
+!
+!
+line con 0
+ transport preferred telnet
+ transport output pad v120 telnet rlogin udptn
+line 1 16
+ session-timeout 60
+ exec-timeout 0 0
+ no exec
+ transport input telnet
+line aux 0
+ transport preferred telnet
+ transport input all
+ speed 38400
+ flowcontrol hardware
+line vty 0 4
+ exec-timeout 0 0
+ login local
+!
+end
+
+R_2511#
+
+{% endhighlight %}
+</details>
+
+
+
+I didn’t have any experience before doing ‘reverse telnet’. I got stuck inside my session for a bit trying to figure out why the key combination CTRL + SHIFT + 6 + X wasn’t working. Turns out I was just doing it wrong. A more accurate representation would be hold down (CTRL + SHIFT + 6) Let go of those 3 keys and immediately press x. Once you get back into your previous router, you’ll need to disconnect the session, so it doesn’t stay open.
+
+The next problem I encountered was that I couldn’t login through a telnet connection. (This equipment is pre SSH era) It was stating no password set. There isn’t any config for a password on Ethernet0, so since it is a telnet/ssh connection it has to be a VTY line configuration issue.
+
+I have ‘login local’ set on ‘vty 0 4’ so it should use my lab login that I configured. 
+{% highlight raw%}
+show run
+username myusername password mypassword
+{% endhighlight %}
+
+I can see that I have a username and password set. I then thought, well maybe there isn’t high enough permissions on the account. Because everything else seems correct, so let’s give that a try.
+{% highlight console%}
+username myusername privilege 15 password mypassword
+{% endhighlight %}
+
+{% highlight console%}
+telnet 172.16.25.11
+
+User Access Verification
+Username: myusername Password: 
+R_2511#
+{% endhighlight %}
+Cool it's working now!
+
+The fun never ends though. I’m at work now and I can’t login to Router 3, Switch 1, or Switch 2. I can only login to Router 1 & 2. I was getting this error.
+{% highlight console%}
+Trying SW2 (172.21.1.1, 2005)… % Connection refused by remote host
+{% endhighlight %}
+
+Meanwhile a successful connection should look like this.
+{% highlight console%}
+R_2511#r1 Trying R1 (172.21.1.1, 2001)… Open
+{% endhighlight %}
+
+After I got home. It turned out to be some bad cables from the old equipment. Lucky for me I had 5/8 good cables. Just barely enough to hook it all 5 pieces of equipment.
+<br>Cable 1 goes to R1
+<br>Cable 2 goes to R2
+<br>Cable 7 goes to R3
+<br>Cable 6 goes to SW1
+<br>Cable 8 goes to SW2
+
+I removed the old test config
+{% highlight console%}
+no ip host C9 2009 172.21.1.1
+no ip host C8 2008 172.21.1.1
+no ip host C7 2007 172.21.1.1
+no ip host C6 2006 172.21.1.1
+no ip host SW2 2005 172.21.1.1
+no ip host SW1 2004 172.21.1.1
+no ip host R3 2003 172.21.1.1
+{% endhighlight %}
+
+
+Put the new config
+{% highlight console%}
+ip host R3 2007 172.21.1.1
+ip host SW1 2006 172.21.1.1
+ip host SW2 2008 172.21.1.1
+{% endhighlight %}
+
+Learning Sources:
+<br><https://www.cisco.com/c/en/us/support/docs/dial-access/asynchronous-connections/5466-comm-server.pdf>
+<br><https://community.cisco.com/t5/switching/kill-vty-session-on-catalyst-2950/td-p/2204810>
+<br><https://community.cisco.com/t5/other-network-architecture/ctrl-shift-6-x-combination-for-telnet/td-p/284885>

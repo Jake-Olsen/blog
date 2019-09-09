@@ -13,4 +13,11 @@ I don't have much experience making a website other than the one class in high s
 I also updated the URL to now be more simple
 [https://jake-olsen.github.io/blog/]
 
+Step 1 is complete 🙂
+<picture>
+  <img 
+    src="\assets\images\FirstBlogPost.png" 
+    alt="Picture of updated URL">
+</picture>
+
 [https://jake-olsen.github.io/blog/]: https://jake-olsen.github.io/blog/

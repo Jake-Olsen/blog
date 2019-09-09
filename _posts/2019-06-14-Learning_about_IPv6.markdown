@@ -9,5 +9,5 @@ IPv6 SLAAC (State Less Auto Address Configuration) is cool because you don’t h
 
 An example where I have used it is if you are setting up a quick virtual machine to test something out. You can connect to it with IPv6 instead of having to manually configure IPs or spend time setting up a DHCP server for something that is just a quick test on a laptop.
 
-Another example that I can see being extremely useful would be to use a globally unique ipv6 address on a router’s interface. That way when you are switching ISP (Internet Service Providers) remotely on your box. You won’t lose access as long as the ISP passes IPv6.  It seems extremely useful if you are setting up redundant routers as well since you wouldn’t need to pay for a minimum of 3 public IPs for every setup.
+Another example that I can see being extremely useful would be to use a globally unique ipv6 address on a router’s interface. That way when you are switching ISP (Internet Service Providers) remotely on your box. You won’t lose access if the ISP lets IPv6 passthrough.  It seems extremely useful if you are setting up redundant routers as well since you wouldn’t need to pay for a minimum of 3 public IPs for every setup.
 

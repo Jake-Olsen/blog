@@ -1,0 +1,14 @@
+---
+layout: post
+title:  "Cisco 2511 Part 2"
+date:   2019-08-11 01:02:03 -0700
+---
+
+I figured out on Friday why the config of the Cisco 2511 was lost. Because I rebooted it remotely when I was having issues with it, and I lost access to it until I got home. Even though I had saved the running configuration 'copy run start' before I ran the command 'reload' to restart it.
+
+The reason is since I changed the configuration register on the router in order to boot into it and recover it, it would no longer load the startup config stored on the NVRAM. So, lesson learned that I need to change the configuration register back when I’m done.
+
+0x2142 is the value for ignoring NVRAM so you can login without a password, then load the config while you are still logged in.  Once you are done, you need to change it back to 0x2102 then reboot to ensure it took the config properly.
+
+[Use of the Configuration Register on All Cisco Routers](https://www.cisco.com/c/en/us/support/docs/routers/10000-series-routers/50421-config-register-use.html#anc7)
+
