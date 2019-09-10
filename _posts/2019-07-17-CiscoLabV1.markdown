@@ -46,13 +46,13 @@ It turns out that if you don't use a standard-length key such as 1024 or 2048 it
 
 <picture>
   <img 
-    src="\blog\assets\images\CiscoLab-V1.1-Diagram.png" 
+    src="{{site.url}}{{site.baseurl}}\assets\images\CiscoLab-V1.1-Diagram.png" 
     alt="LAB V1.1 Diagram">
 </picture>
 <br>
 <picture>
   <img 
-    src="\blog\assets\images\CiscoLab-V1.1-Wired.jpg" 
+    src="{{site.url}}{{site.baseurl}}\assets\images\CiscoLab-V1.1-Wired.jpg" 
     alt="LAB V1.1 Picture">
 </picture>
 
