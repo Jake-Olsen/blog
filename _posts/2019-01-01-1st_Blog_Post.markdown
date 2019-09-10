@@ -16,7 +16,7 @@ I also updated the URL to now be more simple
 Step 1 is complete 🙂
 <picture>
   <img 
-    src="\assets\images\FirstBlogPost.png" 
+    src="\blog\assets\images\FirstBlogPost.png" 
     alt="Picture of updated URL">
 </picture>
 

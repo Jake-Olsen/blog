@@ -98,7 +98,7 @@ With [WinSSHTerm] I was able to get it setup and working. It is easier to keep t
 
 <picture>
   <img 
-    src="\assets\images\ScriptedLoginWinSSHTerm.png" 
+    src="\blog\assets\images\ScriptedLoginWinSSHTerm.png" 
     alt="WinSSHTerm Scripted Login">
 </picture>
 
