@@ -11,7 +11,7 @@ Another cool piece of tech that my coworker gave me was an old Cisco 2511 Access
 
 <picture>
   <img 
-    src="{{site.url}}{{site.baseurl}}\assets\images\CiscoLab-V2.0-Wired.jpg" 
+    src="{{site.url}}{{site.baseurl}}\assets\images\CiscoLab-V2.0-Wired.webp" 
     alt="Cisco Lab V2">
 </picture>
 
