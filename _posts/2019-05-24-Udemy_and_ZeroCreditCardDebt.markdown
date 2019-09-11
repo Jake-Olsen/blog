@@ -9,7 +9,7 @@ It is only really setup this way because Udemy limits the amount of content a co
 
 <picture>
   <img 
-    src="{{site.url}}{{site.baseurl}}\assets\images\May25th2019BlogPost_Udemy.png" 
+    src="{{site.url}}{{site.baseurl}}\assets\images\May25th2019BlogPost_Udemy.webp" 
     alt="CCNA Cheap Udemy Courses">
 </picture>
 

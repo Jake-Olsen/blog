@@ -4,7 +4,7 @@ title: About
 ---
 <details><summary>Windows Tools</summary><blockquote>
 <dl>
-	<dt>Windows Subsystem for Linux (WSL)</dt>
+	<dt>Windows Subsystem for Linux (WSL):</dt>
 		<dd>An easy way to run Linux tools on Windows 10.</dd>
 		<dd>Though it isn't a fully fledged Linux enviorment so not everything works. For example nmap won't work inside the WSL.</dd>
 		<dd>
@@ -14,15 +14,17 @@ Enable the windows feature
 Then install a Linux Distro from the Windows Store.
 {% endhighlight%}
 		</dd>
-	<dt>Zenmap network/port scanner (nmap GUI) </dt>
+	<dt>Zenmap (nmap GUI): </dt>
+		<dd>network/port scanner </dd>
 		<dd>Basically a GUI version of nmap with some easy to use options</dd>
-	<dt>Chocolately</dt>
-		<dd>The TLDR: An easier/faster way to install, uninstall, and upgrade software packages.</dd>
-		<dd>It downloads software from the source.Checks the hashes to ensure it wasn't tampered with. Then does a full silent install.</dd>	
+	<dt><a href="https://chocolatey.org/">Chocolatey</a>:</dt>
+		<dd>Chocolatey is an easier,faster, and more secure way to install, uninstall, and upgrade software packages.</dd>
+		<dd>It downloads software from the source. Checks the hashes to ensure it wasn't tampered with. Then does a full silent install. You can also do a silient upgrade of all installed packages with one command.</dd>	
 </dl>
   
-<details><summary>Chocolately Packages</summary><blockquote>
+<details><summary>Chocolatey Packages I Like</summary><blockquote>
 <dl>
+	<dt></dt>
 	<dt>Chromium</dt>
 		<dd>A popular web browser</dd>
 		<dd>{% highlight console %}choco install chromium{% endhighlight%}</dd>
@@ -59,7 +61,3 @@ Then install a Linux Distro from the Windows Store.
 </dl>   
 
 </blockquote></details>
-
-
-
-
