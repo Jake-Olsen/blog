@@ -1,0 +1,14 @@
+---
+layout: post
+title:  "The Cisco 2511 died."
+date:   2019-10-07 01:02:03 -0700
+---
+
+Well sadly the Cisco 2511 Terminal Server/Router that was gifted to me no longer boots. It was working on Friday I turned it off as usual. I was using it on Saturday, turned it off for the night. Sunday morning, I got up and turned it on. I couldn’t access it, used a console cable and it won’t get past the bootstrap portion, so it won’t boot anymore.
+```
+System Bootstrap, Version 5.2(8a), RELEASE SOFTWARE
+Copyright (c) 1986-1995 by cisco Systems
+2500 processor with 16384 Kbytes of main memory
+```
+
+I looked and asked around and it is possible to fix it, but the software is very hard if not impossible to find for device that last sold in 2003. The plan B is to replace it with a raspberry pi with USB to Serial Cables.
