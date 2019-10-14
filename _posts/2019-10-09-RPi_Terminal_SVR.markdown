@@ -33,12 +33,23 @@ Edit the config file
 /etc/ser2net.conf
 
 I slightly altered the default for my use case.
+<br>Updated Config October 12th
 ```
-2001:telnet:1200:/dev/ttyUSB0:9600:8DATABITS NONE 1STOPBIT banner
-2002:telnet:1200:/dev/ttyUSB1:9600:8DATABITS NONE 1STOPBIT banner
-2003:telnet:1200:/dev/ttyUSB2:9600:8DATABITS NONE 1STOPBIT banner
-2004:telnet:1200:/dev/ttyUSB3:9600:8DATABITS NONE 1STOPBIT banner
-2005:telnet:1200:/dev/ttyUSB4:9600:8DATABITS NONE 1STOPBIT banner
+##USB SERIAL x4 HUB###########
+#Router_1
+7000:telnet:1200:/dev/ttyUSB0
+#Router_2
+7001:telnet:1200:/dev/ttyUSB1
+#
+#Switch_1
+7002:telnet:1200:/dev/ttyUSB2
+#Switch_2
+7003:telnet:1200:/dev/ttyUSB3
+##############################
+#
+##USB SERIAL Single
+#Router 3
+7004:telnet:1200:/dev/ttyUSB4
 ```
 Start the service
 ```
