@@ -5,7 +5,8 @@ date:   2019-12-05 01:02:03 -0700
 ---
 
 I finally finished studying, passed the test on December 3rd and the certification was verified the next day.
-I got this cool badge the next day that verifies that you have the certification. [My Acclaim CCNA Badge]
+I got this cool badge the next day that verifies that you have the certification.
+<br>[My Acclaim CCNA Badge]
 
 For learning my way through ICND 1 & 2. I used David Bombal's Udemy Course, CBT Nuggets, Physical Hardware Lab, and multiple colleages that assisted me along the way. I also used the "CCNA in 60 Days" Book and Practice Tests, but I only really recommend them as supplementary content.
 
