@@ -122,7 +122,7 @@ Portable Programs
 		<dd>A powerful network/port scanner</dd>
 		<dd>{% highlight console %} apt install nmap {% endhighlight%}</dd>
 	<dt>grep</dt>
-		<dd>A built-in tool to find patters/text within files or output.</dd>
+		<dd>A built-in tool to find patterns/text within files or output.</dd>
 </dl>   
 
 </blockquote></details>
