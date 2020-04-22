@@ -5,7 +5,7 @@ title: Jake's Resources
 
 <h1>Security Videos Playlist</h1>
 <iframe width="560" height="315"
-src="http://www.youtube.com/embed/yBA6u5IsXyc?playlist=
+src="https://www.youtube.com/embed/yBA6u5IsXyc?playlist=
 38M8ta13K0Q,
 w04ZAXftQ_Y,
 5CzURm7OpAA,
