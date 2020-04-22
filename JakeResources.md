@@ -31,7 +31,7 @@ pgzWxOtk1zg,
 frameborder="0" allowfullscreen></iframe>
 
 <h1>Interesting Blogs and Forums</h1>
-<a href="https://null-byte.wonderhowto.com/">
+<a href="https://creator.wonderhowto.com/kody/">
 <img src="{{site.url}}{{site.baseurl}}\assets\NullByte_Jan2020_LINK.webp"
 alt="Null Byte Blog" width="100" height="134"></a>
 &nbsp;
