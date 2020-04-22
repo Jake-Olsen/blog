@@ -27,6 +27,7 @@ kSuq3Ry9PLQ,
 31D94QOo2gY,
 h9wXq6oRBnI,
 pgzWxOtk1zg,
+6Chp12sEnWk,
 3ctQOmjQyYg"
 frameborder="0" allowfullscreen></iframe>
 
@@ -92,6 +93,7 @@ kSuq3Ry9PLQ (Hacker Fundamentals)
 31D94QOo2gY (Secret life of SIM Cards)
 h9wXq6oRBnI (Hacker hired by Goverment)
 pgzWxOtk1zg (128 vs 256 Encryption Computerphile)
+6Chp12sEnWk (How the Feds Caught Russian Mega-Carder)
 3ctQOmjQyYg (DEFCON 2013 Documentary
 
 
