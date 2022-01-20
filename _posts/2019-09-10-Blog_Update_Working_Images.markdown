@@ -4,25 +4,25 @@ title:  "Blog Update: The site has working images now."
 date:   2019-09-10 01:02:03 -0700
 ---
 I got images working now on the site. They were working locally, but when I made it live on GitHub pages it was a bit frustrating getting the links and images to use the correct URL. I couldn't find good documentation on the project name vs the base URL. I ended up updating the "_config.yml" file on these lines:
-{% highlight raw %}
+```
   url: "https://jake-olsen.github.io/"
 
 baseurl: /blog
-{% endhighlight %}
+```
 
 Then updating the images in my posts to this code:
-{% highlight html%}
+
 {% raw %}
 <img src="{{site.url}}{{site.baseurl}}\assets\images\filename.webp>
 {% endraw %}
-{% endhighlight %}
+
 
 site.baseurl was just a guess since I didn't see on the [Jekyll documentation]  or the other posts I saw while searching comments on GitHub where other people were having a similar problem. 
 
 After playing around with trying to optimize images for the web. I would resize them to about the size they would appear on the blog. Somewhere around 900 or 1000 pixels wide.  Strangely the file sizes got bigger. I just left the original screenshots since they were the smallest file size. The photos of the cisco lab are a bit bigger, so shrinking the overall size did significantly help the page load faster. Some of them were still large file sizes. Google recommends saving them as webp, but Paint.NET doesn't have an option to save images as webp. 
 
 I went to go look for software on Chocolatey since they usually have pretty good software, and I found the webp program from google surprisingly it is command line only, but easy to use.
-<https://developers.google.com/speed/webp/docs/using>
+https://developers.google.com/speed/webp/docs/using
 
 <details>
   <summary> I'll just open a command prompt as an admin and install webp.</summary>

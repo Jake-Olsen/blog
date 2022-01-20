@@ -1,0 +1,13 @@
+---
+layout: post
+title:  "Shodan"
+date:   2020-08-16 01:02:03 -0700
+---
+
+Very rarely used Shodan back in 2018.
+
+However recently I paid for an account so I could use look for specific items and just explore more. Including being able to use the CLI.
+
+One thing that I thought I would start off with is Polycom VVX phones since we have a lot of them at work and it is very bad when a Level 1 Techs leave open a port forward(s) to one. If the phone is registered and gets hijacked it can make international calls and cause hundreds to thousands of USD$ in international calling bills.  Basically don't put phones on the internet especially if they are not designed that way.  Still just starting to explore I was able to download about 900 out of the 1200+ Polycom VVX phones that were sitting around on the open internet. Narrowing down the search I found a few that seemed like they might be ours, but luckily they aren't.  In the future it would probably be easier if I narrowed down the list to only IPs our routers have. Though I don't have that list on my personal PC.
+
+Unfortunately Shodan along with other offensive security related tools are blocked at work because the filtering labels them as 'hacking' and none of that is approved. I personally think you should try attacking your own tech stack to ensure it is safe.

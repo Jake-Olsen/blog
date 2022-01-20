@@ -3,9 +3,63 @@ layout: page
 title: Jake's Resources
 ---
 
+<h1>Interesting & Technical Learning Media</h1>
+<a href="https://darknetdiaries.com/">Darknet Diaries (Podcast)</a>
+<br>&nbsp;&nbsp;&nbsp;Podcast that does documentaries about major security incidents.
+<br>&nbsp;&nbsp;&nbsp;Interviews with people in a wide array of security positions in multiple countries.
+<br>
+<br><a href="https://www.youtube.com/channel/UC4w1YQAJMWOz4qtxinq55LQ">Level 1 Techs (Youtube)</a>
+<br>&nbsp;&nbsp;&nbsp;Tech Videos related to Monitors, Storage, Computing, Servers, Virtualization, Hardware, IoT.
+<br>
+<br><a href="https://www.youtube.com/channel/UCHkYOD-3fZbuGhwsADBd9ZQ">Lawrence Systems (Youtube)</a>
+<br>&nbsp;&nbsp;&nbsp;Managed Service Provider that works on Networking regarding Firewalls, Routing, VPNs, Cabling.
+<br>
+<br><a href="https://www.youtube.com/channel/UCZ1vdUnlEZdtw0NysynGYPQ">How They Got Hacked (Youtube)</a>
+<br>&nbsp;&nbsp;&nbsp;Livestream / Podcast covering recent security incidents in the news and how they could be avoided.
+<br>
+<br><a href="https://www.youtube.com/user/JtheLinuxguy">Learn Linux TV (Youtube)</a>
+<br>&nbsp;&nbsp;&nbsp;Lots of Automation and Linux Information.
+<br>
+<br><a href="https://thehomelab.show/">The Home Lab Show (Podcast)</a>
+<br>&nbsp;&nbsp;&nbsp;Podcast / Youtube discussions about various tech stack for lab at home to learn with.
+<br>
+<br><a href="https://www.youtube.com/channel/UCVS6ejD9NLZvjsvhcbiDzjw">CrossTalk Solutions (Youtube)</a>
+<br>&nbsp;&nbsp;&nbsp;Videos about Network hardware and phones.
+<br>
+<br><a href="https://www.youtube.com/c/ServeTheHomeVideo">Serve the Home (Youtube)</a>
+<br>&nbsp;&nbsp;&nbsp;Mostly Talk about Network Hardware & Server Hardware.
+<br>
+<br><a href="https://www.youtube.com/c/hak5">Hak 5 (Youtube)</a>
+<br>&nbsp;&nbsp;&nbsp;Defensive and offensive security. Tutorials on how to setup services and use them.
+<br> 
+<br><a href="https://www.youtube.com/c/LiveOverflow">Live Overflow (Youtube)</a>
+<br>&nbsp;&nbsp;&nbsp;Discusses on how certain code exploits work and also good security principles.
+<br>
+<br><a href="https://www.youtube.com/c/SecurityFWD">Security FWD (Youtube)</a>
+<br>&nbsp;&nbsp;&nbsp;Defensive and offensive security.
+<br>
+<br><a href="https://www.youtube.com/channel/UCgTNupxATBfWmfehv21ym-g">Null Byte (Youtube)</a>
+<br>&nbsp;&nbsp;&nbsp;Defensive and offensive security.
+<br>
+
+
+<h1>Other Blogs and Forums</h1>
+<a href="https://creator.wonderhowto.com/kody/">
+<img src="{{site.url}}{{site.baseurl}}\assets\NullByte_Jan2020_LINK.webp"
+alt="Null Byte Blog" width="100" height="134"></a>
+&nbsp;
+<a href="https://forum.level1techs.com/">
+<img src="{{site.url}}{{site.baseurl}}\assets\Level1Techs_Jan2020_LINK.webp"
+alt="Level 1 Techs Forum" width="100" height="134"></a>
+&nbsp;
+<a href="https://forums.lawrencesystems.com/">
+<img src="{{site.url}}{{site.baseurl}}\assets\LawrenceSystems_Jan2020_LINK.webp"
+alt="Lawrence Systems Techs Forum" width="100" height="134"></a>
+
 <h1>Security Videos Playlist</h1>
 <iframe width="560" height="315"
 src="https://www.youtube.com/embed/yBA6u5IsXyc?playlist=
+yBA6u5IsXyc,
 38M8ta13K0Q,
 w04ZAXftQ_Y,
 5CzURm7OpAA,
@@ -31,36 +85,6 @@ pgzWxOtk1zg,
 3ctQOmjQyYg"
 frameborder="0" allowfullscreen></iframe>
 
-<h1>Interesting Blogs and Forums</h1>
-<a href="https://creator.wonderhowto.com/kody/">
-<img src="{{site.url}}{{site.baseurl}}\assets\NullByte_Jan2020_LINK.webp"
-alt="Null Byte Blog" width="100" height="134"></a>
-&nbsp;
-<a href="https://forum.level1techs.com/">
-<img src="{{site.url}}{{site.baseurl}}\assets\Level1Techs_Jan2020_LINK.webp"
-alt="Level 1 Techs Forum" width="100" height="134"></a>
-
-
-<h1>Interesting Youtube Channels</h1>
-<a href="https://www.youtube.com/channel/UC4w1YQAJMWOz4qtxinq55LQ">
-<img src="{{site.url}}{{site.baseurl}}\assets\Level1Techs_Jan2020_LINK.webp"
-alt="Level 1 Techs" width="100" height="134"></a>
-&nbsp;
-<a href="https://www.youtube.com/channel/UCHkYOD-3fZbuGhwsADBd9ZQ">
-<img src="{{site.url}}{{site.baseurl}}\assets\LawrenceSystems_Jan2020_LINK.webp"
-alt="Lawrence Systems" width="100" height="134"></a>
-&nbsp;
-<a href="https://www.youtube.com/channel/UCZ1vdUnlEZdtw0NysynGYPQ">
-<img src="{{site.url}}{{site.baseurl}}\assets\HTGHacked_Jan2020_LINK.webp"
-alt="How They Got Hacked" width="100" height="134"></a>
-
-<!-- Placeholder for adding new youtube channel links
-&nbsp;
-<a href="https://www.youtube.com/channel/UCZ1vdUnlEZdtw0NysynGYPQ">
-<img src="{{site.url}}{{site.baseurl}}\assets\NullByte_Jan2020_LINK.webp"
-alt="How They Got Hacked" width="100" height="134"></a>
--->
-
 <!--
 <iframe width="560" height="315"
 src="http://www.youtube.com/embed/VIDEO_1?playlist=
@@ -71,7 +95,7 @@ frameborder="0" allowfullscreen></iframe>
 -->
 
 <!-- Youtube Video IDs
-yBA6u5IsXyc (It's Fine Ship it/Scan entire internet)
+yBA6u5IsXyc (It's Fine Ship it/Scan entire internet )
 38M8ta13K0Q (Thread inside FBI)
 w04ZAXftQ_Y (Cloudflare Survive 300Gbps attack)		
 5CzURm7OpAA (Cruddy Drone Security)

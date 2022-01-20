@@ -23,4 +23,4 @@ I was able to finish the setup this weekend.  Not too complicated since I alread
 
 [github.com/angristan/openvpn-install]: https://github.com/angristan/openvpn-install
 
-**August 2019 Update: My Ubuntu Machine had many complications and couldn't maintain a reliable network connection. I deleted the Ubuntu Server VM and I'll eventually remake it on Debian since I didn't have stability problems in the past with it.**
+**August 2019 Update:** My Ubuntu Machine had many complications and couldn't maintain a reliable network connection. I deleted the Ubuntu Server VM and I'll eventually remake it on Debian since I didn't have stability problems in the past with it.
