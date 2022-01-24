@@ -124,9 +124,12 @@ While this isn't a full exhaustive list. It is mostly tools that aren't built in
 	<dd>It is a more modern CLI terminal with tabs. It can also be customized.
 	<br>It supports cmd, powershell, WSL.
 </dd>
-
-
-
+	
+<dt><a href="https://docs.microsoft.com/en-us/sysinternals/downloads/">Sysinternals Utilities</a></dt>
+	<dd>Tons of useful tools for Windows directly from Microsoft.
+	<br>My favorites are Whois and Autoruns.
+</dd>
+	
 <dt><a href="https://www.balena.io/etcher/">BalenaEtcher</a></dt>
 	<dd>ISO / Image installer that works for for multiple OS. For me it works better than Rufus when installing Rasbian on Raspberry Pi SD Cards.</dd>
 <dt><a href="https://store.steampowered.com/about/">Steam</a></dt>
