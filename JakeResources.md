@@ -22,7 +22,8 @@ title: Jake's Resources
 <br>
 <br><a href="https://thehomelab.show/">The Home Lab Show (Podcast)</a>
 <br>&nbsp;&nbsp;&nbsp;Podcast / Youtube discussions about various tech stack for lab at home to learn with.
-<br>
+<br>&nbsp;&nbsp;&nbsp;Made by Lawrence Systems & Learn Linux TV
+
 <br><a href="https://www.youtube.com/channel/UCVS6ejD9NLZvjsvhcbiDzjw">CrossTalk Solutions (Youtube)</a>
 <br>&nbsp;&nbsp;&nbsp;Videos about Network hardware and phones.
 <br>
@@ -38,16 +39,12 @@ title: Jake's Resources
 <br><a href="https://www.youtube.com/c/SecurityFWD">Security FWD (Youtube)</a>
 <br>&nbsp;&nbsp;&nbsp;Defensive and offensive security.
 <br>
-<br><a href="https://www.youtube.com/channel/UCgTNupxATBfWmfehv21ym-g">Null Byte (Youtube)</a>
+<br>~~<a href="https://www.youtube.com/channel/UCgTNupxATBfWmfehv21ym-g">Null Byte (Youtube)</a>~~ Ownership Changing / Becoming Old
 <br>&nbsp;&nbsp;&nbsp;Defensive and offensive security.
 <br>
 
 
 <h1>Other Blogs and Forums</h1>
-<a href="https://creator.wonderhowto.com/kody/">
-<img src="{{site.url}}{{site.baseurl}}\assets\NullByte_Jan2020_LINK.webp"
-alt="Null Byte Blog" width="100" height="134"></a>
-&nbsp;
 <a href="https://forum.level1techs.com/">
 <img src="{{site.url}}{{site.baseurl}}\assets\Level1Techs_Jan2020_LINK.webp"
 alt="Level 1 Techs Forum" width="100" height="134"></a>
