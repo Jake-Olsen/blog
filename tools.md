@@ -70,13 +70,14 @@ While this isn't a full exhaustive list. It is mostly tools that aren't built in
 				Free Open-Source password manager.
 			<br>It encrypts your passwords into a database that consists of only one file that can be transferred from one computer to another easily.
 			<br><del>
-				I also like some plugins like keeagent as you can store your ssh keys as attachments in the database. Keeagent can also load the key for your ssh sessions.
+					I also like some plugins like keeagent as you can store your ssh keys as attachments in the database. Keeagent can also load the key for your ssh sessions.
 				</del>
 			<br>Note: I no longer like using agents such as keeagent or pagent as it auto submits keys which is a security issue
 				as well as can cause logins to auto-fail.
 		</dd>
 		
 		<dd>{% highlight console %}choco install keepass{% endhighlight%}</dd>
+		<dd>{% highlight console %}choco install keepass-yet-another-favicon-downloader{% endhighlight%}</dd>
 	
 	<dt>7Zip</dt>
 		<dd>Tool to pack and unpack archives and compressed files of multiple formats such as rar,zip,tar and 7z.</dd>
