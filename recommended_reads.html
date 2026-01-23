@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jake's Blog - Recommended Reading</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <div id="header"></div>
+        <script>
+            fetch('/header.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('header').innerHTML = html;
+            });
+        </script>
+</head>
+
+<body>
+<br><a href="http://www.catb.org/~esr/faqs/smart-questions.html#disclaimer">
+    How To Ask Questions The Smart Way</a> - by Eric Steven Raymond
+<br>
+<br><a href="https://www.amazon.com/Linchpin-Are-Indispensable-Seth-Godin/dp/1591844096">
+    Linchpin: Are You Indispensable?</a> - by Seth Godin
+<br><a href="https://seths.blog/song/">
+    The Song of Significance: A New Manifesto for Teams</a> - by Seth Godin
+</body>
+</html>

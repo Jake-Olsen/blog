@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jake's Blog - Site Index</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <div id="header"></div>
+        <script>
+            fetch('/header.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('header').innerHTML = html;
+            });
+        </script>
+ </head>
+<p>Diagram of my current home lab. Download the .png if you want to view
+it in more detail in diagrams.net (drawio) as well as test out the
+fold/unfold container diagram functionality. May try to see if it can be
+hosted in full later on but for now the diagram file is embedded in the
+picture. <picture> &lt;img HomeNetworkLabJan2022.drawio.png” alt=“Home
+Network Lab Jan 2022 draw.io Diagram” &gt; </picture></p>
+</body>
+</html>

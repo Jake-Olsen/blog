@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jake's Blog - Site Index</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <div id="header"></div>
+        <script>
+            fetch('/header.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('header').innerHTML = html;
+            });
+        </script>
+ </head>
+<p>It is the 4th of July Holiday. I’m off work, I don’t really have any
+cisco hardware yet. I’m not in the mood to work on my certification.
+However, I was in the mood to start working on my blog again. I got some
+progress getting it to load up some posts. Jekyll is working now and can
+auto generate the HTML for the webpage.</p>
+<p>I got my text files where I had been tossing in my ideas for the
+year. Then I formatted them for Jekyll to auto-process them into blog
+posts.</p>
+<p>Also learned how to use Markdown to make the code easier to read and
+easier to setup. Also got to learn how to setup multiple pieces of it.
+Like the tables and links you see below. Mostly through some quick cheat
+sheets online to get started.</p>
+<pre><code>For example, I can show the code directly in this box because I put 3 backticks `
+
+Links can easily be setup like some
+&lt;link&gt; This will show the full URL and make it a link
+[link](Title of link)</code></pre>
+<p>Below are some links on getting it started to get it working.</p>
+<p>|<a href="https://jekyllrb.com/docs/"
+class="uri">https://jekyllrb.com/docs/</a> |Quickstart | |<a
+href="https://jekyllrb.com/docs/installation/"
+class="uri">https://jekyllrb.com/docs/installation/</a> |Installation |
+|<a href="https://jekyllrb.com/docs/installation/windows/"
+class="uri">https://jekyllrb.com/docs/installation/windows/</a> |Jekyll
+on Windows | |<a href="https://rubyinstaller.org/downloads/"
+class="uri">https://rubyinstaller.org/downloads/</a> |Ruby Downloads|
+|<a href="https://jekyllrb.com/docs/posts/"
+class="uri">https://jekyllrb.com/docs/posts/</a> |Jekyll Posts | |<a
+href="https://daringfireball.net/projects/markdown/syntax#code"
+class="uri">https://daringfireball.net/projects/markdown/syntax#code</a>|Markdown
+Cheat Sheet|</p>
+</body>
+</html>

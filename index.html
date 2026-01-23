@@ -1,13 +1,69 @@
----
-layout: default
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jake's Blog - Site Index</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <div id="header"></div>
+        <script>
+            fetch('/header.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('header').innerHTML = html;
+            });
+        </script>
+ </head>
 
+<body>
+<H1>Index of site posts</H1>
+
+<h3>2025:</h3>
 <ul>
-    {% for post in paginator.posts %}
-      <li>
-          <h2><a href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}">{{ post.title }}</a></h2>
-          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date_to_string }}</time>
-          <p>{{ post.content | strip_html | truncatewords:40 }}</p>
-      </li>
-    {% endfor %}
+    <li>More to be added and updated very soon!
+    <li><a href=/posts/2025-l4d2gamesetup.html>Left 4 Dead 2 Game Personal Setup & Recommendations</a>
 </ul>
+<h3>2024:</h3>
+<ul>
+    <li>To be updated soon
+</ul>
+<h3>2023:</h3>
+<ul>
+    <li>To be updated soon
+</ul>
+<h3>2022:</h3>
+<ul>
+    <li><a href=/posts/2022-01-19-Home-Network-Diagram.html>Home Network Diagram</a>
+    <li><a href=/posts/2022-01-15-Long-Overdue-Update.html>Long Overdue Blog Update</a>
+</ul>
+<h3>2021:</h3>
+<ul>
+    <li><a href=/posts/2021-11-11-Health_Stopped_Declining.html>Health Stopped Declining</a>
+    <li><a href=/posts/2021-10-31-Packet-LimiterWeirdness-in-pfSense.html>Packet Limiter Weirdness in pfSense</a>
+    <li><a href=/posts/2021-10-31-Chrome-Web-Serial.html>Chromium Web Serial</a>
+    <li><a href=/posts/2021-10-30-Mapping-out-a-network.html>Mapping out a network</a>
+    <li><a href=/posts/2021-10-26-Cyber-Security-Rambling-1.html>Cyber Security Rambling 1</a>
+    <li><a href=/posts/2021-10-26-Better-Internet-and-Network-Oct-2021.html>Better Internet and Network</a>
+    <li><a href=/posts/2021-10-16-Changing-Time-in-Windows.html>Changing Time in Windows</a>
+</ul>
+<h3>2020:</h3>
+<ul>
+    <li><a href=/posts/2020-02-28-Unexpected_Health_Condition.html>Unexpected Health Condition</a>
+    <li><a href=/posts/2020-03-01-Learning_Python.html>Learning more Python</a>
+    <li><a href=/posts/2020-05-01-Computer_Server_Upgrades-WSL2.html>Computer Server Upgrades WSL2</a>
+    <li><a href=/posts/2020-06-11-UPnP-169-Weirdness-and-Terminals.html>Weirdness with UPnP using APIPA(169.x) and Terminals</a>
+    <li><a href=/posts/2020-06-18-Encoding-to-hide-in-plain-sight.html>Encoding to hide in plain sight</a>
+    <li><a href=/posts/2020-07-05-Better-Internet-and-Network-July-2020.html>Better Internet and Network July 2020</a>
+    <li><a href=/posts/2020-07-22-Docker-Containers.html>Docker Containers</a>
+    <li><a href=/posts/2020-08-16-Shodan.html>Shodan CyberSecurity Scan List</a>
+</ul>
+<h3>2019:</h3>
+<ul>
+    <li>To be updated soon
+</ul>
+
+
+</body>
+</html>

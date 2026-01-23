@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jake's Blog - Site Index</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <div id="header"></div>
+        <script>
+            fetch('/header.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('header').innerHTML = html;
+            });
+        </script>
+ </head>
+<p>This Friday there was a discussion with our Tier 3 Network Engineer
+after someone found 2 spanning tree roots and escalated the issue to him
+to ensure it was fixed correctly.</p>
+<p>So what caused this? <br>Here was a few of my thoughts: <br>1) Were
+we running multiple trees such as PVSTP, or MSTP. <br>   Nope. <br>2)
+Perhaps we are running 2 different spanning tree versions that aren’t
+compatible? <br>   Nope <br>3) Did STP get turned off on some ports?
+<br>   Yep STP got turned off on a few ports so multiple switches got
+elected to be the root bridge.</p>
+<p>Some other real world issues I’ve seen is where an end user plugged
+in their own 5 port switch, which happened to have a priority of 4096.
+It became the root for the whole network. Everything had to route
+through the trunk, to their switch, then back through multiple trunks to
+get back to the router. Just for one way, then they have to go back
+through that long route for the return traffic. Along with the fact that
+a 5 port switch can’t handle the traffic of a site with ten 48 port
+switches.</p>
+<p>Another example similar to the one above is where a Arris device
+(Probably an ISP modem) became our STP Root. We could have prevented
+this if we used bpdu filtering on the <del>access ports</del> Internet
+Provider Uplink ports. Which would prevent them from becoming part of
+our spanning tree, but would still allow network traffic through. Also
+it can help the security of your network since it will prevent STP
+information from going out of those ports aswell.</p>
+<h3>
+End of 2019 Update:
+</h3>
+<p>Spanning Tree Root Guard is a better option for ports that are for
+end user’s equipment that you don’t intend on having any control over.
+This way if their device tries to take over your spanning tree root it
+will block it. They can alter their priority and then be let back on
+while keeping spanning tree on to detect &amp; block loops. However if
+they can’t change it, or refuse to. There is still an option to use BPDU
+Filtering to stop them from connecting to your spanning tree, however
+that removes the ability for STP to detect and block loops.</p>
+</body>
+</html>

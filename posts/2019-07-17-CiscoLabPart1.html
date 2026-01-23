@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jake's Blog - Site Index</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <div id="header"></div>
+        <script>
+            fetch('/header.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('header').innerHTML = html;
+            });
+        </script>
+ </head>
+<p>I was able to buy the cisco hardware from a coworker for a good
+price. I also got a RJ45 to Serial Console Cable along with a USB to
+Serial. Along with some ethernet cables. I got the hardware setup was
+playing with it for a bit figuring out how to make it work. I did find
+out that old equipment doesn’t have Auto-MDIX. Which enables you to plug
+in straight through or crossover ethernet cables without having to plan
+out which one you use. I don’t have any crossover cables and I don’t
+have any tools to make my own. However, I thought of using VLANs on the
+switches to connect the routers together. I drew up a quick map on how I
+could connect everything together, while still making it virtually
+separated. After configuring the VLANs, SVIs, and IPs. Since windows was
+sending my traffic for 10.2.2.0/24 and 10.3.3.0/24 out of my regular
+network 10.3.72.0/22. Instead of out of the 10.1.1.0/24 network. I also
+had to figure out how to do Static Routes in Windows. Since EIGRP
+routing information isn’t passed to a PC. I was able to get that working
+on my windows machine with these commands.</p>
+<pre><code>route ADD 10.2.2.0 MASK 255.255.255.0 10.1.1.254
+route ADD 10.3.3.0 MASK 255.255.255.0 10.1.1.254</code></pre>
+<p>Though these weren’t the first. Since I didn’t know the syntax
+correctly. I was sending the traffic to the interface’s IP as if it was
+the gateway. Instead of sending it to the Gateway Router that could
+handle the rest. Now the pings are working, and I can SSH into
+everything using PuTTY. However, I wanted to be able to work on it
+remotely at my job when I have downtime. I’ll connect with SSH to my
+Ubuntu VM. I have a Public Key on the Ubuntu VM and a private key stored
+in my KeePass on my laptop.</p>
+<p>Since the virtual machine doesn’t route through windows, it has own
+routing table. I just added the static route in Linux with these
+commands.</p>
+<pre><code>sudo ip route add 10.2.2.0/24 via 10.1.1.254
+sudo ip route add 10.3.3.0/24 via 10.1.1.254</code></pre>
+<p>I encountered more errors when trying to SSH to the cisco equipment
+from my Linux machine. This is due to extra security being turned on by
+default that doesn’t allow old methods to be used. Here are some of the
+errors I was receiving:</p>
+<pre><code>Unable to negotiate with 10.1.1.254 port 22: no matching key exchange method found. Their offer: diffie-hellman-group1-sha1
+Unable to negotiate with 10.1.1.254 port 22: no matching cipher found. Their offer: 3des-cbc</code></pre>
+<p>After some researching. I was able to solve those errors by updating
+the user ssh config file. Open the file</p>
+<pre><code>sudo nano ~/.ssh/config</code></pre>
+<p>Then update it with this</p>
+<pre><code>Host 10.1.1.254
+    Ciphers 3des-cbc
+    KexAlgorithms +diffie-hellman-group1-sha1</code></pre>
+<p>However,then I got a different error.</p>
+<pre><code>ssh_dispatch_run_fatal: Connection to 10.1.1.254 port 22: Invalid key length</code></pre>
+<p>It turns out that if you don’t use a standard-length key such as 1024
+or 2048 it will throw this error. I had initially set the key as 768 as
+it is the minimum for SSH. I did this because I didn’t want it to be
+slow similarly to this other equipment that I had used that barely
+functioned if you put a 2048 bit key on it. However, 1024 seems to be
+fine so far in this lab. I also mapped this out a little bit with a Free
+Site/Program draw.io that seems to work fine for simple diagrams. Below
+is a picture of the setup that I made.</p>
+<p>CiscoLab-V1.1-Diagram.webp” alt=“LAB V1.1 Diagram” <br>
+CiscoLab-V1.1-Wired.webp” alt=“LAB V1.1 Picture”&gt;</p>
+<p>I was going to go buy some cheap RJ45 Connectors and Wire Crimp Tools
+and then sacrifice a cable. Lucky for me some coworkers were kind enough
+to offer their spares they wanted to get rid of. I made some crossover
+cables to get everything connected.</p>
+</body>
+</html>

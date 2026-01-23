@@ -1,4 +1,4 @@
-This is my Blog/Portfolio Generated with Jekyll using a [Hacker Blog Theme](https://github.com/tocttou/hacker-blog).
+This is my personal Blog/Portfolio for sharing of information and learning
 
 ## License
 

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jake's Blog - Site Index</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <div id="header"></div>
+        <script>
+            fetch('/header.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('header').innerHTML = html;
+            });
+        </script>
+ </head>
+<p>Switched to PFSense. Moved server to lower power and smaller box. Got
+a local fiber internet provider and easily worked with them to get my
+router connected directly to their switch so I could avoid double NAT.
+<br>(yes I actually got permission to plug into the ISP’s switch where I
+have no gateway box in my apartment 🙂)</p>
+<p>Connected the server and networking equipment Organized setup and
+semi cable managed it.</p>
+<p><picture> <img 
+        src="{{site.url}}{{site.baseurl}}\assets\images\Network-Oct-2021.webp" 
+        alt="Network Before & After Picture"
+    > </picture></p>
+<p>Don’t have room for a rack so this will have to do for now.</p>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jake's Blog - Site Index</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <div id="header"></div>
+        <script>
+            fetch('/header.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('header').innerHTML = html;
+            });
+        </script>
+ </head>
+<p>The chrome development team has come up with something pretty cool. A
+way to manipulate serial ports on your computer in a web browser. I
+first found out during a live stream on YouTube where someone was
+discussing a new way to flash Arduino binaries.</p>
+<p>Then a few days later I was hooking back up my lab router to start
+self studying again and wondered if there was a way to connect the
+serial terminal session over the web browser instead of using the old
+way of finding the COM port then loading up putty and setting the COM
+port manually. Then I found it there is a way to use it, and it’s out of
+the experimental phase already! You just need to have a web page coded
+to ask for the serial port. <br><a href="https://web.dev/serial/"
+class="uri">https://web.dev/serial/</a></p>
+<p>Google actually has a live version on GitHub. Wouldn’t recommend
+using it in production. You should generally host your own if you are
+going to use it in production. <br><a
+href="https://googlechromelabs.github.io/serial-terminal/"
+class="uri">https://googlechromelabs.github.io/serial-terminal/</a></p>
+<p>At this time it even works in Edge with no additional config and
+automatically figures out the available Serial COM ports.</p>
+<p><picture> <img 
+        src="{{site.url}}{{site.baseurl}}\assets\images\ChromeWebSerial-1.webp" 
+        alt="X"
+    > </picture></p>
+<p>Used it to reset my lab pfsense router back to default. <picture>
+<img 
+        src="{{site.url}}{{site.baseurl}}\assets\images\ChromeWebSerial-2.webp" 
+        alt="X"
+    > </picture></p>
+</body>
+</html>
