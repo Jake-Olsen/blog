@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jake's Blog - Site Index</title>
+    <title>Jake's Blog - Working Images</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
       <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/dos.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/main.css">
         <div id="header"></div>
         <script>
@@ -16,100 +17,86 @@
             });
         </script>
  </head>
-<p>I got images working now on the site. They were working locally, but
-when I made it live on GitHub pages they were not working. I couldn’t
-find good documentation on the project name vs the base URL. I ended up
-updating the “_config.yml” file on these lines:</p>
-<pre><code>  url: &quot;https://jake-olsen.github.io/&quot;
+ <body>
 
-baseurl: /blog</code></pre>
-<p>2026 Note: This appears to no longer work as jekyll and/or the
-updated template I used no longer function as expected on the config.yml
-file.</p>
+<p>I got images working now on the site. They were working locally, but when I made it live on GitHub pages they were not working. I couldn’t find good documentation on the project name vs the base URL. I ended up updating the “_config.yml” file on these lines:</p>
+
+<pre><code>url: &quot;https://jake-olsen.github.io/&quot;baseurl: /blog
+</code></pre>
+
+<p>2026 Note: This appears to no longer work as jekyll and/or the updated template I used no longer function as expected on the config.yml file.</p>
+
 <p>Then updating the images in my posts to this code:</p>
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> src</span><span class="op">=</span><span class="st">&quot;{{site.url}}{{site.baseurl}}\assets\images\filename.webp&gt;</span></span></code></pre></div>
+
+<pre><code class="language-html">{{site.url}}{{site.baseurl}}\assets\images\filename.webp&gt;</code></pre>
+
 <p>site.baseurl was just a guess since I didn’t see on the [Jekyll
 documentation] or the other posts I saw while searching comments on
 GitHub where other people were having a similar problem.</p>
-<p>After playing around with trying to optimize images for the web. I
-would resize them to about the size they would appear on the blog.
-Somewhere around 900 or 1000 pixels wide. Strangely the file sizes got
-bigger. I just left the original screenshots since they were the
-smallest file size. The photos of the cisco lab are a bit bigger, so
-shrinking the overall size did significantly help the page load faster.
-Some of them were still large file sizes. Google recommends saving them
-as webp, but Paint.NET doesn’t have an option to save images as
-webp.</p>
-<p>I went to go look for software on Chocolatey since they usually have
-pretty good software repository, and I found the webp program from
-google surprisingly it is command line only, but easy to use.
-https://developers.google.com/speed/webp/docs/using</p>
-<details>
-<summary>
-I’ll just open a command prompt as an admin and install webp.
-</summary>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode bat"><code class="sourceCode dosbat"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>C:\WINDOWS\system32<span class="kw">&gt;</span>choco install webp <span class="at">-y</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Chocolatey v0.10.15</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Installing the following packages:</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>webp</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>By installing you accept licenses for the packages.</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>Progress: Downloading webp 1.0.0... 100%</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>webp v1.0.0 [Approved]</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>webp package files install completed. Performing other installation steps.</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>Installing 64 bit version</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>Extracting C:\ProgramData\chocolatey\lib\webp\tools\webp_x64.zip to C:\ProgramData\chocolatey\lib\webp\tools...</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>C:\ProgramData\chocolatey\lib\webp\tools</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>Environment Vars (like PATH<span class="kw">)</span> have changed. Close<span class="at">/reopen</span> your shell to</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a> see the changes (or in powershell<span class="at">/cmd</span>.exe just type `refreshenv`<span class="kw">)</span>.</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a> ShimGen has successfully created a shim for anim_diff.exe</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a> ShimGen has successfully created a shim for cwebp.exe</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a> ShimGen has successfully created a shim for dwebp.exe</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a> ShimGen has successfully created a shim for get_disto.exe</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a> ShimGen has successfully created a shim for gif2webp.exe</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a> ShimGen has successfully created a shim for img2webp.exe</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a> ShimGen has successfully created a shim for vwebp.exe</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a> ShimGen has successfully created a shim for vwebp_sdl.exe</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a> ShimGen has successfully created a shim for webpinfo.exe</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a> ShimGen has successfully created a shim for webpmux.exe</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a> ShimGen has successfully created a shim for webp_quality.exe</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a> The install of webp was successful.</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  Software installed to &#39;C:\ProgramData\chocolatey\lib\webp\tools&#39;</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>Chocolatey installed 1<span class="at">/1</span> packages.</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a> See the log for details (C:\ProgramData\chocolatey\logs\chocolatey.log).</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>C:\WINDOWS\system32<span class="kw">&gt;</span>refreshenv</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>Refreshing environment variables from registry for cmd.exe. Please wait...Finished..</span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>C:\WINDOWS\system32<span class="kw">&gt;</span></span></code></pre></div>
-</details>
+<p>After playing around with trying to optimize images for the web. I would resize them to about the size they would appear on the blog. Somewhere around 900 or 1000 pixels wide. Strangely the file sizes got bigger. I just left the original screenshots since they were the smallest file size. The photos of the cisco lab are a bit bigger, so shrinking the overall size did significantly help the page load faster. Some of them were still large file sizes. Google recommends saving them as webp, but Paint.NET doesn’t have an option to save images as webp.</p>
+
+<p>I went to go look for software on Chocolatey since they usually have pretty good software repository, and I found the webp program from google surprisingly it is command line only, but easy to use. https://developers.google.com/speed/webp/docs/using</p>
+
+I’ll just open a command prompt as an admin and install webp via chocolately repository.
+<pre><code class="language-dos">C:\WINDOWS\system32&gt;choco install webp -y
+Chocolatey v0.10.15
+Installing the following packages:webp
+By installing you accept licenses for the packages.
+Progress: Downloading webp 1.0.0... 100%
+webp v1.0.0 [Approved]
+webp package files install completed. Performing other installation steps.
+Installing 64 bit version
+Extracting C:\ProgramData\chocolatey\lib\webp\tools\webp_x64.zip to C:\ProgramData\chocolatey\lib\webp\tools...
+C:\ProgramData\chocolatey\lib\webp\tools
+Environment Vars (like PATH) have changed.
+Close/reopen your shell to see the changes (or in powershell/cmd.exe just type `refreshenv`).
+ShimGen has successfully created a shim for anim_diff.exe
+ShimGen has successfully created a shim for cwebp.exe
+ShimGen has successfully created a shim for dwebp.exe
+ShimGen has successfully created a shim for get_disto.exe
+ShimGen has successfully created a shim for gif2webp.exe
+ShimGen has successfully created a shim for img2webp.exe
+ShimGen has successfully created a shim for vwebp.exe
+ShimGen has successfully created a shim for vwebp_sdl.exe
+ShimGen has successfully created a shim for webpinfo.exe
+ShimGen has successfully created a shim for webpmux.exe
+ShimGen has successfully created a shim for webp_quality.exe
+The install of webp was successful.
+Software installed to &#39;C:\ProgramData\chocolatey\lib\webp\tools&#39;
+Chocolatey installed 1/1 packages.
+See the log for details (C:\ProgramData\chocolatey\logs\chocolatey.log).
+C:\WINDOWS\system32&gt;refreshenv
+Refreshing environment variables from registry for cmd.exe. Please wait...Finished..
+C:\WINDOWS\system32&gt;
+</code></pre>
+
 <p>Then I just used the default example from google to optimize the
 photo.</p>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode bat"><code class="sourceCode dosbat"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>C:\WINDOWS\system32<span class="kw">&gt;</span> cd C:\Users\Jake_\blog\assets\images</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>C:\Users\Jake_\blog\assets\images<span class="kw">&gt;</span>cwebp <span class="at">-q</span> 80 image.png <span class="at">-o</span> image.webp</span></code></pre></div>
+
+<pre><code class="language-dos">C:\WINDOWS\system32&gt;
+cd C:\Users\Jake_\blog\assets\images</span>
+C:\Users\Jake_\blog\assets\images&gt;cwebp -q 80 image.png -o image.webp
+</code></pre>
+
 <p>Which worked out very well. It took the image from 4000+ KB down to
 99KB!</p>
-<p>I wanted to try it out on a few other images to see if I could get
-better quality and have a smaller size. I cropped it inside of Paint.NET
-for it to be easier. Then I had to trial and error a bit to get the
-command correctly.</p>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode bat"><code class="sourceCode dosbat"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cwebp <span class="at">-resize</span> 1000 0 <span class="at">-q</span> 80 croppedimage.png <span class="at">-o</span> croppedimage.webp</span></code></pre></div>
-<p><br>Original File before Crop 3,000KB .jpg <br>File after crop
-12,000KB .png <br>File after cwebp resize and optimization 80KB
-.webp</p>
-<p>Some images don’t decrease their file size, so I just leave them as
-their original png if the webp format ends up being larger.</p>
-<p>Test it locally before uploading by serving locally</p>
-<div class="sourceCode" id="cb6"><pre
-class="sourceCode bat"><code class="sourceCode dosbat"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>C:\Users\Jake_\blog<span class="kw">&gt;</span>bundle exec jekyll serve</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>Server address: http:/<span class="at">/127</span>.0.0.1:4000<span class="at">/blog</span>/</span></code></pre></div>
+
+<p>I wanted to try it out on a few other images to see if I could get better quality and have a smaller size. I cropped it inside of Paint.NET for it to be easier. Then I had to trial and error a bit to get the command correctly.</p>
+
+<br>Original File before Crop 3,000KB.jpg
+<br>File after crop 12,000KB .png 
+<br>File after cwebp resize and optimization 80KB.webp
+
+<p>Some images don’t decrease their file size, so I just leave them as their original png if the webp format ends up being larger.</p>
+
+Testing it locally before uploading by serving locally:
+<pre><code class="language-dos">C:\Users\Jake_\blog&gt;bundle exec jekyll serve
+Server address: http://127.0.0.1:4000/blog/
+</code></pre>
+
 <p>Then viewing http://127.0.0.1:4000/blog/ in a web browser and make
 sure the updates are working as expected before uploading.</p>
-<p><a href="https://jekyllrb.com/docs/variables/">Jekyll Variables
-documentation</a></p>
-</body>
+
+    <script>hljs.highlightAll();</script>
+  </body>
 </html>

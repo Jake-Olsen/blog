@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jake's Blog - Site Index</title>
+    <title>Jake's Blog - RPI Terminal Server</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
       <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/main.css">
@@ -16,6 +16,7 @@
             });
         </script>
  </head>
+ <body>
 <p>I liked the idea that I found on this blog post, so I looked a bit
 further into it. <a
 href="https://blog.jasons.org/2016/04/29/raspberry-pi-3-terminal-server/"
@@ -32,7 +33,7 @@ again.</p>
 <p>Install Serial to network proxy:</p>
 <pre><code>apt install ser2net</code></pre>
 <p>Find the USB serial device path:</p>
-<pre><code>jake@raspberrypi:~ $ ls /dev | grep ttyUSB
+<pre><code class="language-shell">jake@raspberrypi:~ $ ls /dev | grep ttyUSB
 ttyUSB0
 ttyUSB1
 ttyUSB2
@@ -56,11 +57,13 @@ October 12th</p>
 ##USB SERIAL Single
 #Router 3
 7004:telnet:1200:/dev/ttyUSB4</code></pre>
+
 <p>Start the service</p>
 <pre><code>sudo systemctl start ser2net</code></pre>
+
 <p>Connect to the reverse telnet session. To end it press Ctrl + ] then
 type close</p>
-<pre><code>jake@raspberrypi:~ $ telnet localhost 2001
+<pre><code class="language-shell">jake@raspberrypi:~ $ telnet localhost 2001
 Trying ::1...
 Connected to localhost.
 Escape character is &#39;^]&#39;.
@@ -68,5 +71,9 @@ R1&gt;
 telnet&gt; close
 Connection closed.
 jake@raspberrypi:~ $</code></pre>
-</body>
+    
+Note: One Issue with this is upon reboot or other change can cause the USB Order to get changed. There is a potential way to prevent this from happening by changing how the code in the ser2net server works since it is open source. I didn't get around to implementing a fix as I took down the terminal server soon after getting the certification. Had no further need in the near future.
+
+    <script>hljs.highlightAll();</script>
+  </body>
 </html>

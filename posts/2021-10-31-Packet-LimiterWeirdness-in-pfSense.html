@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jake's Blog - Site Index</title>
+    <title>Jake's Blog - Packet Limiter Weirdness in pfSense</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
       <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/main.css">
@@ -16,27 +16,15 @@
             });
         </script>
  </head>
-<p>Putting packets in a queue then timing when they should go out based
-off of a priority algorithm can help maintain consistency. This helps
-out more when a network tends to struggle getting bandwidth. As when a
-Queue in the gateway builds up it can create what is called Bufferbloat
-where there is so many things in the buffer it can slow down packets
-that have more urgency to get out. Such as Video, Voice Calls, and
-Online Gaming.</p>
-<p>I have a Gigabit connection at home so I don’t need to worry that
-much about setting up a Packet Queue since its very close to a 1:1 pipe.
-However I still want to prioritize my voice traffic and online gaming
-traffic. When I setup the packet queue in PfSense with recommended
-limiters and other settings I get very strange traceroute results. Looks
-lke other people have reported this issue in forums and in pfsense’s bug
-tracker. <a href="https://redmine.pfsense.org/issues/9263"
-class="uri">https://redmine.pfsense.org/issues/9263</a></p>
-<p>I had a suspicion recently that maybe it was somehow hardware
-related. So I decided to run some tests to see.</p>
-<p>So to start with I’m running a traceroute from a virtual machine that
-is behind my Netgate 1100 pfSense+ that is behind the Generic i5 Fanless
-PC also running pfSense which then goes through NAT to the Internet. So
-the lab is behind double NAT.</p>
+<body>
+<p>Putting packets in a queue then timing when they should go out based off of a priority algorithm can help maintain consistency. This helps out more when a network tends to struggle getting bandwidth. As when a Queue in the gateway builds up it can create what is called Bufferbloat where there is so many things in the buffer it can slow down packets that have more urgency to get out. Such as Video, Voice Calls, and Online Gaming.</p>
+
+<p>I have a Gigabit connection at home so I don’t need to worry that much about setting up a Packet Queue since its very close to a 1:1 pipe. However I still want to prioritize my voice traffic and online gaming traffic. When I setup the packet queue in PfSense with recommended limiters and other settings I get very strange traceroute results. Looks lke other people have reported this issue in forums and in pfsense’s bug tracker. <a href="https://redmine.pfsense.org/issues/9263">https://redmine.pfsense.org/issues/9263</a></p>
+
+<p>I had a suspicion recently that maybe it was somehow hardware related. So I decided to run some tests to see.</p>
+
+<p>So to start with I’m running a traceroute from a virtual machine that is behind my Netgate 1100 pfSense+ that is behind the Generic i5 Fanless PC also running pfSense which then goes through NAT to the Internet. So the lab is behind double NAT.</p>
+
 <p>Test 1: No QoS, Double NAT.</p>
 <pre><code class="language-shell">traceroute to 1.1.1.1 (1.1.1.1), 30 hops max, 60 byte packets
  1  pfSense.localdomain (10.6.0.1)  0.702 ms  0.636 ms  0.620 ms
@@ -49,6 +37,7 @@ the lab is behind double NAT.</p>
  8  one.one.one.one (1.1.1.1)  15.546 ms  15.536 ms  15.509 ms</code></pre>
 <p>Test 2: QoS on Upstream Router, No QoS on Netgate 1100, Double
 NAT.</p>
+
 <pre><code class="language-shell">traceroute to 1.1.1.1 (1.1.1.1), 30 hops max, 60 byte packets
  1  pfSense.localdomain (10.6.0.1)  0.660 ms  0.629 ms  0.609 ms
  2  192.168.6.1 (192.168.6.1)  1.128 ms  2.597 ms  2.617 ms
@@ -58,6 +47,7 @@ NAT.</p>
  6  * * *
  7  one.one.one.one (1.1.1.1)  15.936 ms  19.188 ms  19.068 ms
  8  one.one.one.one (1.1.1.1)  15.112 ms  15.134 ms  15.080 ms</code></pre>
+
 <p>Test 3: No QoS on Upstream, QoS on Netgate 1100, Double NAT</p>
 <pre><code class="language-shell">traceroute to 1.1.1.1 (1.1.1.1), 30 hops max, 60 byte packets
  1  pfSense.localdomain (10.6.0.1)  0.727 ms  10.776 ms  10.742 ms
@@ -68,10 +58,10 @@ NAT.</p>
  6  one.one.one.one (1.1.1.1)  25.033 ms  23.567 ms  23.381 ms
  7  one.one.one.one (1.1.1.1)  31.227 ms  21.366 ms  20.017 ms
  8  one.one.one.one (1.1.1.1)  15.158 ms  15.124 ms  15.478 ms</code></pre>
-<p>On Test 3 where QoS is on. You can see the ping latency is nearly
-double which is terrible. I feel like I’m doing something wrong with
-this setup, but I was just following pfsense’s guidelines on the setup
-so I’m not sure.</p>
+
+<p>On Test 3 where QoS is on. You can see the ping latency is nearly double which is terrible. I feel like I’m doing something wrong with this setup, but I was just following pfsense’s guidelines on the setup so I’m not sure.
+</p>
+
 <p>QoS ON</p>
 <pre><code class="language-html">jake@Debian10B:~$ ping 1.1.1.1                             
 PING 1.1.1.1 (1.1.1.1) 56(84) bytes of data.               
@@ -82,6 +72,7 @@ PING 1.1.1.1 (1.1.1.1) 56(84) bytes of data.
 --- 1.1.1.1 ping statistics ---                            
 3 packets transmitted, 3 received, 0% packet loss, time 5ms
 rtt min/avg/max/mdev = 35.068/35.232/35.505/0.194 ms  </code></pre>
+
 <p>QoS OFF</p>
 <pre><code class="language-html">jake@Debian10B:~$ ping 1.1.1.1            
 PING 1.1.1.1 (1.1.1.1) 56(84) bytes of data.               
@@ -92,8 +83,8 @@ PING 1.1.1.1 (1.1.1.1) 56(84) bytes of data.
 --- 1.1.1.1 ping statistics ---                            
 3 packets transmitted, 3 received, 0% packet loss, time 5ms
 rtt min/avg/max/mdev = 15.674/15.855/16.165/0.220 ms       </code></pre>
-<p>Disabling the Queue but keeping just the floating rule and limiter
-still shows the weird traceroute, but without the double latency.</p>
+
+<p>Disabling the Queue but keeping just the floating rule and limiter still shows the weird traceroute, but without the double latency.</p>
 <pre><code class="language-shell">jake@Debian10B:~$ traceroute 1.1.1.1
 traceroute to 1.1.1.1 (1.1.1.1), 30 hops max, 60 byte packets
 1  pfSense.localdomain (10.6.0.1)  0.408 ms  0.374 ms  0.369 ms
@@ -104,6 +95,7 @@ traceroute to 1.1.1.1 (1.1.1.1), 30 hops max, 60 byte packets
 6  one.one.one.one (1.1.1.1)  14.610 ms  14.343 ms  14.175 ms
 7  one.one.one.one (1.1.1.1)  15.480 ms  15.748 ms  15.870 ms
 8  one.one.one.one (1.1.1.1)  15.074 ms  15.200 ms  15.189 ms</code></pre>
+
 <p>Disabling the limiters</p>
 <pre><code class="language-shell">jake@Debian10B:~$ traceroute 1.1.1.1
 traceroute to 1.1.1.1 (1.1.1.1), 30 hops max, 60 byte packets
@@ -115,24 +107,24 @@ traceroute to 1.1.1.1 (1.1.1.1), 30 hops max, 60 byte packets
 6  ae-2-3611.ear4.SanJose1.Level3.net (4.69.211.221)  14.996 ms  14.444 ms  14.390 ms
 7  4.7.18.106 (4.7.18.106)  21.979 ms  21.964 ms  21.940 ms
 8  one.one.one.one (1.1.1.1)  15.232 ms  15.253 ms  15.214 ms</code></pre>
-<p>Finally found a way to enable a Queue but without the weird
-traceroute results / double latency. It looks like the pfSense limiter
-is what causes it. Doesn’t matter if you are on your own hardware or
-netgate hardware.</p>
+
+<p>Finally found a way to enable a Queue but without the weird traceroute results / double latency. It looks like the pfSense limiter is what causes it. Doesn’t matter if you are on your own hardware or netgate hardware.</p>
+
 <p>Add in a basic interface traffic shaper and no more weird issues, but
 you still get to use the easy codel.</p>
+
 <p><picture>
     <img src="/images/pfQ-1.webp"
          alt="pfsense traffic shaper configuration screenshot"
-         class="responsive">
-</picture></p>
-<p>Went from 16ms to 13ms in a simple estimate on speedtest.net;
-however, your mileage may vary.
+         class="responsive"></picture></p>
+
+<p>Went from 16ms to 13ms in a simple estimate on speedtest.net; however, your mileage may vary.
+
 <picture>
     <img src="/images/pfQ-2.webp"
          alt="speedtest.net result"
-         class="responsive">
-</picture></p>
-<script>hljs.highlightAll();</script>
-</body>
+         class="responsive"></picture></p>
+
+    <script>hljs.highlightAll();</script>
+  </body>
 </html>
