@@ -1,47 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jake's Blog - RPI Terminal Server</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/css/main.css">
-        <div id="header"></div>
-        <script>
+<meta name="generator" content=
+"HTML Tidy for HTML5 for Linux version 5.8.0">
+<meta charset="UTF-8">
+<meta name="viewport" content=
+"width=device-width, initial-scale=1.0">
+<title>Jake's Blog - RPI Terminal Server</title>
+<link rel="stylesheet" href=
+"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
+
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/main.css">
+</head>
+<body>
+<div id="header"></div>
+<script>
             fetch('/header.html')
             .then(res => res.text())
             .then(html => {
                 document.getElementById('header').innerHTML = html;
             });
-        </script>
- </head>
- <body>
-<p>I liked the idea that I found on this blog post, so I looked a bit
-further into it. <a
-href="https://blog.jasons.org/2016/04/29/raspberry-pi-3-terminal-server/"
-class="uri">https://blog.jasons.org/2016/04/29/raspberry-pi-3-terminal-server/</a></p>
+</script>
+<p>I liked the idea that I found on this blog post, so I looked a
+bit further into it. <a href=
+"https://blog.jasons.org/2016/04/29/raspberry-pi-3-terminal-server/"
+class=
+"uri">https://blog.jasons.org/2016/04/29/raspberry-pi-3-terminal-server/</a></p>
 <p>I got it setup and working on my Raspberry Pi 3b+ that I was
 previously using as just a test device for the lab.</p>
-<p>I decided to just use the same <a
-href="https://www.ugreen.com/product/UGREEN_USB_to_Serial_RS232_9Pin_Male_to_Male_Cable_Adapter_4_Ports-en.html">UGREEN
-USB to 4 Serial RS232 DB9 Cable</a> from the blog post, along with a
-cheap bundle of four Serial to RJ45 Console cables. Then I’ll just add
-my 1 cable I had before for a total of 5 so I’ll have full access
-again.</p>
+<p>I decided to just use the same <a href=
+"https://www.ugreen.com/product/UGREEN_USB_to_Serial_RS232_9Pin_Male_to_Male_Cable_Adapter_4_Ports-en.html">
+UGREEN USB to 4 Serial RS232 DB9 Cable</a> from the blog post,
+along with a cheap bundle of four Serial to RJ45 Console cables.
+Then I’ll just add my 1 cable I had before for a total of 5 so I’ll
+have full access again.</p>
 <h2 id="the-setup">The Setup:</h2>
 <p>Install Serial to network proxy:</p>
 <pre><code>apt install ser2net</code></pre>
 <p>Find the USB serial device path:</p>
-<pre><code class="language-shell">jake@raspberrypi:~ $ ls /dev | grep ttyUSB
+<pre><code class=
+"language-shell">jake@raspberrypi:~ $ ls /dev | grep ttyUSB
 ttyUSB0
 ttyUSB1
 ttyUSB2
 ttyUSB3
 ttyUSB4</code></pre>
 <p>Edit the config file /etc/ser2net.conf</p>
-<p>I slightly altered the default for my use case. <br>Updated Config
-October 12th</p>
+<p>I slightly altered the default for my use case.<br>
+Updated Config October 12th</p>
 <pre><code>##USB SERIAL x4 HUB###########
 #Router_1
 7000:telnet:1200:/dev/ttyUSB0
@@ -57,23 +65,27 @@ October 12th</p>
 ##USB SERIAL Single
 #Router 3
 7004:telnet:1200:/dev/ttyUSB4</code></pre>
-
 <p>Start the service</p>
 <pre><code>sudo systemctl start ser2net</code></pre>
-
-<p>Connect to the reverse telnet session. To end it press Ctrl + ] then
-type close</p>
-<pre><code class="language-shell">jake@raspberrypi:~ $ telnet localhost 2001
+<p>Connect to the reverse telnet session. To end it press Ctrl + ]
+then type close</p>
+<pre><code class=
+"language-shell">jake@raspberrypi:~ $ telnet localhost 2001
 Trying ::1...
 Connected to localhost.
-Escape character is &#39;^]&#39;.
+Escape character is '^]'.
 R1&gt;
 telnet&gt; close
 Connection closed.
 jake@raspberrypi:~ $</code></pre>
-    
-Note: One Issue with this is upon reboot or other change can cause the USB Order to get changed. There is a potential way to prevent this from happening by changing how the code in the ser2net server works since it is open source. I didn't get around to implementing a fix as I took down the terminal server soon after getting the certification. Had no further need in the near future.
-
-    <script>hljs.highlightAll();</script>
-  </body>
+Note: One Issue with this is upon reboot or other change can cause
+the USB Order to get changed. There is a potential way to prevent
+this from happening by changing how the code in the ser2net server
+works since it is open source. I didn't get around to implementing
+a fix as I took down the terminal server soon after getting the
+certification. Had no further need in the near future. 
+<script>
+hljs.highlightAll();
+</script>
+</body>
 </html>

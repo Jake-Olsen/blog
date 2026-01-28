@@ -1,29 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jake's Blog - Shodan Security Tool</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/css/main.css">
-        <div id="header"></div>
-        <script>
+<meta name="generator" content=
+"HTML Tidy for HTML5 for Linux version 5.8.0">
+<meta charset="UTF-8">
+<meta name="viewport" content=
+"width=device-width, initial-scale=1.0">
+<title>Jake's Blog - Shodan Security Tool</title>
+<link rel="stylesheet" href=
+"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
+
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/main.css">
+</head>
+<body>
+<div id="header"></div>
+<script>
             fetch('/header.html')
             .then(res => res.text())
             .then(html => {
                 document.getElementById('header').innerHTML = html;
             });
-        </script>
- </head>
- <body>
-
-<p>Very rarely used Shodan back in 2018. However recently I paid for an account so I could use look for specific items and just explore more. Including being able to use the CLI.</p>
-
-<p>One thing that I thought I would start off with is Polycom VVX phones since we have a lot of them at work and it is very bad when a Level 1 Techs leave open a port forward(s) to one. If the phone is registered and gets hijacked it can make international calls and cause hundreds to thousands of USD$ in international calling bills. Basically don’t put phones on the internet especially if they are not designed that way. Still just starting to explore I was able to download about 900 out of the 1200+ Polycom VVX phones that were sitting around on the open internet. Narrowing down the search I found a few that seemed like they might be ours, but luckily they aren’t. In the future it would probably be easier if I narrowed down the list to only IPs our routers have. Though I don’t have that list on my personal PC.</p>
-
-<p>Unfortunately Shodan along with other offensive security related tools are blocked at work because the filtering labels them as ‘hacking’ and none of that is approved. I personally think you should try testing attacking your own tech stack. However <span class="warning"><strong>ONLY DO SO WITH EXPLICT PERMISSION GRANTED from Admins & Management!</strong></span></p>
-
-    <script>hljs.highlightAll();</script>
-  </body>
+</script>
+<p>Very rarely used Shodan back in 2018. However recently I paid
+for an account so I could use look for specific items and just
+explore more. Including being able to use the CLI.</p>
+<p>One thing that I thought I would start off with is Polycom VVX
+phones since we have a lot of them at work and it is very bad when
+a Level 1 Techs leave open a port forward(s) to one. If the phone
+is registered and gets hijacked it can make international calls and
+cause hundreds to thousands of USD$ in international calling bills.
+Basically don’t put phones on the internet especially if they are
+not designed that way. Still just starting to explore I was able to
+download about 900 out of the 1200+ Polycom VVX phones that were
+sitting around on the open internet. Narrowing down the search I
+found a few that seemed like they might be ours, but luckily they
+aren’t. In the future it would probably be easier if I narrowed
+down the list to only IPs our routers have. Though I don’t have
+that list on my personal PC.</p>
+<p>Unfortunately Shodan along with other offensive security related
+tools are blocked at work because the filtering labels them as
+‘hacking’ and none of that is approved. I personally think you
+should try testing attacking your own tech stack. However
+<span class="warning"><strong>ONLY DO SO WITH EXPLICT PERMISSION
+GRANTED from Admins & Management!</strong></span></p>
+<script>
+hljs.highlightAll();
+</script>
+</body>
 </html>

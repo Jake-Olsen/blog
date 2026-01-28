@@ -1,77 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jake's Blog - Game Timeseed</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/dos.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/css/main.css">
-        <div id="header"></div>
-        <script>
+<meta name="generator" content=
+"HTML Tidy for HTML5 for Linux version 5.8.0">
+<meta charset="UTF-8">
+<meta name="viewport" content=
+"width=device-width, initial-scale=1.0">
+<title>Jake's Blog - Game Timeseed</title>
+<link rel="stylesheet" href=
+"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
+
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/dos.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/main.css">
+</head>
+<body>
+<div id="header"></div>
+<script>
             fetch('/header.html')
             .then(res => res.text())
             .then(html => {
                 document.getElementById('header').innerHTML = html;
             });
-        </script>
- </head>
- <body>
-<p>Had no internet multiple times for a week due to construction issues where they kept cutting the fiber line.</p>
-
-<p>Went to play a game I had been into lately. Deep Rock Galactic. There is a timer in the game for when available missions rotate. It is random and has different missions in different zones, different objectives, and modifiers.</p>
-
-<p><picture><img 
-        src="/images/CTIW-1.webp" 
-        class="responsive"></picture></p>
-
-<p>Noticed the game mission timer was still active with no internet. Restarted game. Noticed it was still active.</p>
-
-<p>Wondered what if I change my system time by 30 minutes and open the mission selection screen? I was surprised that it worked ?!</p>
-
-<p>The regular mission randomness seeds are based off of time regardless if you have internet or not. As long as you set the time to be the same you can essentially choose the missions you want to do. Instead of waiting for the randomness to occur. For example you can do a Double XP mission with a difficulty modifier for +130% XP and choose to play it whenever you want. My friends and I jokingly referred to this at “time traveling”. “Can you time travel us to a 2XP mission”.</p>
-
-<p><picture><img 
-        src="/images/CTIW-2.webp" 
-        class="responsive"></picture></p>
-
-<p>As I used it more and more I googled how to change it with command line. I made some simple bat files to easily set the time and reset it back to current time as well as fix applications that broke from the time change.</p>
-
-<p>Bat Script 1
+</script>
+<p>Had no internet multiple times for a week due to construction
+issues where they kept cutting the fiber line.</p>
+<p>Went to play a game I had been into lately. Deep Rock Galactic.
+There is a timer in the game for when available missions rotate. It
+is random and has different missions in different zones, different
+objectives, and modifiers.</p>
+<p><picture><img src="/images/CTIW-1.webp" class=
+"responsive"></picture></p>
+<p>Noticed the game mission timer was still active with no
+internet. Restarted game. Noticed it was still active.</p>
+<p>Wondered what if I change my system time by 30 minutes and open
+the mission selection screen? I was surprised that it worked ?!</p>
+<p>The regular mission randomness seeds are based off of time
+regardless if you have internet or not. As long as you set the time
+to be the same you can essentially choose the missions you want to
+do. Instead of waiting for the randomness to occur. For example you
+can do a Double XP mission with a difficulty modifier for +130% XP
+and choose to play it whenever you want. My friends and I jokingly
+referred to this at “time traveling”. “Can you time travel us to a
+2XP mission”.</p>
+<p><picture><img src="/images/CTIW-2.webp" class=
+"responsive"></picture></p>
+<p>As I used it more and more I googled how to change it with
+command line. I made some simple bat files to easily set the time
+and reset it back to current time as well as fix applications that
+broke from the time change.</p>
+<p>Bat Script 1</p>
 <pre><code class="language-dos">:: sets time for Quick DRG XP Farm
 date 10/16/2021
 time 14:40:50</code></pre>
-</p>
-
-<p>Bat Script 2
-<pre><code class="language-dos">:: This set of commands should resync time to be current date and time.
+<p>Bat Script 2</p>
+<pre><code class=
+"language-dos">:: This set of commands should resync time to be current date and time.
 net restart w32time
 w32tm /resync
 :: This will restart Stream Deck to fix the crash due to time change.
 taskkill /im StreamDeck.exe /f
-start &quot;&quot; &quot;C:\Program Files\Elgato\StreamDeck\StreamDeck.exe&quot;</code></pre>
-</p>
-
-<p>I did slowly discover changing system time breaks a lot of things too though. Some due to the security and certificates, others for alternate reasons.
-<br>For example:
+start "" "C:\Program Files\Elgato\StreamDeck\StreamDeck.exe"</code></pre>
+<p>I did slowly discover changing system time breaks a lot of
+things too though. Some due to the security and certificates,
+others for alternate reasons.<br>
+For example:</p>
 <ul>
-    <li>Elgato Stream Deck breaks due to logging.
-    <li>Reacting to messages in Teams with emojis.
-    <li>2FA Login to Microsoft Office 365 Single Sign On (SSO) 
-    <li>Youtube
-    <li>Spotify Music Streaming
+<li>Elgato Stream Deck breaks due to logging.</li>
+<li>Reacting to messages in Teams with emojis.</li>
+<li>2FA Login to Microsoft Office 365 Single Sign On (SSO)</li>
+<li>Youtube</li>
+<li>Spotify Music Streaming</li>
 </ul>
-
-<picture><img 
-        src="/images/CTIW-3.webp" 
-        alt="Broken Spotify Picture 1"
-        class="responsive"></picture>
-<picture><img 
-        src="/images/CTIW-4.webp" 
-        alt="Broken Spotify Picture 2"
-        class="responsive"></picture>
-
-    <script>hljs.highlightAll();</script>
-  </body>
+<picture><img src="/images/CTIW-3.webp" alt=
+"Broken Spotify Picture 1" class="responsive"></picture>
+<picture><img src="/images/CTIW-4.webp" alt=
+"Broken Spotify Picture 2" class="responsive"></picture> 
+<script>
+hljs.highlightAll();
+</script>
+</body>
 </html>

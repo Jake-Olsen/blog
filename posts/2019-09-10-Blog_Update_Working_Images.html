@@ -1,44 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jake's Blog - Working Images</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/dos.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/css/main.css">
-        <div id="header"></div>
-        <script>
+<meta name="generator" content=
+"HTML Tidy for HTML5 for Linux version 5.8.0">
+<meta charset="UTF-8">
+<meta name="viewport" content=
+"width=device-width, initial-scale=1.0">
+<title>Jake's Blog - Working Images</title>
+<link rel="stylesheet" href=
+"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
+
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/dos.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/main.css">
+</head>
+<body>
+<div id="header"></div>
+<script>
             fetch('/header.html')
             .then(res => res.text())
             .then(html => {
                 document.getElementById('header').innerHTML = html;
             });
-        </script>
- </head>
- <body>
-
-<p>I got images working now on the site. They were working locally, but when I made it live on GitHub pages they were not working. I couldn’t find good documentation on the project name vs the base URL. I ended up updating the “_config.yml” file on these lines:</p>
-
-<pre><code>url: &quot;https://jake-olsen.github.io/&quot;baseurl: /blog
+</script>
+<p>I got images working now on the site. They were working locally,
+but when I made it live on GitHub pages they were not working. I
+couldn’t find good documentation on the project name vs the base
+URL. I ended up updating the “_config.yml” file on these lines:</p>
+<pre><code>url: "https://jake-olsen.github.io/"baseurl: /blog
 </code></pre>
-
-<p>2026 Note: This appears to no longer work as jekyll and/or the updated template I used no longer function as expected on the config.yml file.</p>
-
+<p>2026 Note: This appears to no longer work as jekyll and/or the
+updated template I used no longer function as expected on the
+config.yml file.</p>
 <p>Then updating the images in my posts to this code:</p>
-
-<pre><code class="language-html">{{site.url}}{{site.baseurl}}\assets\images\filename.webp&gt;</code></pre>
-
+<pre><code class=
+"language-html">{{site.url}}{{site.baseurl}}\assets\images\filename.webp&gt;</code></pre>
 <p>site.baseurl was just a guess since I didn’t see on the [Jekyll
 documentation] or the other posts I saw while searching comments on
 GitHub where other people were having a similar problem.</p>
-<p>After playing around with trying to optimize images for the web. I would resize them to about the size they would appear on the blog. Somewhere around 900 or 1000 pixels wide. Strangely the file sizes got bigger. I just left the original screenshots since they were the smallest file size. The photos of the cisco lab are a bit bigger, so shrinking the overall size did significantly help the page load faster. Some of them were still large file sizes. Google recommends saving them as webp, but Paint.NET doesn’t have an option to save images as webp.</p>
-
-<p>I went to go look for software on Chocolatey since they usually have pretty good software repository, and I found the webp program from google surprisingly it is command line only, but easy to use. https://developers.google.com/speed/webp/docs/using</p>
-
-I’ll just open a command prompt as an admin and install webp via chocolately repository.
-<pre><code class="language-dos">C:\WINDOWS\system32&gt;choco install webp -y
+<p>After playing around with trying to optimize images for the web.
+I would resize them to about the size they would appear on the
+blog. Somewhere around 900 or 1000 pixels wide. Strangely the file
+sizes got bigger. I just left the original screenshots since they
+were the smallest file size. The photos of the cisco lab are a bit
+bigger, so shrinking the overall size did significantly help the
+page load faster. Some of them were still large file sizes. Google
+recommends saving them as webp, but Paint.NET doesn’t have an
+option to save images as webp.</p>
+<p>I went to go look for software on Chocolatey since they usually
+have pretty good software repository, and I found the webp program
+from google surprisingly it is command line only, but easy to use.
+https://developers.google.com/speed/webp/docs/using</p>
+I’ll just open a command prompt as an admin and install webp via
+chocolately repository.
+<pre><code class=
+"language-dos">C:\WINDOWS\system32&gt;choco install webp -y
 Chocolatey v0.10.15
 Installing the following packages:webp
 By installing you accept licenses for the packages.
@@ -62,41 +80,40 @@ ShimGen has successfully created a shim for webpinfo.exe
 ShimGen has successfully created a shim for webpmux.exe
 ShimGen has successfully created a shim for webp_quality.exe
 The install of webp was successful.
-Software installed to &#39;C:\ProgramData\chocolatey\lib\webp\tools&#39;
+Software installed to 'C:\ProgramData\chocolatey\lib\webp\tools'
 Chocolatey installed 1/1 packages.
 See the log for details (C:\ProgramData\chocolatey\logs\chocolatey.log).
 C:\WINDOWS\system32&gt;refreshenv
 Refreshing environment variables from registry for cmd.exe. Please wait...Finished..
 C:\WINDOWS\system32&gt;
 </code></pre>
-
 <p>Then I just used the default example from google to optimize the
 photo.</p>
-
 <pre><code class="language-dos">C:\WINDOWS\system32&gt;
-cd C:\Users\Jake_\blog\assets\images</span>
+cd C:\Users\Jake_\blog\assets\images</code>
 C:\Users\Jake_\blog\assets\images&gt;cwebp -q 80 image.png -o image.webp
-</code></pre>
-
-<p>Which worked out very well. It took the image from 4000+ KB down to
-99KB!</p>
-
-<p>I wanted to try it out on a few other images to see if I could get better quality and have a smaller size. I cropped it inside of Paint.NET for it to be easier. Then I had to trial and error a bit to get the command correctly.</p>
-
-<br>Original File before Crop 3,000KB.jpg
-<br>File after crop 12,000KB .png 
-<br>File after cwebp resize and optimization 80KB.webp
-
-<p>Some images don’t decrease their file size, so I just leave them as their original png if the webp format ends up being larger.</p>
-
+</pre>
+<p>Which worked out very well. It took the image from 4000+ KB down
+to 99KB!</p>
+<p>I wanted to try it out on a few other images to see if I could
+get better quality and have a smaller size. I cropped it inside of
+Paint.NET for it to be easier. Then I had to trial and error a bit
+to get the command correctly.</p>
+<br>
+Original File before Crop 3,000KB.jpg<br>
+File after crop 12,000KB .png<br>
+File after cwebp resize and optimization 80KB.webp
+<p>Some images don’t decrease their file size, so I just leave them
+as their original png if the webp format ends up being larger.</p>
 Testing it locally before uploading by serving locally:
-<pre><code class="language-dos">C:\Users\Jake_\blog&gt;bundle exec jekyll serve
+<pre><code class=
+"language-dos">C:\Users\Jake_\blog&gt;bundle exec jekyll serve
 Server address: http://127.0.0.1:4000/blog/
 </code></pre>
-
-<p>Then viewing http://127.0.0.1:4000/blog/ in a web browser and make
-sure the updates are working as expected before uploading.</p>
-
-    <script>hljs.highlightAll();</script>
-  </body>
+<p>Then viewing http://127.0.0.1:4000/blog/ in a web browser and
+make sure the updates are working as expected before uploading.</p>
+<script>
+hljs.highlightAll();
+</script>
+</body>
 </html>

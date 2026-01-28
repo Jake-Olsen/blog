@@ -1,28 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jake's Blog - Encoding Article Hide in Plain Sight Huntress</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/css/main.css">
-        <div id="header"></div>
-        <script>
+<meta name="generator" content=
+"HTML Tidy for HTML5 for Linux version 5.8.0">
+<meta charset="UTF-8">
+<meta name="viewport" content=
+"width=device-width, initial-scale=1.0">
+<title>Jake's Blog - Encoding Article Hide in Plain Sight
+Huntress</title>
+<link rel="stylesheet" href=
+"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
+
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/main.css">
+</head>
+<body>
+<div id="header"></div>
+<script>
             fetch('/header.html')
             .then(res => res.text())
             .then(html => {
                 document.getElementById('header').innerHTML = html;
             });
-        </script>
- </head>
- <body>
-<p>The Security Firm “Huntress Labs” did a great write up on how they found malware that was hiding in plain sight.
-<a href="https://www.huntress.com/blog/hiding-in-plain-sight">https://www.huntress.com/blog/hiding-in-plain-sight</a>
-</p>
-
-<p>One thing I found that was very interesting is how you can manipulate numbers by converting them between different formats. For example you can ping 0xC0A80101 and it will resolve to 192.168.1.1 or ping 3232235777 and it will resolve to 192.168.1.1</p>
-
-    <script>hljs.highlightAll();</script>
-  </body>
+</script>
+<p>The Security Firm “Huntress Labs” did a great write up on how
+they found malware that was hiding in plain sight. <a href=
+"https://www.huntress.com/blog/hiding-in-plain-sight">https://www.huntress.com/blog/hiding-in-plain-sight</a></p>
+<p>One thing I found that was very interesting is how you can
+manipulate numbers by converting them between different formats.
+For example you can ping 0xC0A80101 and it will resolve to
+192.168.1.1 or ping 3232235777 and it will resolve to
+192.168.1.1</p>
+<script>
+hljs.highlightAll();
+</script>
+</body>
 </html>

@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="generator" content=
+"HTML Tidy for HTML5 for Linux version 5.8.0">
+<meta charset="UTF-8">
+<meta name="viewport" content=
+"width=device-width, initial-scale=1.0">
+<title>Jake's Blog - L4D2 Game Setup</title>
+<link rel="stylesheet" href=
+"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
+
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/main.css">
+</head>
+<body>
+<div id="header"></div>
+<script>
+            fetch('/header.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('header').innerHTML = html;
+            });
+</script>
+<p>This is a full fledged guide on how to Setup a Dedicated Game
+Server for Left 4 Dead 2.</p>
+<p>I have been excited to finally release this guide as Left 4 Dead
+2's Server has felt like the hardest struggle to overcome all the
+nuances, missing documentation, dead links, old legacy
+functionality that no longer works, and much more.</p>
+<p><strong>Setup Guide updated as of January 27th 2026</strong></p>
+<hr>
+<p>Requirements:</p>
+<ul>
+<li>2 CPU Cores</li>
+<li>2 GB of RAM Storage:</li>
+<li>10GB for the Game Server</li>
+<li>10GB for Debian 13</li>
+<li>20 GB for Mods + Flexibility in managing server.</li>
+<li>Total of 40GB is recommended.</li>
+</ul>
+<hr>
+<p>I'm running this in a Virtual Machine (VM), but an old computer
+will work fine as well. However do note that if you make a VM and
+clone it or clone the physical storage to make a 2nd server. There
+are extra steps needed, otherwise they will not properly be unique
+and you will run into conflict issues. If you are using a VM, then
+make sure to install the hypervisor's guest tools on the VM as then
+it is aware and can optimize things properly.</p>
+<p>I'm not going to go over how to install Linux, dealing with
+clones, nor my full personal setup in this guide. However, you can
+find more information over in my other post: LINK TO JAKE TEMPLATE
+SERVERS</p>
+<p>note I like to use vim/neovim(nvim) if you see nvim in the
+guide, feel free to use nano instead or whatever other text editor
+you prefer.</p>
+<ol>
+<li>
+<p>Download and Install Debian. (You can use other Linux distros
+like Ubuntu, or whatever you are comfortable with)</p>
+<ul>
+<li>Recommend to use UEFI, with GPT Disk, and LVM Partitioning as
+this will allow you to more easily adjust for more or less space as
+needed if you change the disk size later.</li>
+<li>Recommended to just do the bare necessity tools and SSH server.
+A desktop environment is not needed and takes up processing power
+and memory for something you probably won't login to often after
+setup. Command line is the recommended way to go for most
+servers.</li>
+</ul>
+</li>
+<li>
+<p>create a 2nd user that will have restricted permissions and the
+game will run under that user for better security. Don't run the
+server as Root, don't run the server as your Admin user that has
+sudo privileges. In this example I named my user lefty, but you
+could name your steamuser for example.</p>
+</li>
+</ol>
+<hr>
+<h2>Install SteamCMD</h2>
+<ol>
+<li>You'll need to enable 32 bit packages for this old game &
+SteamCMD.</li>
+</ol>
+<pre><code class="language-shell">sudo dpkg --add-architecture i386
+</code></pre>
+<ol start="2">
+<li>Make sure each Debian mirror lines includes <strong>contrib
+non-free non-free-firmware</strong> inside sources.</li>
+</ol>
+<pre><code class="language-shell">sudo nvim /etc/apt/sources.list
+</code></pre>
+<p>![[sources-contrib.webp]]</p>
+<ol start="3">
+<li>Update apt after the above 2 steps</li>
+</ol>
+<pre><code class="language-shell">sudo apt update
+</code></pre>
+<ol start="4">
+<li>Download & install SteamCMD</li>
+</ol>
+<pre><code class="language-shell">sudo apt install steamcmd
+</code></pre>
+<p>alternate method to download SteamCMD can be found on Valve's
+Wiki https://developer.valvesoftware.com/wiki/SteamCMD (manual
+section mentions curl and url link)</p>
+<p>4a. optionally install rsync (file transfer tool) and ripgrep
+(search tool)</p>
+<pre><code class="language-shell">sudo apt install rsync rg
+</code></pre>
+<ol start="5">
+<li>run SteamCMD at least once as the restricted user.</li>
+</ol>
+<p>Note: SteamCMD is a bit different than other apps and may not be
+in your PATH. This usually will show you where it is at.</p>
+<pre><code class="language-shell">which steamcmd
+</code></pre>
+<p>manually run SteamCMD at least once as your restricted game user
+(my example user is named lefty)</p>
+<pre><code class="language-shell">sudo -u lefty /usr/games/steamcmd
+</code></pre>
+<p>you'll see output similar to:</p>
+<pre><code class=
+"language-shell">[ 97%] Downloading update (35,741 of 36,113 KB)...
+[ 98%] Downloading update (36,113 of 36,113 KB)...
+[100%] Download Complete.
+[----] Applying update...
+[----] Extracting package...
+[----] Installing update...
+[----] Cleaning up...
+[----] Update complete, launching Steamcmd...
+-- type 'quit' to exit --
+Loading Steam API...OK
+
+Steam&gt;
+</code></pre>
+<p>(redacted some output since it is lengthy) type
+<code>quit</code> and hit enter.</p>
+<ol start="6">
+<li>Now create a symlink that will be needed to run the game.</li>
+</ol>
+<pre><code class=
+"language-shell">sudo -u lefty mkdir -p /home/lefty/.steam/sdk32/
+sudo -u lefty ln --symbolic /home/lefty/.local/share/Steam/steamcmd/linux32/steamclient.so /home/lefty/.steam/sdk32/steamclient.so
+</code></pre>
+<hr>
+<h2>Install Left 4 Dead 2 Game Server Files</h2>
+<ol>
+<li>Download the Dedicated Game Sever.</li>
+</ol>
+<p>Note: As of Jan 2026, there is still an issue causing the
+inability for SteamCMD to download the L4D2 Linux Server. As a
+workaround I downloaded the Left 4 Dead 2 Dedicated Server from
+Steam on my Gaming Desktop (CachyOS Linux).</p>
+<ul>
+<li><a href=
+"https://github.com/ValveSoftware/steam-for-linux/issues/11522">Invalid
+platform SteamCMD errors for L4D2 · Issue #11522 ·
+ValveSoftware/steam-for-linux</a></li>
+</ul>
+<ol start="2">
+<li>Open Steam ➡️ Library ➡️ Select Tools & Games Checkbox ➡️
+Search for Left 4 Dead 2 Dedicated Server ➡️ Click Install</li>
+</ol>
+<p>![[L4D2-SteamDownloadDesktop.webp]]</p>
+<ol start="3">
+<li>Use SCP or RSync to copy over the files.
+<ul>
+<li>The SteamApp id is 222860 and it is the 9GB+ size
+download.</li>
+<li>https://steamdb.info/app/222860/patchnotes/</li>
+<li>I've had no additional issues doing it this way.</li>
+</ul>
+</li>
+</ol>
+<pre><code class=
+"language-shell">rsync -r steamapps/common/pathToL4D2Server/ ServerExample:~/serverFolderHere/
+</code></pre>
+<p>note: ServerExample can be an IP, DNS , or SSH Configured
+Hostname such as what you put in .ssh/config</p>
+<p>3a. I recommend keeping this as a separate copy. This way if you
+have issues with mods inadvertently writing over game files, or if
+something happens to corrupt files you can just copy over the
+existing files via rsync. Using this 2nd copy and rsync is a
+workaround and similar to doing validate via steam. It will keep
+your settings, mods, server configs, ect.</p>
+<pre><code class=
+"language-shell">sudo rsync -r /home/lefty/L4D2_Dedicated_Server_Files/* /home/lefty/l4d2server/
+</code></pre>
+<p>This is basically the workaround to doing validate via steam. It
+will keep your settings, mods, server configs, ect.</p>
+<ol start="4">
+<li>Next you need to put the server.cfg, and banned files into the
+cfg folder. The server configuration file goes here:</li>
+</ol>
+<pre><code class=
+"language-shell">~/l4d2server/left4dead2/cfg/server.cfg
+</code></pre>
+<p>create blank files for the ban lists.</p>
+<pre><code class=
+"language-shell">touch ~/l4d2server/left4dead2/cfg/banned_ip.cfg
+touch ~/l4d2server/left4dead2/cfg/banned_user.cfg
+</code></pre>
+<p>Source: https://developer.valvesoftware.com/wiki/CFG "The
+folder&nbsp;<code>&lt;game&gt;/cfg/</code>&nbsp;is usually
+dedicated to configuration files"</p>
+<hr>
+<h3>Here is my Vanilla Server config.</h3>
+<p>Don't waste your time trying to use SteamGroup and Reservation
+settings they don't work as intended at all in my experience. They
+used to previously but due to security updates no longer work as
+expected. I'd highly recommend just installing MetaMod + SourceMod
+for the server and installing an AllowList/WhiteList plugin mod. I
+wasted so much time trying to get this to work.</p>
+<p>Note: Due to the above reservations settings caused big
+headaches while troubleshooting due to an intermittent inabilty to
+join the server because other players would join it while I was
+trying to test it. So again trust me, install an
+AllowList/WhiteList sourcemod plugin for the server.</p>
+<p>Also you don't need rcon, disable it, its insecure and can cause
+your server to potentially get hacked. You can use SM_RCON system
+in game once sourcemod is installed to just run whatever game
+commands you want.</p>
+<pre><code class=
+"language-shell">nvim ~/l4d2server/left4dead2/cfg/server.cfg
+</code></pre>
+<pre><code>hostname "Jake L4D2 Mostly 98% Vanilla Server"
+
+//--&gt; Rcon password - Sets the password for remote rcon admin
+rcon_password "" //Leaving this blank on purpose so it disables rcon entirely
+sv_rcon_maxfailures 3
+sv_rcon_minfailures 1
+sv_rcon_log
+sv_rcon_minfailuretime 82800 //(23 hours)
+sv_rcon_banpenalty 959040 //987 days ban
+
+//--&gt; Gametypes sets the gametypes you want your server to run
+//----&gt; Versus Only: sv_gametypes "versus"
+//----&gt; Survival Only: sv_gametypes "survival"
+//----&gt; Coop Only: sv_gametypes "coop"
+//----&gt; Both: sv_gametypes "versus,coop"
+sv_gametypes "coop"
+
+//Don't bother trying to use this, just leave off and use SM Advanced Whitelist Server AddOn/Mod
+sv_steamgroup_exclusive 0
+
+sv_forcepreload 1
+
+//Allow connections without creating lobby (connect IP:PORT)
+//--&gt; "0" = Off (Default is "0")
+//--&gt; "1" = On
+//When Enabled, cannot connect to Games currently in progress.
+sv_allow_lobby_connect_only 1
+
+sv_lan 0 //Lan required to be 0 if using sv_steamgroup
+sv_pausable 0
+sv_consistency 0
+
+//--&gt; All talk - Allow both teams to use audio chat to speak with each other
+//--&gt; "0" = Off
+//--&gt; "1" = On
+sv_alltalk 1
+
+//--&gt; Region - This sets the lobby in which your server will be part of
+//--&gt; You will want to set this to the closest location to your server
+//--&gt; eastcoast - sv_region 0
+//--&gt; westcoast - sv_region 1
+//--&gt; south america - sv_region 2
+//--&gt; europe - sv_region 3
+//--&gt; asia - sv_region 4
+//--&gt; australia - sv_region 5
+//--&gt; middle east - sv_region 6
+//--&gt; africa - sv_region 7
+//--&gt; world - sv_region 255
+sv_region 1
+
+//--&gt; Allow use of cheats
+//--&gt; "0" = Off //No cheats allowed if set to zero/off
+//--&gt; "1" = On
+sv_cheats 0
+
+//If set to 1, the server will kick clients with mismatching files. Otherwise, it will issue a warning to the client.
+sv_pure_kick_clients 0
+
+// Log Settings
+log on
+sv_logfile 1
+sv_logbans 1
+sv_logecho 1
+sv_log_onefile 0
+sv_logsdir logs //Folder in the game directory where server logs will be stored.
+
+//Stableness and Networking stuff.
+//(Requires Source Mod)
+sm_cvar fps_max 0 // Forces Server to perform the best it can.
+
+// Execute ban files
+exec banned_user.cfg
+exec banned_ip.cfg
+writeid
+writeip
+</code></pre>
+<hr>
+<h2>Initial Test of the Server</h2>
+<p>First check the permissions, owner, group of the files to be
+sure they are correct before attempting the first test. (e.g. if
+you transferred the files as your admin user, not as restricted
+user, they'll belong to the wrong owner user)</p>
+<p>These 2 commands should fix common permission & owner issues</p>
+<pre><code class=
+"language-shell">sudo chown -R lefty:lefty /home/lefty/
+sudo find /home/lefty/ -type d -exec chmod 770 {} +
+</code></pre>
+<p>to login as lefty with bash shell run this:</p>
+<pre><code class="language-shell">sudo -u lefty /bin/bash
+cd ~
+</code></pre>
+<p>Here is the command to run the game</p>
+<pre><code class=
+"language-shell">/home/lefty/l4d2server/srcds_run -console -game left4dead2 +maxplayers 4 +ip 192.168.1.67 -port 27015 +exec server.cfg -norestart
+</code></pre>
+<p>If you need to close it type <code>quit</code></p>
+<p>I wouldn't recommend using Ctrl + C to cancel it as it leaves
+the terminal in a weird state, requiring to log out and log back in
+to fix it.</p>
+<p>Do note that the server binary wants hypen <code>-</code> and
+plus <code>+</code> for different parameters and doesn't match
+documentation. Through old posts on steam community , reddit, and
+forums. Along with trial and error. I eventually got the errors to
+go away.</p>
+<p>IP needs to be + plus</p>
+<ul>
+<li>e.g. <code>+ip 192.168.1.69</code> Port needs to be -
+hyphen</li>
+<li>e.g. <code>-port 27015</code> server.cfg file needs to be
+inside cfg folder. The default server.cfg file in the main
+directory is not read by the server.</li>
+<li>e.g. <code>~/l4d2server/left4dead2/cfg/server.cfg</code></li>
+</ul>
+<hr>
+<h2>Security and Firewall</h2>
+<p>I'm going to use and recommend UFW Uncomplicated Firewall</p>
+<p>First you need to allow SSH so you can access the server. (Don't
+Expose SSH to the Internet, you can access locally, or use
+Tailscale/VPN to access while not home)</p>
+<pre><code class=
+"language-shell">sudo ufw allow OpenSSH comment 'Allow SSH'
+sudo ufw reload
+sudo ufw enable
+</code></pre>
+<p>create the application profiles for easier management
+(optional)</p>
+<pre><code class=
+"language-shell">sudo nvim /etc/ufw/applications.d/ufw-jake-l4d2
+sudo nvim /etc/ufw/applications.d/ufw-jake-steampowered
+</code></pre>
+<p>Examples:</p>
+<pre><code class=
+"language-shell">root@deb13temp:~# cat /etc/ufw/applications.d/ufw-jake-l4d2
+[Left4Dead2]
+title=Left4Dead2
+description=Left 4 Dead 2 Dedicated Game Server
+ports=27015:27020/udp
+
+root@deb13temp:~# cat /etc/ufw/applications.d/ufw-jake-steampowered
+[Steam_Game_Services]
+title=Steam_Game_Services
+description=Steam_Game_Services
+ports=27015:27020/udp
+</code></pre>
+<pre><code class=
+"language-shell">sudo ufw allow Steam_Game_Services comment 'Steam_Game_Services'
+sudo ufw allow in proto udp to 0.0.0.0/0 app Left4Dead2 comment 'L4D2_Game_Server(IPv4_Only)'
+sudo ufw reload
+sudo ufw status verbose
+</code></pre>
+<p>Note: The reason for IPv4 only rules is because Left 4 Dead 2
+only supports IPv4 only. Surprisingly it doesn't even properly
+support DNS A Records. For example I can't connect via
+l4d2.mydomain.com:27015</p>
+<p>Now that the firewall has been setup and ports are opened you
+should be able to connect in game. This is the command you have to
+run inside game's dev console.</p>
+<pre><code class=
+"language-shell">mm_dedicated_force_servers Public_IP_Address:PublicPort:Private_LAN_IP_Address:PrivatePort
+</code></pre>
+<p>e.g.</p>
+<pre><code class=
+"language-shell">mm_dedicated_force_servers 123.456.789.123:27015:192.168.1.67:27015
+</code></pre>
+<h2>Security Part 2</h2>
+<p>Lets lock down SSH even more.</p>
+<pre><code class=
+"language-shell">nvim /etc/ssh/sshd_config.d/01-jake-server.conf
+nvim /etc/ssh/sshd_config.d/02-game-server.conf
+</code></pre>
+<pre><code class=
+"language-shell">root@deb13temp:~# cat /etc/ssh/sshd_config.d/01-jake-server.conf
+AllowUsers jake
+PasswordAuthentication no
+PermitRootLogin no
+root@deb13temp:~# cat /etc/ssh/sshd_config.d/02-game-server.conf
+AllowUsers friend1,friend2
+DenyUsers lefty
+</code></pre>
+<p>Prevent anyone from directly logging in as our restricted game
+user.</p>
+<pre><code class=
+"language-shell">usermod -s /usr/sbin/nologin lefty
+</code></pre>
+<p>Again I would recommend <strong>NOT</strong> opening SSH to the
+public internet. I also wouldn't recommend installing a VPN nor
+Tailscale directly on the game server. This is because it can cause
+issues with the game server.</p>
+<p>Here are some potential solutions if you want or need to give
+access remotely.</p>
+<ol>
+<li>Install Tailscale on another machine and on the remote machine.
+(<strong>Highly Recommended</strong>) This option is very easy to
+setup and doesn't require opening ports on the router
+firewall.</li>
+<li>With an Allow List on the router firewall, you can open the SSH
+Port into a Server. This would mean you need the public IP of the
+remote network.</li>
+<li>Setup SSH on another machine, then use it as a Jump
+Host/Bastion to access the server.</li>
+</ol>
+<p>.ssh/config example</p>
+<pre><code class="language-shell">Host myJumpHost
+    HostName 123.456.789.123
+    User jake
+    ProxyJump myJumpHost
+    IdentityFile ~/.ssh/yourPrivateKeyPathHere
+Host l4d2
+    HostName 192.168.1.67
+    User jake
+    IdentityFile ~/.ssh/yourPrivateKeyPathHere
+</code></pre>
+<p>You can combine this with option 1 or 2 to get remote ssh
+access. It looks like this: Remote Computer ➡️ myJumpHost ➡️ l4d2
+Server. I would recommend using SSH Keys over passwords. Also with
+the jumpHost machine option the private ssh key only has to exist
+on the remote machine. Don't put the private key on either the
+jumphost nor l4d2 server.</p>
+<p>4th option, Install a VPN on another machine and give a route so
+it can get to the L4D2 Server. (Least Recommended, its complicated
+to setup, and you need to keep VPN server and software updated
+regularly)</p>
+<hr>
+<h2>Running the server long term</h2>
+<p>Option 1: Is to use tmux, screen, or byobu(tmux) to just keep
+the session open and you just re-attach it to it to start, stop,
+run commands on it, ect. Which can be useful for troubleshooting
+mods, ect.</p>
+<p>Option 2: However running this as a SystemD service allows you
+to just start, restart, stop it and it just runs in the background.
+You can even 'enable' it to run on startup so that as soon as your
+boot it auto starts the L4D2 Game Server Service. Useful if the
+power goes out long enough, can just boot back up and it will come
+online if enabled.</p>
+<p>I'm going with Option 2, a SystemD service. In this service it
+is configured so that logs are changed from console output to
+journal instead.</p>
+<ul>
+<li>Tail logs to see them in real time: <code>journalctl -fu
+l4d2.service</code></li>
+<li>View older logs: <code>journalctl -u l4d2.service --since "1
+day ago" | grep Tank</code></li>
+</ul>
+<p>L4D2 SystemD Service File Path Location:</p>
+<pre><code class="language-shell">/etc/systemd/system/l4d2.service
+</code></pre>
+<p>L4D2 SystemD Service File Contents:</p>
+<pre><code class="language-shell">[Unit]
+Description=Left 4 Dead 2 Dedicated Game Server
+Wants=network.target
+After=syslog.target network-online.target
+
+[Service]
+Type=idle
+Environment=LD_LIBRARY_PATH=/home/lefty/l4d2server
+User=lefty
+Group=lefty
+WorkingDirectory=/home/lefty/l4d2server
+RuntimeDirectory=lefty
+StateDirectory=lefty
+LogsDirectory=lefty
+
+###Notes:
+###IP needs to be +   ###
+###Port needs to be - ###
+###server.cfg file needs to be inside cfg folder ###
+###e.g.  ~/l4d2server/left4dead2/cfg/server.cfg  ###
+ExecStart=/home/lefty/l4d2server/srcds_run -console -game left4dead2 +maxplayers 4 +ip 192.168.1.67 -port 27015 +exec server.cfg -norestart
+
+# Hardening for lockdown: restrict the service process to only necessary access
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictNamespaces=true
+RestrictRealtime=true
+SystemCallFilter=@system-service
+ReadWritePaths=/home/lefty/l4d2server
+
+#Logs are changed from console output to journal instead.
+# - Tail logs to see them in real time: journalctl -fu l4d2.service
+# - View older looks: journalctl -u l4d2.service --since "1 day ago" | grep Tank
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+<p>After creating this or if you make any changes to the file
+above. Always run a daemon reload afterwards:</p>
+<pre><code class="language-shell">sudo systemctl daemon-reload
+</code></pre>
+<p>Now you can run the service.</p>
+<ul>
+<li>Start, Stop, Restart are pretty self explanatory</li>
+<li>Status will show if its running, and recent logs.</li>
+<li>Enable will have the system automatically start the service
+after booting.</li>
+</ul>
+<p>Here are some examples:</p>
+<pre><code class="language-shell">sudo systemctl start l4d2.service
+sudo systemctl status l4d2.service
+sudo systemctl enable l4d2.service
+sudo systemctl stop l4d2.service
+sudo systemctl restart l4d2.service
+</code></pre>
+<hr>
+<h2>Server Plugins and Mods</h2>
+<p>SourceMod (SM) is a very popular plugin system for loading
+server-side mods called plugins. SourceMod depends on MetaMod being
+installed.</p>
+<p>So lets install both of them. Go to the websites and grab the
+latest builds
+https://www.metamodsource.net/downloads.php?branch=stable
+https://www.sourcemod.net/downloads.php?branch=stable</p>
+<p>copy them over to the server.</p>
+<pre><code class=
+"language-shell">rsync mmsource-1.12.0-git1219-linux.tar.gz ServerExample:/home/lefty/
+rsync sourcemod-1.12.0-git7221-linux.tar.gz ServerExample:/home/lefty/
+</code></pre>
+<p>unzip them to the proper server location</p>
+<pre><code class=
+"language-shell">tar xvf sourcemod-1.12.0-git7221-linux.tar.gz --directory=/home/lefty/l4d2server/left4dead2/
+tar xvf mmsource-1.12.0-git1219-linux.tar.gz --directory=/home/lefty/l4d2server/left4dead2/
+</code></pre>
+<p>note: can't use tilde <code>&amp;tilde;</code> for home , it
+needs to be the full explicit path</p>
+<hr>
+<h2>Server Plugin Recommended Setup and Tips</h2>
+<p>https://wiki.alliedmods.net/Installing_SourceMod</p>
+<p>During setup I'd recommend stopping the service and running the
+server manually so you can run commands in the console for
+troubleshooting and testing</p>
+<pre><code class="language-shell">sudo systemctl stop l4d2.service
+sudo -u lefty /home/lefty/l4d2server/srcds_run -console -game left4dead2 +maxplayers 4 +ip 192.168.1.67 -port 27015 +exec server.cfg -norestart
+</code></pre>
+<p>As mentioned in the SM/MM Wiki you can test if SM & MM are
+installed and working via typing these commands into the server
+console:</p>
+<pre><code class="language-shell">meta list
+sm
+</code></pre>
+<p>then type quit and press enter once you are sure it is
+working</p>
+<pre><code class="language-shell">quit
+</code></pre>
+<p>Time to setup admins for the game. There are a few different
+options, however I decided to use groups.
+https://wiki.alliedmods.net/Adding_Admins_(SourceMod) For my
+configuration there are 2 files to setup:</p>
+<p>File Path</p>
+<pre><code class=
+"language-shell">/home/lefty/l4d2server/left4dead2/addons/sourcemod/configs/admins.cfg
+</code></pre>
+<p>File Contents:</p>
+<pre><code>Admins
+{
+        "Jake"
+        {
+                "auth"                        "steam"
+                "identity"            "STEAM_0:0:12345689"
+                "immunity"              "99"
+                "group"               "Admin_Group"
+        }
+        
+        "OneOfMyFriends"
+        {
+                "auth"                        "steam"
+                "identity"            "STEAM_0:1:123456789"
+                "immunity"              "98"
+                "group"               "Admin_Group"
+        }
+        
+        "MyOtherFriend"
+        {
+                "auth"                        "steam"
+                "identity"            "STEAM_0:0:123456789"
+                "immunity"              "98"
+                "group"               "Admin_Group"
+        }
+        
+        "AnotherFriendOfMine"
+        {
+                "auth"                        "steam"
+                "identity"            "STEAM_1:1:123456789"
+                "immunity"              "98"
+                "group"               "Admin_Group"
+        }
+}
+</code></pre>
+<p>(I replaced part their steamID with 123456789 for this guide.)
+Admin_Group is the name I gave it, but the permissions for that
+group are in the admin_group.cfg file</p>
+<p>File Path:</p>
+<pre><code class=
+"language-shell">nvim /home/lefty/l4d2server/left4dead2/addons/sourcemod/configs/admin_groups.cfg
+</code></pre>
+<p>File Contents:</p>
+<pre><code>Groups
+{
+        /**
+         * https://wiki.alliedmods.net/Adding_Admins_(SourceMod)
+         * Allowed properties for a group:
+         *
+         *   "flags"           - Flag string.
+         *   "immunity"        - Immunity level number, or a group name.
+         *                                               If the group name is a number, prepend it with an
+         *                                               '@' symbol similar to admins_simple.ini.  Users
+         *                                               will only inherit the level number if it's higher
+         *                                               than their current value.
+         */
+        "Default"
+        {
+                "immunity"            "1"
+        }
+        
+        "Full Admins"
+        {
+                /**
+                 * You can override commands and command groups here.
+                 * Specify a command name or group and either "allow" or "deny"
+                 * Examples:
+                 *              ":CSDM"                       "allow"
+                 *              "csdm_enable" "deny"
+                 */
+                 Overrides
+                 {
+                 }
+                "flags"                       "abcdefghiz"
+
+                /* Largish number for lots of in-between values. */
+                "immunity"            "99"
+        }
+
+        "Admin_Group"
+        {
+                 Overrides
+                 {
+                        "sm_give" "allow"
+                        "sm_voteslay" "allow"
+                        "sm_slay" "deny"
+                        "sm_slap" "deny"
+                        "sm_votegravity""deny"
+                        "sm_timebomb" "deny"
+                        "sm_firebomb" "deny"
+                        "sm_freeze" "deny"
+                        "sm_freezebomb" "deny"
+                        "sm_gravity" "deny"
+                        "sm_blind" "deny"
+                        "sm_noclip" "deny"
+                        "sm_drug" "deny"
+                 }
+                "flags"                       "abcdeghijklm"
+                /*"immunity"          "90"*/
+        }
+}
+</code></pre>
+<p>One thing to note in the above is you can deny and allow similar
+commands separately, but can't specify parameters. For example I
+"allow a vote to slay ", but "deny slay". This thankfully does
+work. It allows a vote to be held, if the vote succeeds it slays
+the thing voted for. However you now can't directly slay without
+holding a vote, which is what I prefer.</p>
+<p>For parameters, afaik those cannot be specified in the
+permissions config. For example: I can't specifically deny
+"sm_voteslay tank" to prevent admins from voting to slay the ai
+monster Tank game enemy. Therefore it's either allow vote for slay
+or don't allow at all. I don't want to restrict it too much, so the
+permission will stay. Admins can vote slay, including the Tank
+enemy.</p>
+<hr>
+<h3>Allowlist / Whitelist</h3>
+<p>Since the built-in server.cfg can't properly reserve the server
+for the group. I use this plugin instead.
+https://forums.alliedmods.net/showthread.php?t=199794 Any Game -
+Server Whitelist Advanced (1.5.0)</p>
+<p>Here are the configurations:</p>
+<p>List of users on the on AllowList/WhiteList are saved here:</p>
+<pre><code class=
+"language-shell">~/l4d2server/left4dead2/addons/sourcemod/configs/whitelist/whitelist.txt
+</code></pre>
+<p>File Contents:</p>
+<pre><code>; You can use ';' to have comments (not read by the plugin)
+; Write directly to insert either a SteamID or an IP
+; Don't put more than 250 char on a line
+; ';auto' tags gives various information surrounding an added user
+127.0.0.1 ; IP; and comments can continue after them
+; STEAM_0:1:23456789 ; SteamID
+; STEAM_9:8:76543210
+; [U:1:2345678] ; SteamId
+; 876543210 ; this would be a small SteamGroupId (&lt; 2^31); every member/officer will be whitelisted
+
+STEAM_1:0:12345678 ;Jake (Server Owner) (Admin)
+STEAM_1:1:12345678 ;Friend1
+STEAM_1:0:12345678 ;Friend2 (Admin)
+STEAM_1:1:12345678 ;Friend3 (Admin)
+STEAM_1:1:12345678 ;Person  (Pal of Friend1)
+STEAM_1:0:12345678 ;Person2 (Pal of Friend2)
+STEAM_1:0:12345678 ;Player3 (Pal of Friend3)
+</code></pre>
+<p>Allowlist/Whitelist General Config Settings</p>
+<pre><code class=
+"language-shell">~/l4d2server/left4dead2/cfg/sourcemod/serverwhitelistadvanced.cfg
+</code></pre>
+<p>File-Contents:</p>
+<pre><code>// This file was auto-generated by SourceMod (v1.12.0.7195)
+// ConVars for plugin "serverwhitelistadvanced.smx"
+
+// Enable server whitelist
+// -
+// Default: "1"
+// Minimum: "0.000000"
+// Maximum: "1.000000"
+whitelist "1"
+
+// Allows people to join if they are not whitelisted under a certain condition. 0=Nop, 1=Someone is whitelisted, 2=An admin is present (_immunity needed), 3=Someone is present.
+// -
+// Default: "0"
+// Minimum: "0.000000"
+// Maximum: "3.000000"
+whitelist_autovouch "1"
+
+// Minimum time in seconds before a non-whitelisted first-time-in-map-user is kicked if no voucher (defined by _autovouch value) are present; to give time to voucher to join on mapchange. It is a minimum if Steam groups are used; if not it is a normal timeo
+// -
+// Default: "2.0"
+// Minimum: "0.100000"
+whitelist_autovouch_mintimeout "3.0"
+
+// File name to use for the whitelist, in the sourcemod/configs/whitelist/ folder. Can't use '/' or '\'. With extension.
+// -
+// Default: "whitelist.txt"
+whitelist_filename "whitelist.txt"
+
+// Automatically grant admins access. Required (if?) _autovouch = 2.
+// -
+// Default: "1"
+// Minimum: "0.000000"
+// Maximum: "1.000000"
+whitelist_immunity "1"
+
+// Message to show to kicked clients.
+// -
+// Default: "You are not in the server's whitelist"
+whitelist_kickmessage "You are not in Jake's Server Allowlist. If you are joining your friends on this server, please ask them to be added."
+
+// Log failed-attempts to join server. 0=No, 1=Yes (always), 2=Yes (not after first time)
+// -
+// Default: "1.0"
+whitelist_log "1.0"
+
+// When removing someone from whitelist, update the .txt right away (expensive operation if big whitelist) ? 0= On map end. Def. 1=Yes.
+// -
+// Default: "1"
+// Minimum: "0.000000"
+// Maximum: "1.000000"
+whitelist_removeinstant "1"
+
+// Also read SteamGroupIds from whitelist file ? 0=No. 1=Yes (SteamTools). 2=Yes (SteamWorks). Can fallback.
+// -
+// Default: "2"
+// Minimum: "0.000000"
+// Maximum: "2.000000"
+whitelist_steamgroup "0"
+
+// Maximum number of retry to do before saying someone is blacklisted. 'whitelist_steamgroup_timeout' seconds between each retry. ; Put '-1' for unlimited retry. Doing so should make people not be kicked in case Valve never respond (i.e. they have technical
+// -
+// Default: "-1"
+// Minimum: "-1.000000"
+whitelist_steamgroup_retry "5"
+
+// Time (in seconds) before re-requesting SteamGroups status from Valve's server (sometimes Valve doesn't answer).
+// -
+// Default: "0.34"
+// Minimum: "0.010000"
+whitelist_steamgroup_timeout "0.34"
+
+// Use whitelist_kickmessage through tidykick ? 0=No (Default; need TidyKick). 1=Yes.
+// -
+// Default: "0"
+// Minimum: "0.000000"
+// Maximum: "1.000000"
+whitelist_tidykick "0"
+</code></pre>
+<p>To explain a bit how this works. Auto vouch = 1 means that if
+there is a player not on the allow list, it will only allow them to
+join if someone else on the allow list is already in-game.</p>
+<p>Example 1: I'm in the game, and I make a friends only lobby, any
+of my friends can join. Even if I haven't added them to the server
+allow-list. However if I lose connection and I'm the only one
+there, it will kick them after a short period.</p>
+<p>Example 2: I'm in the game with another friend on the allow
+list. I lose connection the game will continue on with player 3 &
+player 4. I can rejoin the match if the slot is still open.</p>
+<p>Example 3: I'm in the game, I create a public lobby, 1 friend on
+the allow list joins. 2 more random people join. I lose connection,
+the game will continue, another random public player joins. I won't
+be able to join as 4/4 slots are full. It won't auto kick them.</p>
+<p>Example 4: If someone tries to start a game on my server and
+nobody is on the list it will reject them. It keeps the server
+reserved for myself and my friends so we can play whenever we want
+to.</p>
+<p>Note: SteamGroup and TidyKick require addition plugins and
+setup, that I have not looked that far into. They aren't necessary
+for my small setup.</p>
+<hr>
+<h2>For backing up server configurations these are the locations
+for the various configs:</h2>
+<p>I am aware some of this is repeating content, but doing this for
+thoroughness and as a summary.</p>
+<p>Main Configs:</p>
+<pre><code class=
+"language-shell">~/l4d2/left4dead2/cfg/banned_ip.cfg
+~/l4d2/left4dead2/cfg/banned_user.cfg
+~/l4d2/left4dead2/cfg/server.cfg
+</code></pre>
+<p>Server-side mod/plugin MM/SM (MetaMod/SourceMod) plugin
+framework:</p>
+<pre><code class=
+"language-shell">/home/lefty/l4d2server/left4dead2/addons/sourcemod/configs/*
+</code></pre>
+<p>Admin Permissions and User Lists</p>
+<pre><code class=
+"language-shell">/home/lefty/l4d2server/left4dead2/addons/sourcemod/configs/admins.cfg
+/home/lefty/l4d2server/left4dead2/addons/sourcemod/configs/admin_groups.cfg
+</code></pre>
+<p>Server-side mods/plugins (SM/SourceMod Plugins):</p>
+<pre><code class=
+"language-shell">~/l4d2server/left4dead2/addons/sourcemod/plugins/
+</code></pre>
+<p>For backing up server side mod/plugin (SM) configurations. They
+can sometimes vary but usually are here:</p>
+<pre><code class=
+"language-shell">~/l4d2/left4dead2/cfg/sourcemod/*.cfg
+</code></pre>
+<h4>For the recommended allowlist/whitelist server plugin:</h4>
+<p>It checks the SteamIDs listed in this file:</p>
+<pre><code class=
+"language-shell">~/l4d2server/left4dead2/addons/sourcemod/configs/whitelist/whitelist.txt
+</code></pre>
+<p>General Config Settings in this file</p>
+<pre><code class=
+"language-shell">~/l4d2server/left4dead2/cfg/sourcemod/serverwhitelistadvanced.cfg
+</code></pre>
+<p>Campaigns, vpk files, and any other various mods from the
+SteamWorkshop can be found in addons:</p>
+<ul>
+<li>For example this Dark Carnival Remix Add-On Campaign.</li>
+</ul>
+<pre><code class=
+"language-shell">~/l4d2server/left4dead2/addons/DarkCarnivalRemix-1575673903.vpk
+</code></pre>
+<p>Optional (I don't personally use this):</p>
+<pre><code class=
+"language-shell">~/l4d2server/left4dead2/addons/sourcemod/configs/adminmenu_maplist.ini
+</code></pre>
+<p>If you can't locate a file, one option to easily find it is to
+use ripgrep. e.g. I wanted to find the file that contained the line
+that enables the server whitelist plugin. I ran this:</p>
+<pre><code class="language-shell">rg 'Enable server whitelist'
+</code></pre>
+<p>It showed the path to the cfg file and showed it was on line 4
+in that file.</p>
+<pre><code class=
+"language-shell">l4d2server/left4dead2/cfg/sourcemod/serverwhitelistadvanced.cfg
+4:// Enable server whitelist
+</code></pre>
+<hr>
+<h3>Notes specific to my setup & preferences:</h3>
+<p>These config files are where to:</p>
+<ul>
+<li>disable the pitchfork melee from spawning. (All My
+Servers)</li>
+<li>enable frying pan to have fire damage. (Not Vanilla, but Yes on
+VanillaPlus Server)</li>
+<li>minor alterations for the preferred weapon balance such as
+reload speed. (Not Vanilla, but Yes on VanillaPlus Server)</li>
+<li>These configs do not alter the gun weapon spawn such as the
+AWP. The <code>removeWeapons_L4D2.vpk</code> or similar
+steamworkshop mods are used for that.</li>
+</ul>
+<pre><code class=
+"language-shell">/home/lefty/l4d2server/addons/sourcemod/data/l4d_info_editor_mission.cfg
+/home/lefty/l4d2server/addons/sourcemod/data/l4d_info_editor_weapons.cfg
+</code></pre>
+<p>Barricade plugin mod config location:</p>
+<pre><code class=
+"language-shell">/home/lefty/l4d2server/addons/sourcemod/data/barricade.cfg
+</code></pre>
+<p>For my use case I wanted my Friends/Server Admins to be able to
+easily manage mods, configs, ect. To accomplish this I granted
+group permission to the lefty user's home folder. I created a
+script to easily do this without needing to check notes:</p>
+<pre><code class=
+"language-shell">sudo nvim /usr/local/sbin/jake-fix-permissions-gamegroup.sh
+sudo chmod +x /usr/local/sbin/jake-fix-permissions-gamegroup.sh
+</code></pre>
+<p>Script Contents</p>
+<pre><code class="language-bash">#!/bin/bash
+chown -R lefty:gamegroup /home/lefty/
+find /home/lefty/ -type d -exec chmod 770 {} +
+</code></pre>
+<hr>
+<h3>L4D2 Console & Server Commands</h3>
+<p>https://developer.valvesoftware.com/wiki/Command_line_options |
+Command line options - Valve Developer Community
+https://developer.valvesoftware.com/wiki/List_of_Left_4_Dead_2_console_commands_and_variables
+| List of Left 4 Dead 2 console commands and variables - Valve
+Developer Community</p>
+<h3>Misc L4D2 Facts and Tools</h3>
+<p><a href=
+"https://www.youtube.com/playlist?list=PLmMhajSw1x_c3j5XPMT4kpjGPbOf0e5_q">
+L4D2 Facts YouTube Playlist by Andre Ng</a> <a href=
+"https://developer.valvesoftware.com/wiki/L4D2_Level_Design/Scavenge_Finale">
+Scavenge Finale - Valve Developer Community Wiki</a>
+https://image.online-convert.com/convert-to-tga | Convert image for
+Spray Compatibility
+https://github.com/theletterjwithadot/Ultimate-Config-for-L4D2 |
+AutoExec Configurations <a href=
+"https://steamcommunity.com/sharedfiles/filedetails/?id=412007318">Steam
+Community :: Guide :: Melee weapon detailed analysis (v
+1.5)</a></p>
+<hr>
+<h2>Sources</h2>
+<h4>I thought I'd post all the links to sources that seemed to be
+helpful at the time of writing this.</h4>
+<ul>
+<li><a href=
+"https://steamcommunity.com/app/550/discussions/0/154644045353648712/">
+https://steamcommunity.com/app/550/discussions/0/154644045353648712/</a>
+<ul>
+<li>Need a working vanilla server.cfg for Co-op :: Left 4 Dead 2
+General Discussions</li>
+</ul>
+</li>
+<li><a href=
+"https://developer.valvesoftware.com/wiki/List_of_Left_4_Dead_2_console_commands_and_variables">
+https://developer.valvesoftware.com/wiki/List_of_Left_4_Dead_2_console_commands_and_variables</a>
+<ul>
+<li>List of Left 4 Dead 2 console commands and variables - Valve
+Developer Community</li>
+</ul>
+</li>
+<li><a href=
+"https://forums.alliedmods.net/showthread.php?t=187243">https://forums.alliedmods.net/showthread.php?t=187243</a>
+<ul>
+<li>L4d2 Linux server not working? - AlliedModders</li>
+</ul>
+</li>
+<li><a href=
+"https://gaming.stackexchange.com/questions/46904/left-4-dead-2-dedicated-server-exec-couldnt-exec-server-cfg">
+https://gaming.stackexchange.com/questions/46904/left-4-dead-2-dedicated-server-exec-couldnt-exec-server-cfg</a>
+<ul>
+<li>Left 4 dead 2 dedicated server - exec: couldn't exec server.cfg
+- Arqade</li>
+</ul>
+</li>
+<li><a href=
+"https://forums.srcds.com/viewtopic/10595">https://forums.srcds.com/viewtopic/10595</a>
+<ul>
+<li>Complete server.cfg Left 4 Dead Forum (SOLVED)</li>
+</ul>
+</li>
+<li><a href=
+"https://www.linode.com/docs/guides/left-4-dead-2-multiplayer-server-installation/">
+https://www.linode.com/docs/guides/left-4-dead-2-multiplayer-server-installation/</a>
+<ul>
+<li>How to Install a Left 4 Dead 2 Multiplayer Server Linode
+Docs</li>
+</ul>
+</li>
+<li><a href=
+"https://raw.githubusercontent.com/linode/docs-scripts/master/hosted_scripts/left-4-dead-2-multiplayer-server-installation/detailed-server.cfg">
+https://raw.githubusercontent.com/linode/docs-scripts/master/hosted_scripts/left-4-dead-2-multiplayer-server-installation/detailed-server.cfg</a></li>
+<li><a href=
+"https://github.com/linode/docs-scripts/blob/master/hosted_scripts/left-4-dead-2-multiplayer-server-installation/detailed-server.cfg">
+https://github.com/linode/docs-scripts/blob/master/hosted_scripts/left-4-dead-2-multiplayer-server-installation/detailed-server.cfg</a>
+<ul>
+<li>Detailed Server CFGs from Linode Cloud Provider</li>
+</ul>
+</li>
+<li><a href=
+"https://steamcommunity.com/app/550/discussions/0/1621726179581670171/">
+https://steamcommunity.com/app/550/discussions/0/1621726179581670171/</a>
+<ul>
+<li>Launch dedicated server from lobby? :: Left 4 Dead 2 General
+Discussions</li>
+</ul>
+</li>
+<li><a href=
+"https://developer.valvesoftware.com/wiki/Pure_Servers">https://developer.valvesoftware.com/wiki/Pure_Servers</a>
+<ul>
+<li>Pure Servers - Valve Developer Community</li>
+</ul>
+</li>
+<li><a href=
+"https://www.reddit.com/r/GlobalOffensive/comments/dnl04v/comment/f5chj2h/">
+https://www.reddit.com/r/GlobalOffensive/comments/dnl04v/comment/f5chj2h/</a>
+<ul>
+<li>Dedicated Server Command to allow friends to join</li>
+</ul>
+</li>
+</ul>
+<h3>Left 4 Dead 2 Server Plugins and Mods</h3>
+<br>
+"Any refers to any source game, L4D would be for both Left 4 Dead 1
+and 2"<br>
+<a href=
+"https://www.sourcemod.net/plugins.php?mod=6&amp;search=1">Search
+for Plugins on SourceMod.net</a>
+<h3>Highly Recommended Resources & Plugins</h3>
+<a href="https://forums.alliedmods.net/showthread.php?t=69092">FAQ:
+Sourcemod Newbies Guide - AlliedModders</a><br>
+<a href=
+"https://forums.alliedmods.net/showthread.php?t=159062">sm_cvar
+list - AlliedModders</a><br>
+<a href=
+"https://wiki.alliedmods.net/Managing_your_sourcemod_installation">Managing
+your sourcemod installation - AlliedModders Wiki</a><br>
+<a href=
+"https://forums.alliedmods.net/showthread.php?t=129763">SteamTools
+Old thread - AlliedModders</a><br>
+<a href=
+"https://forums.alliedmods.net/showthread.php?t=170630&amp;page=3">SteamTools
+AlliedModders</a><br>
+<a href=
+"https://gist.github.com/ProdigySim/d86da0fbb5f0870fb33b8bd692991a09">
+hidden client cvars from 2041 dump l4d2</a><br>
+<a href=
+"https://forums.alliedmods.net/showthread.php?p=1830686">Any Server
+Whitelist Advanced (1.5.0) - AlliedModders</a>
+<ul>
+<li>Allow List Functionality that helped us keep the server ready
+for our Friends and allow joining from lobby</li>
+</ul>
+<p><a href=
+"https://forums.alliedmods.net/showthread.php?t=321696">L4D1&amp;2
+"Left 4 DHooks Direct" (1.158) (21-Mar-2025) -
+AlliedModders</a></p>
+<ul>
+<li>A plugin mod framework/library that helps other mods</li>
+</ul>
+<p><a href=
+"https://users.alliedmods.net/~kyles/builds/SteamWorks/">psychonic's
+SteamWorks Builds AlliedMods.net</a></p>
+<ul>
+<li>Framework/Library for Adding in Additional Mod
+Functionality</li>
+<li>I haven't personally used this</li>
+</ul>
+<p><a href=
+"https://forums.alliedmods.net/showthread.php?t=123811">L4D1 & L4D2
+Assistance System - AlliedModders</a></p>
+<ul>
+<li>Shows all players in how much damage they assisted in killing
+specials.
+<ul>
+<li>(e.g. player 2 killed charger with 10dmg, player 3 assisted
+with 500dmg, player 1 assisted with 60dmg, )</li>
+</ul>
+</li>
+<li>Note: This one has some bugs in it, shows excessive dmg, 0 dmg,
+and doesn't display witches. However it works most of the time and
+our main crew enjoys it.
+<ul>
+<li>There is a version 2 by another forum member, however it
+removed the entire point of the mod since it removed the info
+regarding assistance other players who didn't get the last
+hit.</li>
+</ul>
+</li>
+</ul>
+<h3>Fun to Use</h3>
+<p><a href=
+"https://forums.alliedmods.net/showthread.php?t=310586">L4D1 & L4D2
+Mission and Weapons - Info Editor (1.26) 15-May-2024 -
+AlliedModders</a></p>
+<ul>
+<li>Choose which melee weapons spawn</li>
+<li>Edit dmg types, dmg numbers, and reload speeds
+<ul>
+<li>I changed the cast iron pan to heat damage, and removed the
+Pitchfork & Guitar from spawning. <a href=
+"https://forums.alliedmods.net/showthread.php?t=186617">L4D & L4D2
+Fire Glow (1.8) 25-Mar-2022 - AlliedModders</a> <a href=
+"https://forums.alliedmods.net/showthread.php?p=2737929">L4D2
+Spitter Acid Glow (1.3) 20-Jan-2024 - AlliedModders</a></li>
+</ul>
+</li>
+</ul>
+<h3>Gameplay Changing</h3>
+<p><a href=
+"https://forums.alliedmods.net/showthread.php?t=137616">L4D & L4D2
+Gear Transfer (2.36) 15-Dec-2024 - AlliedModders</a></p>
+<ul>
+<li>Bots will pickup molotovs, pipes, defibs, ect. They won't use
+them, but will give them to players. You can also trade between
+characters. (e.g. adrenaline for pills, or molotov for pipe)</li>
+<li>The bots also will just give you the health kit into a player's
+inventory. Giving the players back the control.</li>
+</ul>
+<p><a href=
+"https://forums.alliedmods.net/showthread.php?t=322859">L4D & L4D2
+Incapped Weapons Patch (1.39) 21-Mar-2025 - AlliedModders</a></p>
+<p><a href=
+"https://forums.alliedmods.net/showthread.php?t=338054">L4D & L4D2
+Barricades - Doors and Windows (1.21) 07-Dec-2022 -
+AlliedModders</a> <a href=
+"https://github.com/fbef0102/L4D1_2-Plugins/tree/master/l4d2_chainsaw_refuelling">
+L4D2 Chainsaw Refill with Gascan fbef0102 GitHub</a></p>
+<p><a href=
+"https://forums.alliedmods.net/showthread.php?p=2095281">L4D2
+sm_give - AlliedModders</a></p>
+<ul>
+<li>Allows admins to run the give command on various items</li>
+<li>Tip: type the give command in-game-console to search for and
+auto complete item names, then prepend with sm_ example:
+<code>sm_give first_aid_kit</code></li>
+<li>Tip: type /give magnum in the game chat window , several items
+have shortcut words</li>
+<li>This won't grant laser sights</li>
+</ul>
+<p>SM Server Admins can run these commands to toggle friendly fire,
+without enabling cheats. <code>sm_cvar
+survivor_friendly_fire_factor_hard 0.0</code><br>
+<code>sm_cvar survivor_friendly_fire_factor_expert 0.0</code>
+<code>m_resetcvar</code> will reset anything back to normal</p>
+<hr>
+<h3>Addons quality of life (QoL) & fixes</h3>
+<p><a href=
+"https://steamcommunity.com/sharedfiles/filedetails/?id=3233665119&amp;searchtext=bots+shoot+shake">
+Steam Workshop::No Camera Shake When Bots Shoot You VScript</a>
+<a href=
+"https://steamcommunity.com/sharedfiles/filedetails/?id=2871020083">
+Stop Special Infected ai from attacking while Staggered Fix - Steam
+Workshop</a> <a href=
+"https://steamcommunity.com/sharedfiles/filedetails/?id=3424670301&amp;searchtext=No+close+friendly">
+Steam Workshop::VSCRIPTNo Close Friendly Fire</a></p>
+<ul>
+<li>Quick Test seems to work as long as you don't see any portion
+of your teammates model.</li>
+<li>If you see even a small shard portion of their model then you
+still shoot them.</li>
+</ul>
+<h3>Edited a workshop mod to fit my group's preferences.</h3>
+<p>Custom removeWeapons_L4D2.vpk
+<code>removeWeapons_L4D2/scripts/vscripts/director_base_addon.nut</code></p>
+<pre><code>function OnGameEvent_round_start_post_nav( params )
+
+{
+
+local ItemstoRemove_ModelPaths =
+
+[
+
+"models/w_models/weapons/w_sniper_scout.mdl",
+
+"models/w_models/weapons/w_sniper_awp.mdl",
+
+]
+
+foreach( modelpath in ItemstoRemove_ModelPaths )
+
+{
+
+local weapon_ent = null
+
+while( weapon_ent = Entities.FindByModel(weapon_ent, modelpath) )
+
+weapon_ent.Kill()
+
+  
+
+/* Function above is same as doing this:
+
+while( weapon_ent = Entities.FindByModel(weapon_ent, modelpath) )
+
+{
+
+weapon_ent.Kill()
+
+}
+
+*/
+
+}
+
+}
+</code></pre>
+<pre><code>"AddonInfo"
+
+{
+
+addonversion "4.1" //Max 31 characters. Allows decimals.
+
+addontitle "Remove CS Snipers" //Max 127 characters.
+
+addonauthor "Grayman Mike and Edit by Jake" //Max 119 characters.
+
+addonDescription "Removes Bolt Action Counter Strike (CS) Snipers" //Max 1023 characters.
+
+}
+</code></pre>
+<p>I'm not gonna add this to the steam workshop nor upload it, but
+giving credit that Grayman Mike was the original creator of the mod
+that I edited.</p>
+<p>![[removeWeapons_L4D2-vpk-edit.png]]</p>
+<u>Never tried these Plugins / Mods, but seemed potentially
+interesting:</u><br>
+<a href=
+"https://forums.alliedmods.net/showthread.php?t=99305">L4D1+2
+Perkmod - AlliedModders</a><br>
+<a href=
+"https://forums.alliedmods.net/showthread.php?t=75520">FuncommandsX
+- AlliedModders</a><br>
+<a href=
+"https://forums.alliedmods.net/showthread.php?t=191247">L4D/L4D2
+Detonation force (1.6.1) 2013-July-18 - AlliedModders</a><br>
+<a href="https://forums.alliedmods.net/showthread.php?p=751952">L4D
+Director Controller (All4Dead) - AlliedModders</a><br>
+<a href=
+"https://github.com/fbef0102/L4D1_2-Plugins/tree/master/all4dead2">L4D2
+Plugins fbef0102's GitHub</a><br>
+<a href=
+"https://forums.alliedmods.net/showthread.php?p=2009851">L4D & L4D2
+Respawn Rescue Closet (1.11) 24-Dec-2022 - AlliedModders</a><br>
+<a href=
+"https://forums.alliedmods.net/showthread.php?p=1678503">L4D & L4D2
+Plane Crash (1.11) 10-Jan-2023 - AlliedModders</a><br>
+<a href=
+"https://forums.alliedmods.net/showthread.php?p=2807009">L4D & L4D2
+Tank Rock Bounces (1.1) 27-Jul-2023 - AlliedModders</a><br>
+<a href=
+"https://forums.alliedmods.net/showthread.php?t=336298&amp;page=3">L4D2
+Ladder Server Crash - Patch Fix (1.1) 12-Feb-2022 - Page 3 -
+AlliedModders</a><br>
+<a href="https://forums.alliedmods.net/showthread.php?t=222931">L4D
+& L4D2 Gun Cabinet (1.8) 11-Dec-2022 - AlliedModders</a><br>
+<a href="https://forums.alliedmods.net/showthread.php?t=222932">L4D
+& L4D2 Weapon Crate (1.8) 11-Dec-2022 - AlliedModders</a><br>
+<a href=
+"https://forums.alliedmods.net/showthread.php?t=223020">L4D2 Melee
+Weapon Spawner (1.8) 19-Sep-2023 - AlliedModders</a>&lt; 
+<script>
+hljs.highlightAll();
+</script>
+</body>
+</html>
