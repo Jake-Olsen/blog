@@ -1,54 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta name="generator" content=
-"HTML Tidy for HTML5 for Linux version 5.8.0">
-<meta charset="UTF-8">
-<meta name="viewport" content=
-"width=device-width, initial-scale=1.0">
-<title>Jake's Blog - Chromium Web Serial Access</title>
-<link rel="stylesheet" href=
-"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
+  <head>
+    <meta name="generator" content=
+    "HTML Tidy for HTML5 for Linux version 5.8.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content=
+    "width=device-width, initial-scale=1.0">
+    <title>
+      Jake's Blog - Chromium Web Serial Access
+    </title>
+    <link rel="stylesheet" href=
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
 
-<script src=
-"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/css/main.css">
-</head>
-<body>
-<div id="header"></div>
-<script>
+    <script src=
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+  </head>
+  <body>
+    <div id="header"></div>
+    <script>
             fetch('/header.html')
             .then(res => res.text())
             .then(html => {
                 document.getElementById('header').innerHTML = html;
             });
-</script>
-<p>The chromium web browser development team has come up with
-something pretty cool. A way to manipulate serial ports on your
-computer in a web browser. I first found out during a live stream
-on YouTube where someone was discussing a new way to flash Arduino
-binaries.</p>
-<p>Then a few days later I was hooking back up my lab router to
-start self studying again and wondered if there was a way to
-connect the serial terminal session over the web browser instead of
-using the old way of finding the COM port then loading up putty and
-setting the COM port manually. Then I found it there is a way to
-use it, and it’s out of the experimental phase already! You just
-need to have a web page coded to ask for the serial port.<br>
-<a href="https://web.dev/serial/">https://web.dev/serial/</a></p>
-<p>Google actually has a live version on GitHub.<br>
-<a href=
-"https://googlechromelabs.github.io/serial-terminal/">https://googlechromelabs.github.io/serial-terminal/</a></p>
-<p>At this time it even works in (old-legacy-Non-Chromium) Edge
-with no additional config and automatically figures out the
-available Serial COM ports.</p>
-<p><picture><img src="/images/ChromeWebSerial-1.webp" alt=
-"ChromeWebSerialScreenshot1" class="responsive"></picture></p>
-<p>Used it to reset my lab pfsense router back to default.
-<picture><img src="/images/ChromeWebSerial-2.webp" alt=
-"XChromeWebSerialScreenshot2" class="responsive"></picture></p>
-<script>
-hljs.highlightAll();
-</script>
-</body>
+    </script>
+    <p>
+      The chromium web browser development team has come up with
+      something pretty cool. A way to manipulate serial ports on
+      your computer in a web browser. I first found out during a
+      live stream on YouTube where someone was discussing a new way
+      to flash Arduino binaries.
+    </p>
+    <p>
+      Then a few days later I was hooking back up my lab router to
+      start self studying again and wondered if there was a way to
+      connect the serial terminal session over the web browser
+      instead of using the old way of finding the COM port then
+      loading up putty and setting the COM port manually. Then I
+      found it there is a way to use it, and it’s out of the
+      experimental phase already! You just need to have a web page
+      coded to ask for the serial port.<br>
+      <a href="https://web.dev/serial/">https://web.dev/serial/</a>
+    </p>
+    <p>
+      Google actually has a live version on GitHub.<br>
+      <a href=
+      "https://googlechromelabs.github.io/serial-terminal/">https://googlechromelabs.github.io/serial-terminal/</a>
+    </p>
+    <p>
+      At this time it even works in (old-legacy-Non-Chromium) Edge
+      with no additional config and automatically figures out the
+      available Serial COM ports.
+    </p>
+    <p>
+      <picture><img src="/images/ChromeWebSerial-1.webp" alt=
+      "ChromeWebSerialScreenshot1" class="responsive"></picture>
+    </p>
+    <p>
+      Used it to reset my lab pfsense router back to default.
+      <picture><img src="/images/ChromeWebSerial-2.webp" alt=
+      "XChromeWebSerialScreenshot2" class="responsive"></picture>
+    </p>
+    <script>
+    hljs.highlightAll();
+    </script>
+  </body>
 </html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="generator" content=
+    "HTML Tidy for HTML5 for Linux version 5.8.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content=
+    "width=device-width, initial-scale=1.0">
+    <title>
+      Jake's Blog - Satisfactory Server
+    </title>
+    <link rel="stylesheet" href=
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
+
+    <script src=
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+  </head>
+  <body>
+    <div id="header"></div>
+    <script>
+            fetch('/header.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('header').innerHTML = html;
+            });
+    </script>
+    <h1>
+      Satisfactory Dedicated Game Server
+    </h1>
+    <p>
+      Setting up the satisfactory game server was a lot easier and
+      matches the ease of setting up other servers. I would highly
+      recommend just using the guide on the wiki. <a href=
+      "https://satisfactory.wiki.gg/wiki/Dedicated_servers">https://satisfactory.wiki.gg/wiki/Dedicated_servers</a>
+    </p>
+    <p>
+      The only difference I made really was I re-used the systemd
+      file I used on the <a href=
+      "/posts/L4D2-Server-Setup.html">Left 4 Dead 2 Server</a>. The
+      good news is that I encountered an issue with Satisfactory
+      Game being unable to upload the save file to the server via
+      in game. This is good news because it proves that the
+      restrictions are working. The Error:
+    </p>
+    <pre><code class=
+    "language-shell">FactoryServer.sh[3977]: [2026.01.21-15.53.17:378][448]LogUnixPlatformFile: Warning: create dir('/home/lefty/.con
+fig/Epic/FactoryGame') failed: errno=30 (Read-only file system)</code></pre>
+    <p>
+      This error was caused by the restrictions in the SystemD
+      service file. Specifically this portion:
+      <code>ReadWritePaths=/home/lefty/satis-server</code>
+    </p>To fix was to create the .config/Epic/FactoryGame directory
+    and add it to the service file read write permission
+    section.<br>
+    Here is my satisfactory service file:
+    <pre><code>[Unit]
+Description=Satisfactory Dedicated Game Server
+Wants=network.target
+After=syslog.target network.target nss-lookup.target network-online.target
+
+[Service]
+Type=idle
+Environment=LD_LIBRARY_PATH=/home/lefty/satis-server
+User=lefty
+Group=lefty
+WorkingDirectory=/home/lefty/satis-server
+RuntimeDirectory=lefty
+StateDirectory=lefty
+LogsDirectory=lefty
+KillSignal=SIGINT
+
+ExecStart=/home/lefty/satis-server/FactoryServer.sh
+
+# Hardening for lockdown: restrict the service process to only necessary access
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictNamespaces=true
+RestrictRealtime=true
+SystemCallFilter=@system-service
+ReadWritePaths=/home/lefty/satis-server /home/lefty/.config/Epic/FactoryGame
+
+#Logs are changed from console output to journal instead.
+# - Tail logs to see them in real time: journalctl -fu satisfactory.service
+# - View older looks: journalctl -u satisfactory.service --since "1 day ago" | grep searchTermsHere
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target</code></pre>
+    <script>
+    hljs.highlightAll();
+    </script>
+  </body>
+</html>

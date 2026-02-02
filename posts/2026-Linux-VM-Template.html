@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="generator" content=
+    "HTML Tidy for HTML5 for Linux version 5.8.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content=
+    "width=device-width, initial-scale=1.0">
+    <title>
+      Jake's Blog - My Linux VM Template
+    </title>
+    <link rel="stylesheet" href=
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/vim.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+  </head>
+  <body>
+    <div id="header"></div>
+    <script>
+            fetch('/header.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('header').innerHTML = html;
+            });
+    </script>
+    <p>
+      I've been meaning to setup more consistant servers for awhile
+      in my spare time outside of work. I never got around to
+      implementing an Ansible server to deploy but was something I
+      was looking into. However one thing that seemed easier to
+      implement in my pretty simple setup would be to use
+      XCP-NG/XOA VM Templates. VM Templates inside the hypervisor
+      is what I ended up using for my use-case and they work great.
+      Be aware that when copying Virtual Machines or cloning drives
+      the uniqueness and ssh fingerprints need to be regenerated so
+      that they are all unique. One extra step I would recommened
+      doing to save time and hassel would be. When you create the
+      VM, take snapshots at any semi-significant step. Then at the
+      end, don't turn this VM into a template, make a full copy of
+      this VM, then turn that copy into a template. This allows
+      more flexibility as in the future if I need to add another
+      tool, key, user, setting, system updates, ect. I just boot up
+      the VM, make my change, run my cleanup script, shutdown,
+      Copy, Make New Template, Rename or Delete old Template.
+    </p>
+    <h3>
+      Here are the steps I take for setting up my Virtual Machine
+      Template.
+    </h3>When initially setting up the Virtual Machine. Choose EUFI
+    Bios Type, and install as LVM Partition (Logicial Volume
+    Manager). This is important as it makes resizing the disk later
+    much easier. I'd recommend not setting a Root Password. You can
+    use `sudo su -` to switch to root with your user(s) password to
+    become root if needed.
+    <h1>
+      Add Apps and Tools
+    </h1>
+    <p>
+      add a bunch of packages & tools.
+    </p>
+    <pre><code class=
+    "language-bash">sudo apt install cloud-guest-utils fzf ripgrep neovim vim rsync htop btop ufw wget curl tar tealdeer tmux byobu -y
+</code></pre>
+    <h2>
+      Xen Virtual Machine Guest Agent Tools
+    </h2>
+    <pre><code class=
+    "language-shell">sudo nvim /etc/apt/sources.list.d/xen-guest-agent.list
+</code></pre>
+    <pre><code>deb [trusted=yes] https://gitlab.com/api/v4/projects/xen-project%252Fxen-guest-agent/packages/generic/deb-amd64/ release/
+</code></pre>
+    <pre><code class="language-shell">sudo apt update
+sudo apt install xen-guest-agent -y
+sudo apt clean
+sudo apt autoremove
+</code></pre>
+    <h1>
+      Personal Preferences
+    </h1>
+    <p>
+      put my basic nvim config in so I can have some basic setup
+      like line numbers, preferences, ect.
+    </p>
+    <pre><code class=
+    "language-shell">mkdir -p /home/jake/.config/nvim/
+nvim /home/jake/.config/nvim/init.vim
+</code></pre>
+    <pre><code class="language-vim">set nocompatible
+set hlsearch
+filetype on
+filetype plugin on
+filetype indent on
+syntax on
+set number
+set shiftwidth=4
+
+" Set tab width to 4 columns.
+set tabstop=4
+
+" Use space characters instead of tabs.
+set expandtab
+</code></pre>
+    <h1>
+      Custom Scripts to Prepare things
+    </h1>
+    <ol>
+      <li>Script to easily expand the disk size after increasing it
+      in hypervisor (XCP-NG/XOA)
+      </li>
+    </ol>
+    <pre><code class=
+    "language-shell">/usr/local/sbin/jake-grow-vm-disk.sh
+</code></pre>
+    <pre><code class="language-bash">#!/bin/bash
+# 1) Grow the partition that holds the LVM PV
+growpart /dev/xvda 3
+# 2) Resize the LVM physical volume
+pvresize /dev/xvda3
+# 3) Extend root LV to all free space
+lvextend -l +100%FREE /dev/deb13temp-vg/root
+# 4) Grow the filesystem (ext4)
+resize2fs /dev/deb13temp-vg/root
+</code></pre>
+    <ol start="2">
+      <li>Script to clean up system to prep for shutdown and
+      cloning
+      </li>
+    </ol>
+    <pre><code class=
+    "language-shell">/usr/local/sbin/jake-cleanup-vm-prep-clone.sh
+</code></pre>
+    <pre><code class="language-bash">#!/bin/bash
+sudo rm -f /etc/systemd/network/*.network
+sudo rm -f /etc/udev/rules.d/70-persistent-net.rules
+sudo rm /etc/machine-id &amp;& sudo touch /etc/machine-id
+sudo rm /var/lib/dbus/machine-id &amp;& sudo touch /var/lib/dbus/machine-id
+sudo rm /var/lib/systemd/random-seed &amp;& sudo touch /var/lib/systemd/random-seed
+sudo apt-get clean
+</code></pre>
+    <ol start="3">
+      <li>after cloning regenerate the ssh fingerprints
+      </li>
+    </ol>
+    <pre><code class=
+    "language-shell">sudo nvim /usr/local/sbin/jake-new-clone-fingerprints.sh
+</code></pre>
+    <pre><code class="language-bash">#!/bin/bash
+sudo rm /etc/ssh/ssh_host_*
+sudo ssh-keygen -A
+sudo systemctl restart sshd
+</code></pre>
+    <ol start="4">
+      <li>fix permissions for gamegroup after game installs and
+      modifications
+      </li>
+    </ol>
+    <pre><code class=
+    "language-shell">sudo nvim /usr/local/sbin/jake-fix-permissions-gamegroup.sh
+</code></pre>
+    <pre><code class="language-bash">#!/bin/bash
+chown -R lefty:gamegroup /home/lefty/
+find /home/lefty/ -type d -exec chmod 770 {} +
+</code></pre>
+    <ol start="5">
+      <li>make all the custom scripts executable
+      </li>
+    </ol>
+    <pre><code class=
+    "language-shell">sudo chmod +x /usr/local/sbin/jake*.sh
+</code></pre>
+    <hr>
+    <h1>
+      Groups (Optional)
+    </h1>
+    <p>
+      create any preferred groups
+    </p>
+    <pre><code class="language-shell">groupadd docker
+</code></pre>
+    <p>
+      add the users and add them to the group
+    </p>
+    <pre><code class=
+    "language-shell">useradd -m -G docker myserviceuser
+useradd -m -G docker user3
+
+usermod -a -G docker jake
+usermod -a -G systemd-journal jake
+usermod -a -G systemd-journal myserviceuser
+usermod -a -G systemd-journal user3
+</code></pre>
+    <p>
+      Setup your user's shell preferences
+    </p>
+    <pre><code class=
+    "language-shell">usermod -s /bin/bash myserviceuser
+usermod -s /bin/bash user3
+</code></pre>
+    <hr>
+    <p>
+      Create a separate user to run any services under. Don't grant
+      them sudo privledge, don't make them sudoers. More
+      restrictions can be placed on them later. In these examples I
+      named my restricted user <code>myserviceuser</code>
+    </p>
+    <p>
+      Optionally if you prefer to login as them temporarily while
+      doing setup, updates, adding mods, ect.
+    </p>
+    <pre><code class=
+    "language-shell">sudo -u myserviceuser /bin/bash/
+</code></pre>
+    <hr>
+    <h1>
+      Firewall Security
+    </h1>
+    <p>
+      Going to use UFW Uncomplicated Firewall
+    </p>
+    <pre><code class="language-shell">sudo ufw allow OpenSSH
+sudo ufw reload
+sudo ufw enable
+</code></pre>
+    <p>
+      create the application profiles for easier management
+      (optional)
+    </p>
+    <pre><code class=
+    "language-shell">sudo nvim /etc/ufw/applications.d/ufw-jake-app1
+sudo nvim /etc/ufw/applications.d/ufw-jake-app2
+sudo nvim /etc/ufw/applications.d/ufw-jake-app3
+</code></pre>
+    <p>
+      Here is what they look like
+    </p>
+    <pre><code class=
+    "language-shell">root@deb13temp:~# cat /etc/ufw/applications.d/ufw-jake-app1
+[APP-NAME-HERE]
+title=TitleGoesHere
+description=DescriptionGoesHere
+ports=27015:27020/udp
+</code></pre>
+    <p>
+      Only run the cmd for the required firewall rules
+    </p>
+    <pre><code class=
+    "language-shell">sudo ufw allow APP-NAME-HERE comment 'Allowing X for the Taco Service'
+</code></pre>
+    <p>
+      finally turn on ufw and check the status
+    </p>
+    <pre><code class="language-shell">sudo ufw reload
+sudo ufw enable
+sudo ufw status verbose
+</code></pre>
+    <hr>
+    <h1>
+      Security Lock Down
+    </h1>
+    <pre><code class=
+    "language-shell">nvim /etc/ssh/sshd_config.d/01-jake-server.conf
+nvim /etc/ssh/sshd_config.d/02-game-server.conf
+</code></pre>
+    <pre><code class=
+    "language-shell">root@deb13temp:~# cat /etc/ssh/sshd_config.d/01-jake-server.conf
+AllowUsers jake
+PasswordAuthentication no
+PermitRootLogin no
+root@deb13temp:~# cat /etc/ssh/sshd_config.d/02-game-server.conf
+AllowUsers user3,user4
+DenyUsers myserviceuser
+</code></pre>
+    <p>
+      I'd recommend referencing the book <a href=
+      "https://mwl.io/nonfiction/tools#ssh">SSH Mastery</a> - by
+      michael w. lucas. It helped me to better understand how to
+      configure and troubleshoot ssh configurations.
+    </p>
+    <p>
+      Another security setup is to not allow the restricted service
+      user to login normally
+    </p>
+    <pre><code class=
+    "language-shell">usermod -s /usr/sbin/nologin myserviceuser
+</code></pre>
+    <p>
+      You can still access bash to do things as this user via:
+    </p>
+    <pre><code class=
+    "language-shell">sudo -u myserviceuser /bin/bash
+</code></pre>
+    <hr>
+    <h1>
+      Finale
+    </h1>
+    <pre><code class=
+    "language-bash">sudo jake-cleanup-vm-prep-clone.sh
+sudo cat /dev/null &gt; ~/.bash_history &amp;& history -c
+sudo shutdown now
+</code></pre>
+    <p>
+      At this point make a copy of your VM before converting to
+      template.
+    </p>
+    <hr>
+    <h1>
+      After Finale
+    </h1>
+    <p>
+      Before booting change the disk size in the Xen Hypervisor
+      (Xen Orchestra) (XCP-NG/XOA)
+    </p>
+    <p>
+      After booting into the new clone.
+    </p>
+    <ol>
+      <li>Regenerate the SSH Fingerprints for uniqueness:
+      </li>
+    </ol>
+    <pre><code>sudo jake-new-clone-fingerprints.sh
+</code></pre>
+    <ol start="2">
+      <li>increase disk size via:
+      </li>
+    </ol>
+    <pre><code class="language-shell">sudo jake-grow-vm-disk.sh
+</code></pre>
+    <p>
+    <ol start="3"  >
+        <li>Then after changing the disk size. Change the hostname via: </li>
+    </ol>
+    </p>
+    <pre><code class="language-shell">sudo hostname mynewhostnamehere
+sudo nvim /etc/hosts
+sudo nvim /etc/hostname
+sudo shutdown -r now
+</code></pre>
+    <p>
+      The End, now go enjoy the new server.
+    </p>
+    <p>
+      As a side note. I did try and got cloud-init to work.
+      Initially the hard part was learning that the validator
+      doesn't actually make sure the file is valid. You have to run
+      a linter like yaml-lint to make sure the spacing, symbols,
+      ect are all correct. The order in which you setup the config
+      file also matters. At the end of the day, unfortunately there
+      was still networking issues. If I didn't use cloud-init
+      networking it would fail. However if I did use it, then out
+      of the box I had issues with 2 networking services
+      conflicting with each other. The amount of effort put into to
+      get a basic setup working consistantly without issues while
+      keeping it as close to a standard linux install was just too
+      many issues without enough reward. I abandoned cloud-init
+      because for me it was not worth using it just to setup some
+      users, basic apt application installs, and a few config
+      files.
+    </p>
+    <script>
+    hljs.highlightAll();
+    </script>
+  </body>
+</html>

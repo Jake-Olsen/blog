@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="generator" content=
+    "HTML Tidy for HTML5 for Linux version 5.8.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content=
+    "width=device-width, initial-scale=1.0">
+    <title>
+      Jake's Blog - Current Tech Stack 
+    </title>
+    <link rel="stylesheet" href=
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
+
+    <script src=
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+  </head>
+  <body>
+    <div id="header"></div>
+    <script>
+            fetch('/header.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('header').innerHTML = html;
+            });
+    </script>
+    <H1>My Current Tech Stack</H1>
+
+    <h3>Networking:</h3>
+    <ul>
+        <li>AT&amp;T Fiber: 400Mbps</li>
+        <li>Unifi Gateway Max</li>
+        <li>Unifi Gigabit Poe Switch</li>
+        <li>Unifi AC AP Pro(Disable/Powered Off)(Wi-Fi 5, 5Ghz)</li>
+        <li>Unifi U7 Pro Wall (Wi-Fi 7, 6Ghz)</li>
+        <li>Tailscale Overlay Network (Similar to VPN, but without open ports)</li>
+        <li>Internal DNS (example-device.jake.home) via Unifi, that is accessible remotely via Split DNS through Tailscale</li>
+        <li>3 VLANs at Home(Regular Home, Lab &amp; Open Ports for Servers, Work Only)</li>
+        <li>RaspberryPi 3B+ used as Tailscale route node to allow access to non tailscale devices on either Home or Lab VLAN, no access to Work VLAN</li>
+    </ul>
+
+    <h4>Network Ports:</h4> 
+    Home VLAN = No Open Ports
+    <br>Work VLAN = No Open Ports
+    <br>Lab/Server VLAN: (5 Ports)
+    <ul>
+        <li>Tailscale = None (Establish NAT Traversal Connection though UDP Hole Punching)</li>
+        <li>L4D2 Game Server = 2 Ports (Steam + Game Non-Default Custom Port)</li>
+        <li>SCP = 1 port but not publically exposed, allowlist only.</li>
+        <li>Satisfactory Game Server = 3 ports(Server Traffic/API, Game Traffic/Query, Game Traffic/Reliability Messaging)</li>
+    </ul>
+
+    <h3>Servers:</h3>
+    <ul>
+    <li>Lenovo M75q Gen 2 Micro (AMD Ryzen 5 PRO 4650GE, 64GiB RAM, 2TB SSD)
+        <br>Used as Hypervisor VM Server Xen Orchestra (XCP-NG/XOA)</li>
+    <li>Lenovo M75q Gen 2 Micro (AMD Ryzen 5 PRO 4650GE, 32GiB RAM, 2TB SSD)
+        <br>Used as Hypervisor VM Server Xen Orchestra (XCP-NG/XOA)</li>
+    <li>Synology NAS (Network Attached Storage) with NAS Grade Hard Drives for Long Term Backups running btrfs with scrubbing enabled for bitrot protection</li>
+    <li>N100 Mini PC for Media, Videos, Movies, Syncthing Node.</li>
+    </ul>
+
+    <h3>Services:</h3>
+    <ul>
+        <li>Syncthing on multiple devices to keep notes, documents, and music in sync.</li>
+        <li>SCP over SSH behind restricted firewall allowlist only, for sharing files between friends</li>
+        <li>SMB Shares for Media and Local File Access.</li>
+        <li>Paperless-ngx document and pdf management</li>
+        <li>L4D2 Game Server</li>
+        <li>Satisfactory Game Server</li>
+        <li>Linkwarden(Web Bookmarks and Preservation)</li>
+    </ul>
+
+    <h3>Misc:</h3>
+    <ul>
+       <li>UPS Battery Backup (Uninterruptable Power Supply)</li>
+    </ul>
+
+    <h3>Planned TBD:</h3>
+    <ul>
+       <li>Setup Enshrouded Game Server(Linux Proton Compatibility Layer or Windows Docker)(Untested)</li>
+       <li>Refactor and Update the existing Valheim Game Server</li>
+       <li>Setup Terraria Game Server</li>
+       <li>local LLM ai server with no internet access</li>
+    </ul>
+
+    <script>hljs.highlightAll();</script>
+  </body>
+</html>

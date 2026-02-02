@@ -1,48 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta name="generator" content=
-"HTML Tidy for HTML5 for Linux version 5.8.0">
-<meta charset="UTF-8">
-<meta name="viewport" content=
-"width=device-width, initial-scale=1.0">
-<title>Jake's Blog - Tools I Like</title>
-<link rel="stylesheet" href=
-"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
+  <head>
+    <meta name="generator" content=
+    "HTML Tidy for HTML5 for Linux version 5.8.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content=
+    "width=device-width, initial-scale=1.0">
+    <title>
+      Jake's Blog - Tools I Like
+    </title>
+    <link rel="stylesheet" href=
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
 
-<script src=
-"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/css/main.css">
-</head>
-<body>
-<div id="header"></div>
-<script>
+    <script src=
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+  </head>
+  <body>
+    <div id="header"></div>
+    <script>
             fetch('/header.html')
             .then(res => res.text())
             .then(html => {
                 document.getElementById('header').innerHTML = html;
             });
-</script>
-<h1>Tools I Like, alternatives, and tools I've previously used but
-don't anymore</h1>
-<a href="https://neovim.io/">Neovim</a>
+    </script>
+    <h1>
+      Tools I Like, alternatives, and tools I've previously used
+      but don't anymore
+    </h1>
+
+    <a href="https://neovim.io/">Neovim</a>
+    <ul>
+      <li>Text Editor that can be used in terminal and ssh sessions</li>
+      <li>Crossplatform support for Linux, Windows, and Mac</li>
+      <li>Quickly edit documents, config files, ect with a heavy
+      emphasis on keyboard for max efficiency and precise editing.
+      </li>
+
+    </ul><a href="https://it-tools.tech/">it-tools.tech</a>
+    <ul>
+      <li>Self-Hosted collection of handy online tools for devs,
+      with great web UX.
+      </li>
+      <li>
+        <a href="https://github.com/CorentinTh/it-tools">https://github.com/CorentinTh/it-tools</a>
+      </li>
+
+    </ul><a href="https://obsidian.md/">Obsidian</a>
+    <ul>
+      <li>Markdown Note Taking Application. Quick and easy, it also keeps your notes, images, files easily readable, migratable, ect. I used it to write most of the recent articles and guides. Just used it-tools to convert this markdown into html.
+      </li>
+     
+    </ul><a href="https://excalidraw.com/">Excalidraw</a>
+    <ul>
+      <li>A whiteboard for quickly sketching out ideas and plans. Easy to use, keyboard shortcuts. </li>
+
+    </ul><a href="https://alternativeto.net/">AlternativeTo.net</a>
+    <ul>
+      <li>website to find alternative apps and services
+      </li>
+      <li>It has filters, user voting and comments, and more
+      </li>
+    </ul>
+
+    </ul><a href="https://www.ventoy.net/">Ventoy</a>
+    <ul>
+      <li>Load up multiple ISOs, and Disk Images onto 1 USB Drive.
+      </li>
+      <li>It allows you to keep files on your usb drive and you can just toss most ISOs into a folder and they will become bootable.
+      </li>
+    </ul>
+
+<h4>Misc Cross-Platform Apps:</h4>
 <ul>
-<li>Text Editor that can be used in terminal and ssh sessions</li>
-<li>Crossplatform support for Linux, Windows, and Mac</li>
-<li>Quickly edit documents, config files, ect with a heavy emphasis
-on keyboard for max efficiency and precise editing.</li>
+<li>KeePass 2 (Password Manager)</li>
+<li>Bitwarden (Password Manager, I no longer use personally but it is good)</li>
+<li>Handbrake (Convert &amp; Optimize videos to be smaller storage size for uploading)</li>
+<li>Postman Enterprise (Good if you pay for it, free version isn't good now)</li>
+<li>Hoppscotch (Postman Alternative that works for me thus far, open source, free, desktop apps, web app, self hosted optionally)</li>
 </ul>
-<a href="https://it-tools.tech/">it-tools.tech</a>
+
+    <h4>Linux Tools:</h4>
 <ul>
-<li>Self-Hosted collection of handy online tools for devs, with
-great web UX.</li>
-<li><a href=
-"https://github.com/CorentinTh/it-tools">https://github.com/CorentinTh/it-tools</a></li>
+<li>Alacritty (Terminal Emulator, but anything that works is fine.)</li>
+<li>cloud-guest-utils (contains tools to help expand virtual machine drives)</li>
+<li>fzf (interactive tui to easily search and go to files, folders, ssh configured servers)</li>
+<li>ripgrep (really fast way to find text in an unknown file)</li>
+<li>neovim (text based editor, nicer newer vim)</li>
+<li>vim (text based editor)</li>
+<li>rsync (Sync files between computers and folders)</li>
+<li>htop (Resource Task Monitor Manager)</li>
+<li>btop (Resource Task Monitor Manager)</li>
+<li>ufw (Uncomplicated FireWall to open and close ports on the machine)</li>
+<li>wget (download files from network)</li>
+<li>curl (download files from network)</li>
+<li>tar (unzip/uncompress archives)</li>
+<li>tealdeer (short cheatsheet for common commands, not replacement for manual pages)</li>
+<li>tmux (keeps remote session active, terminal multiplexer)</li>
+<li>byobu (tmux wrapper)</li>
+<li>Wireshark(Network Capture and Analysis)</li>
 </ul>
-<a href="https://alternativeto.net/">AlternativeTo.net</a>
+
+<h4>Windows Tools</h4>
 <ul>
-<li>website to find alternative apps and services</li>
-<li>It has filters, user voting and comments, and more</li>
+<li>Windows Terminal</li>
+<li>Chocolately (Download Widows apps via Repositories that do a checksum and bulk update all your apps)</li>
+<li>Notepad++</li>
+<li>Diagrams.NET</li>
+<li>Greenshot (Take Screenshots, easily draw up guides, annotate and easily add numbered steps.)</li>
+<li>Rufus (USB Imager)</li>
+<li>Balena Etcher (USB Imager)</li>
+<li>Wireshark(Network Capture and Analysis)</li>
+<li>WinSCP</li>
+<li>TFTPD32 (Portable TFTP Server that also includes DHCP and a few other tools)</li>
+<li>Foobar2000 (Manage Music Library)</li>
+<li>PuTTY (Personally don't use anymore)</li>
+<li>WinSSH Term (Personally don't use anymore)</li>
+<li>pendrivelinux.com yumi-multiboot-usb-creator (Personally don't use anymore)</li>
 </ul>
-</body>
+
+<h4>MacOS Tools:</h4>
+<ul>
+<li>brew (Download known good apps from repositories, update all apps in bulk)</li>
+<li>alacritty (terminal, but any working one is fine)</li>
+<li>iina (great multimedia video &amp; audio player built for mac, does great at playing remotely hosted files such as files on SMB share)</li>
+<li>Preview (Built-in picture editor with annotation tools)</li>
+<li>BetterShot (alternative screenshot tool)</li>
+<li>AppCleaner (apps that aren't installed through brew leave behing stuff , this helps uninstall things and get rid of more remnants)</li>
+<li>Maccy (clipboard manager to aid with clipboard history)</li>
+</ul>
+
+
+
+    <script>hljs.highlightAll();</script>
+  </body>
 </html>

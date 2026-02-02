@@ -1,38 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta name="generator" content=
-"HTML Tidy for HTML5 for Linux version 5.8.0">
-<meta charset="UTF-8">
-<meta name="viewport" content=
-"width=device-width, initial-scale=1.0">
-<title>Jake's Blog - L4D2 Game Setup</title>
-<link rel="stylesheet" href=
-"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
+  <head>
+    <meta name="generator" content=
+    "HTML Tidy for HTML5 for Linux version 5.8.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content=
+    "width=device-width, initial-scale=1.0">
+    <title>
+      Jake's Blog - L4D2 Game Setup
+    </title>
+    <link rel="stylesheet" href=
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
 
-<script src=
-"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/css/main.css">
-</head>
-<body>
-<div id="header"></div>
-<script>
+    <script src=
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+  </head>
+  <body>
+    <div id="header"></div>
+    <script>
             fetch('/header.html')
             .then(res => res.text())
             .then(html => {
                 document.getElementById('header').innerHTML = html;
             });
-</script>
-<h1>Left 4 Dead 2 Game<br>
-Personal Setup & Recommendations</h1>
-<h2>Autoexec.cfg for Game</h2>
-<p>I'd recommend having an autoexec.cfg file for auto applying
-settings, and alias shortcuts for commands. It can be found
-here:<br>
-<code>steamapps/common/Left 4 Dead
-2/left4dead2/cfg/autoexec.cfg</code>.<br>
-Here is part of my autoexec.cfg below:</p>
-<pre><code>fps_max 144
+    </script>
+    <h1>
+      Left 4 Dead 2 Game<br>
+      Personal Setup & Recommendations
+    </h1>
+    <h2>
+      Autoexec.cfg for Game
+    </h2>
+    <p>
+      I'd recommend having an autoexec.cfg file for auto applying
+      settings, and alias shortcuts for commands. It can be found
+      here:<br>
+      <code>steamapps/common/Left 4 Dead
+      2/left4dead2/cfg/autoexec.cfg</code>.<br>
+      Here is part of my autoexec.cfg below:
+    </p>
+    <pre><code>fps_max 144
 echo "Max Frames Per Second set to 144"
 mm_dedicated_force_servers 123.456.789.123:98765:192.168.1.4:98765
 echo "Automatically Set to 96% Vanilla Dedicated Server upon launching game"
@@ -45,98 +53,129 @@ echo" 96vanilla-search -----force non-official dedicated server search to Jake's
 alias "startj" "sm_give machete; sm_give hunting_rifle;"
 echo  "startj for quick loadout"
 </code></pre>
-<p>This will automatically after launching the game, cap my fps to
-144 and set my own dedicated server I setup. echo just writes it to
-the dev console in game. I use it for leaving myself notes that I
-can access in-game to refer to server commands and switch alternate
-game servers I have.</p>
-<p>Here is a scenario of why I use this: Friends want to play L4D2
-on a good server in our region without lag or crazy mods? I can
-just launch L4D2 from Steam as normal, create lobby, click "Best
-Available Dedicated", create lobby, they join, we play. Quick and
-Easy.</p>
-<hr>
-<h2>Instant mod load upon game startup.</h2>
-<p>This can especially help if you have lots of skins and various
-mods. As the game will attempt to check every single mod at launch
-for any steam workshop updates. If you don't wait for that load,
-your mods will be skipped and won't be loaded when you join into a
-match.</p>
-<b>To fix this:</b>
-<ol>
-<li>Move all the mod files into the <code>addons</code> folder
-instead of <code>addons/workshop</code> folder
-<ul>
-<li><code>Steam/steamapps/common/Left 4 Dead
-2/left4dead2/addons/</code></li>
-</ul>
-</li>
-<li>Then unsubscribe them from the steam workshop.</li>
-</ol>
-<b>Notes:</b>
-<ul>
-<li>This changes results in a nearly instant load in L4D2.</li>
-<li>The downside is you won't automatically get updates for your
-mods. However it's 2025 most aren't getting updated.</li>
-<li>I would highly recommend manually backing up your mods.</li>
-<li>One option is to note down the links. Either in a text file,
-bookmarks, ect
-<ul>
-<li>(tip: opening all in a web browser, then using OneTab chrome
-extension can make quick work of this)</li>
-</ul>
-</li>
-<li>Additionally you can backup your addon folder.
-<ul>
-<li>(NAS, SMB Samba Share, External Drive, Cloud Storage, ect)</li>
-</ul>
-</li>
-<li>In the example below I kept the Steam Workshop ID in the
-filename instead of keeping links. <picture><img src=
-"/images/l4d2-workshop-backup-example.png" alt=
-"example image showing l4d2 workshop being empty" class=
-"responsive"></picture></li>
-</ul>
-<hr>
-<h3>Linux Specific Fixes (Optional)</h3>
-<p>I manually download fonts and tried to fix the font errors that
-appear in the main menu. I'm not sure why they don't download with
-the game or why they were excluded. Verifying files doesn't fix
-this.</p>
-<p>I just found these online and downloaded them into the
-linux_fonts folder <code>Steam/steamapps/common/Left 4 Dead
-2/left4dead2/resource/linux_fonts</code> DejaVuSans-BoldOblique.ttf
-DejaVuSans.ttf LiberationSans-Regular.ttf DejaVuSans-Bold.ttf
-LiberationMono-Regular.ttf marlett.ttf DejaVuSans-Oblique.ttf
-LiberationSans-Bold.ttf</p>
-<p>I also for some odd reason also had to place a 2nd copy of
-marlett.ttf into the resource folder to get the error to go away.
-<code>Steam/steamapps/common/Left 4 Dead
-2/left4dead2/resource/</code></p>
-<p>There is an issue with the vocalizer menu in-game. It won't
-default to the center, it also feels quite odd. Its like trying to
-shift a manual transmission car rather than an easy radial wheel.
-This is a known issue (Refer to <a href=
-"https://github.com/ValveSoftware/Source-1-Games/issues/558">#558</a>)
-that probably won't be fixed. Running the windows version of the
-game fixes this, but you'll have issues joining public server and
-private servers. I just got used to not depending on it for in-game
-character callouts like weapon here, health kit here, ect. Just use
-chat or your mic.</p>
-<p>Another known issue (Refer to <a href=
-"https://github.com/ValveSoftware/Source-1-Games/issues/1881">#1881</a>
-& <a href=
-"https://github.com/ValveSoftware/Source-1-Games/issues/2000">#2000</a>
-) is that the audio type in L4D2 is set as 5.1 Surround Sound. If
-you have another type such as headphones, you have to set it to
-headphones on every single launch of the game. There is
-unfortunately no known workarounds and no console command that
-works with L4D2. This is stated directly on Valve's Wiki: <a href=
-"https://developer.valvesoftware.com/wiki/Snd_surround_speakers">developer.valvesoftware.com/wiki/Snd_surround_speakers</a><br>
+    <p>
+      This will automatically after launching the game, cap my fps
+      to 144 and set my own dedicated server I setup. echo just
+      writes it to the dev console in game. I use it for leaving
+      myself notes that I can access in-game to refer to server
+      commands and switch alternate game servers I have.
+    </p>
+    <p>
+      Here is a scenario of why I use this: Friends want to play
+      L4D2 on a good server in our region without lag or crazy
+      mods? I can just launch L4D2 from Steam as normal, create
+      lobby, click "Best Available Dedicated", create lobby, they
+      join, we play. Quick and Easy.
+    </p>
+    <hr>
+    <h2>
+      Instant mod load upon game startup.
+    </h2>
+    <p>
+      This can especially help if you have lots of skins and
+      various mods. As the game will attempt to check every single
+      mod at launch for any steam workshop updates. If you don't
+      wait for that load, your mods will be skipped and won't be
+      loaded when you join into a match.
+    </p><b>To fix this:</b>
+    <ol>
+      <li>Move all the mod files into the <code>addons</code>
+      folder instead of <code>addons/workshop</code> folder
+        <ul>
+          <li>
+            <code>Steam/steamapps/common/Left 4 Dead
+            2/left4dead2/addons/</code>
+          </li>
+        </ul>
+      </li>
+      <li>Then unsubscribe them from the steam workshop.
+      </li>
+    </ol><b>Notes:</b>
+    <ul>
+      <li>This changes results in a nearly instant load in L4D2.
+      </li>
+      <li>The downside is you won't automatically get updates for
+      your mods. However it's 2025 most aren't getting updated.
+      </li>
+      <li>I would highly recommend manually backing up your mods.
+      </li>
+      <li>One option is to note down the links. Either in a text
+      file, bookmarks, ect
+        <ul>
+          <li>(tip: opening all in a web browser, then using OneTab
+          chrome extension can make quick work of this)
+          </li>
+        </ul>
+      </li>
+      <li>Additionally you can backup your addon folder.
+        <ul>
+          <li>(NAS, SMB Samba Share, External Drive, Cloud Storage,
+          ect)
+          </li>
+        </ul>
+      </li>
+      <li>In the example below I kept the Steam Workshop ID in the
+      filename instead of keeping links. <picture><img src=
+      "/images/l4d2-workshop-backup-example.png" alt=
+      "example image showing l4d2 workshop being empty" class=
+      "responsive"></picture>
+      </li>
+    </ul>
+    <hr>
+    <h3>
+      Linux Specific Fixes (Optional)
+    </h3>
+    <p>
+      I manually download fonts and tried to fix the font errors
+      that appear in the main menu. I'm not sure why they don't
+      download with the game or why they were excluded. Verifying
+      files doesn't fix this.
+    </p>
+    <p>
+      I just found these online and downloaded them into the
+      linux_fonts folder <code>Steam/steamapps/common/Left 4 Dead
+      2/left4dead2/resource/linux_fonts</code>
+      DejaVuSans-BoldOblique.ttf DejaVuSans.ttf
+      LiberationSans-Regular.ttf DejaVuSans-Bold.ttf
+      LiberationMono-Regular.ttf marlett.ttf DejaVuSans-Oblique.ttf
+      LiberationSans-Bold.ttf
+    </p>
+    <p>
+      I also for some odd reason also had to place a 2nd copy of
+      marlett.ttf into the resource folder to get the error to go
+      away. <code>Steam/steamapps/common/Left 4 Dead
+      2/left4dead2/resource/</code>
+    </p>
+    <p>
+      There is an issue with the vocalizer menu in-game. It won't
+      default to the center, it also feels quite odd. Its like
+      trying to shift a manual transmission car rather than an easy
+      radial wheel. This is a known issue (Refer to <a href=
+      "https://github.com/ValveSoftware/Source-1-Games/issues/558">#558</a>)
+      that probably won't be fixed. Running the windows version of
+      the game fixes this, but you'll have issues joining public
+      server and private servers. I just got used to not depending
+      on it for in-game character callouts like weapon here, health
+      kit here, ect. Just use chat or your mic.
+    </p>
+    <p>
+      Another known issue (Refer to <a href=
+      "https://github.com/ValveSoftware/Source-1-Games/issues/1881">
+      #1881</a> & <a href=
+      "https://github.com/ValveSoftware/Source-1-Games/issues/2000">
+      #2000</a> ) is that the audio type in L4D2 is set as 5.1
+      Surround Sound. If you have another type such as headphones,
+      you have to set it to headphones on every single launch of
+      the game. There is unfortunately no known workarounds and no
+      console command that works with L4D2. This is stated directly
+      on Valve's Wiki: <a href=
+      "https://developer.valvesoftware.com/wiki/Snd_surround_speakers">
+      developer.valvesoftware.com/wiki/Snd_surround_speakers</a><br>
 
-"Note: This command is not available in Left 4 Dead 2."</p>
-<script>
-hljs.highlightAll();
-</script>
-</body>
+      "Note: This command is not available in Left 4 Dead 2."
+    </p>
+    <script>
+    hljs.highlightAll();
+    </script>
+  </body>
 </html>

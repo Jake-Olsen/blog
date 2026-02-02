@@ -1,76 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta name="generator" content=
-"HTML Tidy for HTML5 for Linux version 5.8.0">
-<meta charset="UTF-8">
-<meta name="viewport" content=
-"width=device-width, initial-scale=1.0">
-<title>Jake's Blog - Satisfactory API</title>
-<link rel="stylesheet" href=
-"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
+  <head>
+    <meta name="generator" content=
+    "HTML Tidy for HTML5 for Linux version 5.8.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content=
+    "width=device-width, initial-scale=1.0">
+    <title>
+      Jake's Blog - Satisfactory API
+    </title>
+    <link rel="stylesheet" href=
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
 
-<script src=
-"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/css/main.css">
-</head>
-<body>
-<div id="header"></div>
-<script>
+    <script src=
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+  </head>
+  <body>
+    <div id="header"></div>
+    <script>
             fetch('/header.html')
             .then(res => res.text())
             .then(html => {
                 document.getElementById('header').innerHTML = html;
             });
-</script>
-
-<h1>Trying the Satisfactory Game Server API</h1>
-
-I've gotten familar with APIs at work and thought I'd try out the Satisfactory Game API that is available for self-hosted dedicated servers. The port needs to be open afaik to allow the game tto work as well. Otherwise if not I might just lock it down more on the router's firewall if that ends up not being the case.
-
-On the wiki https://satisfactory.wiki.gg/wiki/Dedicated_servers . There is great simple instructions to setup the server.
-
-There is also resources on this page that refer to the API documentation:
-https://satisfactory.wiki.gg/wiki/Dedicated_servers/HTTPS_API
-https://github.com/satisfactory-oas/spec
-
-I was API was easier to use than I expected. I was able to create a client password and update the admin password for the server. It uses a bearer token for authentication. 
-
-I encountered a strange issue with the downloaded template. Specifically the minimumPrivilegeLevel needs to be NotAuthenticated otherwise it will have issues.
-
-<br>Failed example from the OpenAPI specification download:
-<picture>
-    <img src="/images/Satisfactory1.2-API-WrongExample-PasswordLogin.png"
-         alt="failed api example"
-         class="responsive">
-</picture>
-
-
-<br>Thankfully the documentation site itself is correct:
-<br><pre><code class="language-json">{
-  &quot;function&quot;: &quot;PasswordLogin&quot;,
-  &quot;data&quot;: {
-    &quot;minimumPrivilegeLevel&quot;: &quot;NotAuthenticated&quot;,
-    &quot;password&quot;: &quot;super-secret-password&quot;
+    </script>
+    <h1>
+      Trying the Satisfactory Game Server API
+    </h1>I've gotten familar with APIs at work and thought I'd try
+    out the Satisfactory Game API that is available for self-hosted
+    dedicated servers. The port needs to be open afaik to allow the
+    game tto work as well. Otherwise if not I might just lock it
+    down more on the router's firewall if that ends up not being
+    the case. On the wiki
+    https://satisfactory.wiki.gg/wiki/Dedicated_servers . There is
+    great simple instructions to setup the server. There is also
+    resources on this page that refer to the API documentation:
+    https://satisfactory.wiki.gg/wiki/Dedicated_servers/HTTPS_API
+    https://github.com/satisfactory-oas/spec I was API was easier
+    to use than I expected. I was able to create a client password
+    and update the admin password for the server. It uses a bearer
+    token for authentication. I encountered a strange issue with
+    the downloaded template. Specifically the minimumPrivilegeLevel
+    needs to be NotAuthenticated otherwise it will have issues.<br>
+    Failed example from the OpenAPI specification download:
+    <picture><img src=
+    "/images/Satisfactory1.2-API-WrongExample-PasswordLogin.png"
+    alt="failed api example" class="responsive"></picture><br>
+    Thankfully the documentation site itself is correct:<br>
+    <pre><code class="language-json">{
+  "function": "PasswordLogin",
+  "data": {
+    "minimumPrivilegeLevel": "NotAuthenticated",
+    "password": "super-secret-password"
   }
 }
-</code></pre>
+</code></pre>Successful Example: <picture><img src=
+"/images/Satisfactory1.2-API-CorrectExample-PasswordLogin-NotAuthenticated.png"
+    alt="successful satisfactory api example" class=
+    "responsive"></picture><br>
+    Strange that 3 different examples exist but 1 of them is for
+    sure wrong.<br>
+    Documentation: "minimumPrivilegeLevel": "NotAuthenticated"<br>
+    Hoppscotch: "minimumPrivilegeLevel": "Administator"<br>
+    Postman: "minimumPrivilegeLevel": "InitialAdmin" 
+    <script>
 
-Successful Example:
-<picture>
-    <img src="/images/Satisfactory1.2-API-CorrectExample-PasswordLogin-NotAuthenticated.png"
-         alt="successful satisfactory api example"
-         class="responsive">
-</picture>
-
-
-<br>Strange that 3 different examples exist but 1 of them is for sure wrong.
-<br>Documentation: "minimumPrivilegeLevel": "NotAuthenticated"
-<br>Hoppscotch: "minimumPrivilegeLevel": "Administator"
-<br>Postman: "minimumPrivilegeLevel": "InitialAdmin"
-
-<script>
-hljs.highlightAll();
-</script>
-</body>
+    hljs.highlightAll();
+    </script>
+  </body>
 </html>

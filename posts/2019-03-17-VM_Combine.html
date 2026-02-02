@@ -1,64 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta name="generator" content=
-"HTML Tidy for HTML5 for Linux version 5.8.0">
-<meta charset="UTF-8">
-<meta name="viewport" content=
-"width=device-width, initial-scale=1.0">
-<title>Jake's Blog - Combine VM Systems</title>
-<link rel="stylesheet" href=
-"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
+  <head>
+    <meta name="generator" content=
+    "HTML Tidy for HTML5 for Linux version 5.8.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content=
+    "width=device-width, initial-scale=1.0">
+    <title>
+      Jake's Blog - Combine VM Systems
+    </title>
+    <link rel="stylesheet" href=
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
 
-<script src=
-"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/css/main.css">
-</head>
-<body>
-<div id="header"></div>
-<script>
+    <script src=
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+  </head>
+  <body>
+    <div id="header"></div>
+    <script>
             fetch('/header.html')
             .then(res => res.text())
             .then(html => {
                 document.getElementById('header').innerHTML = html;
             });
-</script>
-<p>I decided to combine my VMs (Virtual Machines) into a single VM
-because having 3 servers running all the time eats up a bit of my
-RAM and processing on my Gaming PC.</p>
-<p>The 3 that are running 24x7 are:<br>
-1) A VM running Debian 9 that has SSH open to the internet but is
-restricted with a Public Key.<br>
-2) The OpenVPN Server running Debian 9<br>
-3) The Shadowsock Proxy Server running Ubuntu 16.04.2</p>
-<p>I should be able to combine all 3 into a single server, which
-should help because then I’ll only be running 1 OS instead of 3, so
-the backgrounds tasks won’t be duplicated. We’ll see if I can
-squeeze some time into getting them setup before the weekend is
-over.</p>
-<p>The first way I had initially setup OpenVPN stemmed from this
-[Hak5 video on YouTube]. It is great for manually setting it up
-because it helps you understand how it works and how to
-troubleshoot it.</p>
-<p>I wanted to try to automate the setup to save time. I was
-messing around learning how bash worked and got most of it working,
-but there were some parts that were not reliably repeatable for
-some reason. I set it aside a while ago to work on my CCNA. I did
-however want to try out a script that I found on GitHub to help
-speed up remaking my OpenVPN Server. Looking through it
-github.com/angristan/openvpn-install I didn’t see anything
-malicious or any other servers it would point to, so it appears to
-be safe. <del>It worked just fine on my Ubuntu 16.04.2
-VM.</del></p>
-<p>I was able to finish the setup this weekend. Not too complicated
-since I already setup a Shadowsocks server, the OpenVPN Script
-worked, and SSH Public Private key setup is really simple too.</p>
-<p><a href="https://youtu.be/XcsQdtsCS1U">Hak5 video on
-YouTube</a></p>
-<p><a href=
-"https://github.com/angristan/openvpn-install">github.com/angristan/openvpn-install</a></p>
-<script>
-hljs.highlightAll();
-</script>
-</body>
+    </script>
+    <p>
+      I decided to combine my VMs (Virtual Machines) into a single
+      VM because having 3 servers running all the time eats up a
+      bit of my RAM and processing on my Gaming PC.
+    </p>
+    <p>
+      The 3 that are running 24x7 are:<br>
+      1) A VM running Debian 9 that has SSH open to the internet
+      but is restricted with a Public Key.<br>
+      2) The OpenVPN Server running Debian 9<br>
+      3) The Shadowsock Proxy Server running Ubuntu 16.04.2
+    </p>
+    <p>
+      I should be able to combine all 3 into a single server, which
+      should help because then I’ll only be running 1 OS instead of
+      3, so the backgrounds tasks won’t be duplicated. We’ll see if
+      I can squeeze some time into getting them setup before the
+      weekend is over.
+    </p>
+    <p>
+      The first way I had initially setup OpenVPN stemmed from this
+      [Hak5 video on YouTube]. It is great for manually setting it
+      up because it helps you understand how it works and how to
+      troubleshoot it.
+    </p>
+    <p>
+      I wanted to try to automate the setup to save time. I was
+      messing around learning how bash worked and got most of it
+      working, but there were some parts that were not reliably
+      repeatable for some reason. I set it aside a while ago to
+      work on my CCNA. I did however want to try out a script that
+      I found on GitHub to help speed up remaking my OpenVPN
+      Server. Looking through it
+      github.com/angristan/openvpn-install I didn’t see anything
+      malicious or any other servers it would point to, so it
+      appears to be safe. <del>It worked just fine on my Ubuntu
+      16.04.2 VM.</del>
+    </p>
+    <p>
+      I was able to finish the setup this weekend. Not too
+      complicated since I already setup a Shadowsocks server, the
+      OpenVPN Script worked, and SSH Public Private key setup is
+      really simple too.
+    </p>
+    <p>
+      <a href="https://youtu.be/XcsQdtsCS1U">Hak5 video on
+      YouTube</a>
+    </p>
+    <p>
+      <a href=
+      "https://github.com/angristan/openvpn-install">github.com/angristan/openvpn-install</a>
+    </p>
+    <script>
+    hljs.highlightAll();
+    </script>
+  </body>
 </html>

@@ -1,74 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta name="generator" content=
-"HTML Tidy for HTML5 for Linux version 5.8.0">
-<meta charset="UTF-8">
-<meta name="viewport" content=
-"width=device-width, initial-scale=1.0">
-<title>Jake's Blog - 2020 Hardware Upgrades</title>
-<link rel="stylesheet" href=
-"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
+  <head>
+    <meta name="generator" content=
+    "HTML Tidy for HTML5 for Linux version 5.8.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content=
+    "width=device-width, initial-scale=1.0">
+    <title>
+      Jake's Blog - 2020 Hardware Upgrades
+    </title>
+    <link rel="stylesheet" href=
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
 
-<script src=
-"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/css/main.css">
-</head>
-<body>
-<div id="header"></div>
-<script>
+    <script src=
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+  </head>
+  <body>
+    <div id="header"></div>
+    <script>
             fetch('/header.html')
             .then(res => res.text())
             .then(html => {
                 document.getElementById('header').innerHTML = html;
             });
-</script>
-<p>Computer Upgrade setup around end of June: - AMD Ryzen 3700X -
-32GB DDR4 3600Mhz - 2TB NVME SSD - Asus Crosshair VII X470</p>
-<p>The Gaming Computer that was built in 2013: - Intel 4790S - 16GB
-DDR3 1866Mhz - 1TB M.2 SATA SSD</p>
-<p>The old pc became the new XCP-NG Server threw in 8GB from the
-old AMD FX server for a total of 24 GB DDR3 1866Mhz RAM. New server
-built from scratch around July. Donated the old AMD FX CPU, Board,
-and Cooler to a friend who could use it so it doesn’t just clutter
-up my apartment.</p>
-<hr>
-<p>Now that I’m not stuck on an older version of Windows 10. I can
-use some new features and the New Hyper-V Backend that Virtual Box
-Supports. Now you can use Hyper-V and Virtual box on the same
-machine depending on what you need.</p>
-<p><b>Update: I no longer use WSL or WSL2 as using Native Linux
-inside a VM has less issues and less limitations.</b></p>
-<p>I also got WSL2 (Windows Subsystem for Linux 2) working as well
-on my laptop and desktop. It uses HyperV on the backend. It is much
-more useful than WSL 1 as you can use tools such as Nmap inside.
-WSL in general is usefully since you can use Linux tools on your
-local Windows files without having to transfer them to another
-machine. I also got the basic version of Windows Terminal working
-too so I can have multiple tabs of Powershell and Debian.</p>
-<p><picture><img src="/images/CSUW-1.webp" alt=
-"Windows Terminal Picture" class="responsive"></picture></p>
-<p>Windows terminal is so much better than putty for managing
-connection. In my opinion it also looks much easier on the eyes. I
-customized it a bit so the Windows terminal opens Linux by default
-and has a background.</p>
-<p><picture><img src="/images/CSUW-2.webp" alt=
-"Windows Terminal Picture 2" class="responsive"></picture></p>
-<p>Update: Windows Terminal now has an easier built in settings,
-where before it was strictly a .json file you had to edit.</p>
-<hr>
-<p>Now that I had the spare parts to make a server. I setup XCP-NG
-based on Xen virtualization. I also setup Xen Orchestra (XOA) which
-is used to manage the VMs and Servers. Unfortunately I couldn’t do
-much else with the server as it was maxed out on RAM just from XOA
-and a Terraria Game Server. I also had XOA built from sources so I
-could use all the features in my learning lab for free.</p>
-Links:<br>
-<a href="https://xcp-ng.org/">XCP-NG (Xen Cloud Platform - Next
-Generation)</a><br>
-<a href="https://xen-orchestra.com/">XOA (Xen Orchestra)</a> 
-<script>
-hljs.highlightAll();
-</script>
-</body>
+    </script>
+    <p>
+      Computer Upgrade setup around end of June: - AMD Ryzen 3700X
+      - 32GB DDR4 3600Mhz - 2TB NVME SSD - Asus Crosshair VII X470
+    </p>
+    <p>
+      The Gaming Computer that was built in 2013: - Intel 4790S -
+      16GB DDR3 1866Mhz - 1TB M.2 SATA SSD
+    </p>
+    <p>
+      The old pc became the new XCP-NG Server threw in 8GB from the
+      old AMD FX server for a total of 24 GB DDR3 1866Mhz RAM. New
+      server built from scratch around July. Donated the old AMD FX
+      CPU, Board, and Cooler to a friend who could use it so it
+      doesn’t just clutter up my apartment.
+    </p>
+    <hr>
+    <p>
+      Now that I’m not stuck on an older version of Windows 10. I
+      can use some new features and the New Hyper-V Backend that
+      Virtual Box Supports. Now you can use Hyper-V and Virtual box
+      on the same machine depending on what you need.
+    </p>
+    <p>
+      <b>Update: I no longer use WSL or WSL2 as using Native Linux
+      inside a VM has less issues and less limitations.</b>
+    </p>
+    <p>
+      I also got WSL2 (Windows Subsystem for Linux 2) working as
+      well on my laptop and desktop. It uses HyperV on the backend.
+      It is much more useful than WSL 1 as you can use tools such
+      as Nmap inside. WSL in general is usefully since you can use
+      Linux tools on your local Windows files without having to
+      transfer them to another machine. I also got the basic
+      version of Windows Terminal working too so I can have
+      multiple tabs of Powershell and Debian.
+    </p>
+    <p>
+      <picture><img src="/images/CSUW-1.webp" alt=
+      "Windows Terminal Picture" class="responsive"></picture>
+    </p>
+    <p>
+      Windows terminal is so much better than putty for managing
+      connection. In my opinion it also looks much easier on the
+      eyes. I customized it a bit so the Windows terminal opens
+      Linux by default and has a background.
+    </p>
+    <p>
+      <picture><img src="/images/CSUW-2.webp" alt=
+      "Windows Terminal Picture 2" class="responsive"></picture>
+    </p>
+    <p>
+      Update: Windows Terminal now has an easier built in settings,
+      where before it was strictly a .json file you had to edit.
+    </p>
+    <hr>
+    <p>
+      Now that I had the spare parts to make a server. I setup
+      XCP-NG based on Xen virtualization. I also setup Xen
+      Orchestra (XOA) which is used to manage the VMs and Servers.
+      Unfortunately I couldn’t do much else with the server as it
+      was maxed out on RAM just from XOA and a Terraria Game
+      Server. I also had XOA built from sources so I could use all
+      the features in my learning lab for free.
+    </p>Links:<br>
+    <a href="https://xcp-ng.org/">XCP-NG (Xen Cloud Platform - Next
+    Generation)</a><br>
+    <a href="https://xen-orchestra.com/">XOA (Xen Orchestra)</a> 
+    <script>
+
+    hljs.highlightAll();
+    </script>
+  </body>
 </html>

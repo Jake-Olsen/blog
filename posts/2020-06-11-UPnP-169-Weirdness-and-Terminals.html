@@ -1,102 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta name="generator" content=
-"HTML Tidy for HTML5 for Linux version 5.8.0">
-<meta charset="UTF-8">
-<meta name="viewport" content=
-"width=device-width, initial-scale=1.0">
-<title>Jake's Blog - uPnP Odd Behavior</title>
-<link rel="stylesheet" href=
-"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
+  <head>
+    <meta name="generator" content=
+    "HTML Tidy for HTML5 for Linux version 5.8.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content=
+    "width=device-width, initial-scale=1.0">
+    <title>
+      Jake's Blog - uPnP Odd Behavior
+    </title>
+    <link rel="stylesheet" href=
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
 
-<script src=
-"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/css/main.css">
-</head>
-<body>
-<div id="header"></div>
-<script>
+    <script src=
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+  </head>
+  <body>
+    <div id="header"></div>
+    <script>
             fetch('/header.html')
             .then(res => res.text())
             .then(html => {
                 document.getElementById('header').innerHTML = html;
             });
-</script> 2026 update: These are my current preferred terminal
-emulators. Most of them play nice with remote session management of
-tmux. Except for MacOS Default sometimes gets weird with tmux, but
-works fine for most of my current Job Role duties.
-<ul>
-<li>Linux = Alacritty</li>
-<li>MacOS = Default Terminal and Alacritty</li>
-<li>Windows = Windows Terminal UWP App</li>
-</ul>
-<hr>
-<p>I don’t recommend setting up npcap or wireshark on a gaming pc.
-I figured out something weird. Apparently the reason why my games
-haven’t been working that well on the new router is because. The
-Games have been trying to use upnp to open a port to the npcap
-loopback adapter that I have for Wireshark/Nmap. Secure mode
-prevents a device from setting up ports for another device on the
-network. so I disabled secure mode and for some reason some games
-on my desktop 192.x.x.73 was trying to setup a port for 169.254.x.x
-and being blocked. Yes I know UPnP isn’t secure in a workplace
-environment but this is my home gaming environment so it’s fine.
-I’ll accept that minor risk for the convenience of having my games
-work.</p>
-<p>2026 Update: uPnP has a secure mode where it won't allow ports
-to be opened on behalf of another device. Though in an enterprise
-network. It is still not recommended to let whatever computer
-request ports to be opened on the firewall. You can though in some
-firewalls like pfsense only allow certain devices, range, or
-networks, but block everything else from using uPnP by default.</p>
-<picture><img src="/images/upnpWT-1.webp" alt=
-"UPnP Weirdness Screenshot" class="responsive"></picture>
-<p>Removing the npcap and wireshark drivers have fixed that
-problem. I’ll probably just monitor network traffic with another
-computer like my laptop when I need to.</p>
-<p>Another interesting issue with CloudFlare’s DNS Malware Blocking
-(1.1.1.2) is that it blocks putty downloads? If you query 1.1.1.2
-with dig using WSL 2 dns utils it doesn’t block it and caches it so
-you can still get to it?</p>
-<hr>
-<p>KiTTY doesn’t allow you to use tmux commands. Because it uses
-the Ctrl+B and arrow keys to adjusts brightness? I guess the first
-try was enough for me to not use it again. KiTTY does support port
-knocking. However I think I’ll try out port knocking on a server
-eventually. I just don’t have a need for it since everything is
-internal at the moment I don’t have anything open on the firewall
-besides the Game servers. Port knocking seems like a really secure
-and interesting concept. Though a VPN would still probably be
-better. Maybe a combination of a VPN & Port Knocking once you get
-inside. Perhaps Port Knocking to connect to the VPN might be
-possible?</p>
-<p>Found out that a Terminal can make remote systems look
-better.<br>
-For example this is a comparison of the XCP-NG console:</p>
-<p>PuTTY Terminal <picture><img src="/images/upnpWT-2.webp" alt=
-"PuTTY Terminal Screenshot" class="responsive"></picture></p>
-<p>WSL Linux Terminal <picture><img src="/images/upnpWT-3.webp"
-alt="Linux Terminal Screenshot" class="responsive"></picture></p>
-<p>Windows Powershell Terminal <picture><img src=
-"/images/upnpWT-4.webp" alt="Powershell Terminal Screenshot" class=
-"responsive"></picture></p>
-<p>I’ll probably drop PuTTY soon. I just wanted to use WinSSHTerm
-during my setup while I’m still sick to make it easier. As it can
-tie in your passwords, SSH keys, IPs, WinSCP for moving files and
-more. I also got used to it while I was doing my cisco labs last
-year.</p>
-<picture><img src="/images/upnpWT-5.webp" alt=
-"WinSSHTerm Screenshot" class="responsive"></picture>
-<p>GitHub has a cool automatic security alert system. So I’ve been
-applying those patches to the website when I get the email alerts
-from them. The first time I manually fixed the code myself, however
-a colleague explained a bit better how git worked so now I’m just
-applying the recommended patches that the system auto writes. Most
-of them have just been version increases as part of the Jekyll/Ruby
-Gems and they haven’t broken any part of the site/template yet.</p>
-<script>
-hljs.highlightAll();
-</script>
-</body>
+    </script> 2026 update: These are my current preferred terminal
+    emulators. Most of them play nice with remote session
+    management of tmux. Except for MacOS Default sometimes gets
+    weird with tmux, but works fine for most of my current Job Role
+    duties.
+    <ul>
+      <li>Linux = Alacritty
+      </li>
+      <li>MacOS = Default Terminal and Alacritty
+      </li>
+      <li>Windows = Windows Terminal UWP App
+      </li>
+    </ul>
+    <hr>
+    <p>
+      I don’t recommend setting up npcap or wireshark on a gaming
+      pc. I figured out something weird. Apparently the reason why
+      my games haven’t been working that well on the new router is
+      because. The Games have been trying to use upnp to open a
+      port to the npcap loopback adapter that I have for
+      Wireshark/Nmap. Secure mode prevents a device from setting up
+      ports for another device on the network. so I disabled secure
+      mode and for some reason some games on my desktop 192.x.x.73
+      was trying to setup a port for 169.254.x.x and being blocked.
+      Yes I know UPnP isn’t secure in a workplace environment but
+      this is my home gaming environment so it’s fine. I’ll accept
+      that minor risk for the convenience of having my games work.
+    </p>
+    <p>
+      2026 Update: uPnP has a secure mode where it won't allow
+      ports to be opened on behalf of another device. Though in an
+      enterprise network. It is still not recommended to let
+      whatever computer request ports to be opened on the firewall.
+      You can though in some firewalls like pfsense only allow
+      certain devices, range, or networks, but block everything
+      else from using uPnP by default.
+    </p><picture><img src="/images/upnpWT-1.webp" alt=
+    "UPnP Weirdness Screenshot" class="responsive"></picture>
+    <p>
+      Removing the npcap and wireshark drivers have fixed that
+      problem. I’ll probably just monitor network traffic with
+      another computer like my laptop when I need to.
+    </p>
+    <p>
+      Another interesting issue with CloudFlare’s DNS Malware
+      Blocking (1.1.1.2) is that it blocks putty downloads? If you
+      query 1.1.1.2 with dig using WSL 2 dns utils it doesn’t block
+      it and caches it so you can still get to it?
+    </p>
+    <hr>
+    <p>
+      KiTTY doesn’t allow you to use tmux commands. Because it uses
+      the Ctrl+B and arrow keys to adjusts brightness? I guess the
+      first try was enough for me to not use it again. KiTTY does
+      support port knocking. However I think I’ll try out port
+      knocking on a server eventually. I just don’t have a need for
+      it since everything is internal at the moment I don’t have
+      anything open on the firewall besides the Game servers. Port
+      knocking seems like a really secure and interesting concept.
+      Though a VPN would still probably be better. Maybe a
+      combination of a VPN & Port Knocking once you get inside.
+      Perhaps Port Knocking to connect to the VPN might be
+      possible?
+    </p>
+    <p>
+      Found out that a Terminal can make remote systems look
+      better.<br>
+      For example this is a comparison of the XCP-NG console:
+    </p>
+    <p>
+      PuTTY Terminal <picture><img src="/images/upnpWT-2.webp" alt=
+      "PuTTY Terminal Screenshot" class="responsive"></picture>
+    </p>
+    <p>
+      WSL Linux Terminal <picture><img src="/images/upnpWT-3.webp"
+      alt="Linux Terminal Screenshot" class="responsive"></picture>
+    </p>
+    <p>
+      Windows Powershell Terminal <picture><img src=
+      "/images/upnpWT-4.webp" alt="Powershell Terminal Screenshot"
+      class="responsive"></picture>
+    </p>
+    <p>
+      I’ll probably drop PuTTY soon. I just wanted to use
+      WinSSHTerm during my setup while I’m still sick to make it
+      easier. As it can tie in your passwords, SSH keys, IPs,
+      WinSCP for moving files and more. I also got used to it while
+      I was doing my cisco labs last year.
+    </p><picture><img src="/images/upnpWT-5.webp" alt=
+    "WinSSHTerm Screenshot" class="responsive"></picture>
+    <p>
+      GitHub has a cool automatic security alert system. So I’ve
+      been applying those patches to the website when I get the
+      email alerts from them. The first time I manually fixed the
+      code myself, however a colleague explained a bit better how
+      git worked so now I’m just applying the recommended patches
+      that the system auto writes. Most of them have just been
+      version increases as part of the Jekyll/Ruby Gems and they
+      haven’t broken any part of the site/template yet.
+    </p>
+    <script>
+    hljs.highlightAll();
+    </script>
+  </body>
 </html>

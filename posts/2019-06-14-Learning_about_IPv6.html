@@ -1,56 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta name="generator" content=
-"HTML Tidy for HTML5 for Linux version 5.8.0">
-<meta charset="UTF-8">
-<meta name="viewport" content=
-"width=device-width, initial-scale=1.0">
-<title>Jake's Blog - Learning IPv6</title>
-<link rel="stylesheet" href=
-"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
+  <head>
+    <meta name="generator" content=
+    "HTML Tidy for HTML5 for Linux version 5.8.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content=
+    "width=device-width, initial-scale=1.0">
+    <title>
+      Jake's Blog - Learning IPv6
+    </title>
+    <link rel="stylesheet" href=
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
 
-<script src=
-"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/css/main.css">
-</head>
-<body>
-<div id="header"></div>
-<script>
+    <script src=
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+  </head>
+  <body>
+    <div id="header"></div>
+    <script>
             fetch('/header.html')
             .then(res => res.text())
             .then(html => {
                 document.getElementById('header').innerHTML = html;
             });
-</script>
-<p>I see the end of the CCENT(ICND1) course so I must be close.
-Trying to get a good understanding of IPv6 since I think it would
-be good to use in the future.</p>
-<p>IPv6 SLAAC (State Less Auto Address Configuration) is cool
-because you don’t have to setup a DHCP Server or setup static IPs
-to have basic device connectivity. However, DHCPv6 Servers are
-still needed for other resources.</p>
-<p>An example where I have used it is if you are setting up a quick
-virtual machine to test something out. You can connect to it with
-IPv6 instead of having to manually configure IPs or spend time
-setting up a DHCP server for something that is just a quick test on
-a laptop.</p>
-<p>Another example that I can see being extremely useful would be
-to use a globally unique ipv6 address on a router’s interface. That
-way when you are switching ISP (Internet Service Providers)
-remotely on your box. You won’t lose access if the ISP lets IPv6
-passthrough. It seems extremely useful if you are setting up
-redundant routers as well since you wouldn’t need to pay for a
-minimum of 3 public IPs for every setup.</p>
-<p>2026 update: IPv6 potentially has faster internet routes since
-it allows it to take ipv6 only routes. However I can’t get it setup
-as preferred on my home network since AT&amp;T Fiber only gives /64
-and a /64 is required at layer 2, so to my knowledge it cannot be
-subnetted between the vlans. From my brief investigation it appears
-that Unifi doesn’t have a mechanism to request multiple /64s from
-AT&amp;T’s residential gateway which also has no bridge mode.</p>
-<script>
-hljs.highlightAll();
-</script>
-</body>
+    </script>
+    <p>
+      I see the end of the CCENT(ICND1) course so I must be close.
+      Trying to get a good understanding of IPv6 since I think it
+      would be good to use in the future.
+    </p>
+    <p>
+      IPv6 SLAAC (State Less Auto Address Configuration) is cool
+      because you don’t have to setup a DHCP Server or setup static
+      IPs to have basic device connectivity. However, DHCPv6
+      Servers are still needed for other resources.
+    </p>
+    <p>
+      An example where I have used it is if you are setting up a
+      quick virtual machine to test something out. You can connect
+      to it with IPv6 instead of having to manually configure IPs
+      or spend time setting up a DHCP server for something that is
+      just a quick test on a laptop.
+    </p>
+    <p>
+      Another example that I can see being extremely useful would
+      be to use a globally unique ipv6 address on a router’s
+      interface. That way when you are switching ISP (Internet
+      Service Providers) remotely on your box. You won’t lose
+      access if the ISP lets IPv6 passthrough. It seems extremely
+      useful if you are setting up redundant routers as well since
+      you wouldn’t need to pay for a minimum of 3 public IPs for
+      every setup.
+    </p>
+    <p>
+      2026 update: IPv6 potentially has faster internet routes
+      since it allows it to take ipv6 only routes. However I can’t
+      get it setup as preferred on my home network since AT&amp;T
+      Fiber only gives /64 and a /64 is required at layer 2, so to
+      my knowledge it cannot be subnetted between the vlans. From
+      my brief investigation it appears that Unifi doesn’t have a
+      mechanism to request multiple /64s from AT&amp;T’s
+      residential gateway which also has no bridge mode.
+    </p>
+    <script>
+    hljs.highlightAll();
+    </script>
+  </body>
 </html>

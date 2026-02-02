@@ -1,34 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta name="generator" content=
-"HTML Tidy for HTML5 for Linux version 5.8.0">
-<meta charset="UTF-8">
-<meta name="viewport" content=
-"width=device-width, initial-scale=1.0">
-<title>Jake's Blog - Site Index</title>
-<link rel="stylesheet" href=
-"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
+  <head>
+    <meta name="generator" content=
+    "HTML Tidy for HTML5 for Linux version 5.8.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content=
+    "width=device-width, initial-scale=1.0">
+    <title>
+      Jake's Blog - Site Index
+    </title>
+    <link rel="stylesheet" href=
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
 
-<script src=
-"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/css/main.css">
-</head>
-<body>
-<div id="header"></div>
-<script>
+    <script src=
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+  </head>
+  <body>
+    <div id="header"></div>
+    <script>
             fetch('/header.html')
             .then(res => res.text())
             .then(html => {
                 document.getElementById('header').innerHTML = html;
             });
-</script>
-<p>Diagram of my current home lab. Download the .png if you want to
-view it in more detail in diagrams.net (drawio) as well as test out
-the fold/unfold container diagram functionality. The diagram file
-is embedded in the picture. <picture><img src=
-"/images/HomeNetworkLabJan2022.drawio.png" alt=
-"Home Network Lab Jan 2022 draw.io Diagram" class=
-"responsive"></picture></p>
-</body>
+    </script>
+    <p>
+      Diagram of my current home lab. Download the .png if you want
+      to view it in more detail in diagrams.net (drawio) as well as
+      test out the fold/unfold container diagram functionality. The
+      diagram file is embedded in the picture. <picture><img src=
+      "/images/HomeNetworkLabJan2022.drawio.png" alt=
+      "Home Network Lab Jan 2022 draw.io Diagram" class=
+      "responsive"></picture>
+    </p>
+  </body>
 </html>

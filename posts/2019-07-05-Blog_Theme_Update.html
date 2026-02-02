@@ -1,47 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta name="generator" content=
-"HTML Tidy for HTML5 for Linux version 5.8.0">
-<meta charset="UTF-8">
-<meta name="viewport" content=
-"width=device-width, initial-scale=1.0">
-<title>Jake's Blog - New Theme</title>
-<link rel="stylesheet" href=
-"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
+  <head>
+    <meta name="generator" content=
+    "HTML Tidy for HTML5 for Linux version 5.8.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content=
+    "width=device-width, initial-scale=1.0">
+    <title>
+      Jake's Blog - New Theme
+    </title>
+    <link rel="stylesheet" href=
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
 
-<script src=
-"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/css/main.css">
-</head>
-<body>
-<div id="header"></div>
-<script>
+    <script src=
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+  </head>
+  <body>
+    <div id="header"></div>
+    <script>
             fetch('/header.html')
             .then(res => res.text())
             .then(html => {
                 document.getElementById('header').innerHTML = html;
             });
-</script>
-<p>Though I haven’t made any changes live yet. I did get a theme
-working. I just had to follow the guide on the Github page for the
-theme.<br>
-<a href="https://github.com/tocttou/hacker-blog">Jekyll Hacker Blog
-Theme</a></p>
-<p>Then work through the errors to get Jekyll to work again. I just
-copied my posts over to the test site which came up with no issues.
-I also altered the about page, and 404 page to my liking. I’m sure
-I’ll improve them in the future :)</p>
-<p>After I got the extra links at the top altered along with the
-site’s color theme. I made it live on the internet via <a href=
-"https://pages.github.com/">GitHub Pages</a>.</p>
-<p>Near the end of 2025 Update: I’ve decided to simplify the setup
-and just have basic html, css, & javascript. This will be easier to
-upkeep and not need to deal with a security & deprecations based on
-tons of dependencies. It’s unnecessary for just a simple blog. See
-the 2026 post for more info</p>
-<script>
-hljs.highlightAll();
-</script>
-</body>
+    </script>
+    <p>
+      Though I haven’t made any changes live yet. I did get a theme
+      working. I just had to follow the guide on the Github page
+      for the theme.<br>
+      <a href="https://github.com/tocttou/hacker-blog">Jekyll
+      Hacker Blog Theme</a>
+    </p>
+    <p>
+      Then work through the errors to get Jekyll to work again. I
+      just copied my posts over to the test site which came up with
+      no issues. I also altered the about page, and 404 page to my
+      liking. I’m sure I’ll improve them in the future :)
+    </p>
+    <p>
+      After I got the extra links at the top altered along with the
+      site’s color theme. I made it live on the internet via
+      <a href="https://pages.github.com/">GitHub Pages</a>.
+    </p>
+    <p>
+      Near the end of 2025 Update: I’ve decided to simplify the
+      setup and just have basic html, css, & javascript. This will
+      be easier to upkeep and not need to deal with a security &
+      deprecations based on tons of dependencies. It’s unnecessary
+      for just a simple blog. See the 2026 post for more info
+    </p>
+    <script>
+    hljs.highlightAll();
+    </script>
+  </body>
 </html>

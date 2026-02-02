@@ -1,63 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta name="generator" content=
-"HTML Tidy for HTML5 for Linux version 5.8.0">
-<meta charset="UTF-8">
-<meta name="viewport" content=
-"width=device-width, initial-scale=1.0">
-<title>Jake's Blog - Arduino Controlled Power</title>
-<link rel="stylesheet" href=
-"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
+  <head>
+    <meta name="generator" content=
+    "HTML Tidy for HTML5 for Linux version 5.8.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content=
+    "width=device-width, initial-scale=1.0">
+    <title>
+      Jake's Blog - Arduino Controlled Power
+    </title>
+    <link rel="stylesheet" href=
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
 
-<script src=
-"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/css/main.css">
-</head>
-<body>
-<div id="header"></div>
-<script>
+    <script src=
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+  </head>
+  <body>
+    <div id="header"></div>
+    <script>
             fetch('/header.html')
             .then(res => res.text())
             .then(html => {
                 document.getElementById('header').innerHTML = html;
             });
-</script>
-<p>After having the cisco lab online for a bit, I didn't realize
-that it would more than double my power bill. Looking for a way to
-turn it off remotely and I got the idea from a colleague to make my
-own with Arduino and he helped put it together.</p>
-<picture><img src="/images/ArduinoPowerStrip.webp" alt=
-"Arduino Controlled Power Strip Surge Protector Picture" class=
-"responsive"></picture> Next time I should take some progress
-pictures. Here is a summary of the steps:
-<ol>
-<li>Unsoldered the switch</li>
-<li>Used a multimeter to test which 2 sections of the board
-completes the circuit.</li>
-<li>Soldered 2 wires to the internal board</li>
-<li>Connect those to the relay board and attach both to the power
-strip.</li>
-<li>wire up the Arduino to the relay and finish coding the
-Arduino.</li>
-</ol>
-I wanted the circuit normally open since it will be off most of the
-time. Then the relay can close and complete the circuit when I
-remotely turn it on.<br>
-To turn it on I just open a new tab and go to
-http://ipAddress/$1<br>
-To turn it of I just open a new tab and go to http://ipAddress/$0
-<p>I'm not sure why a new tab has to be used and why text based
-browsers like Lynx or Curl don't work. Can try to figure that out
-in the future if I have time.</p>
-<p>I did wait until the weekend to test it because I was paranoid
-thatit would do something unexpected might happen while I wasn’t
-home.</p>
-<p><b>Update:</b> It has had no problems and has been stable and
-I’ve been using it for a few weeks now as of October 9th. All the
-way through the end of 2019.</p>
-Here is my Arduino Code:
-<pre><code class="language-c">&lt;SPI.h&gt;
+    </script>
+    <p>
+      After having the cisco lab online for a bit, I didn't realize
+      that it would more than double my power bill. Looking for a
+      way to turn it off remotely and I got the idea from a
+      colleague to make my own with Arduino and he helped put it
+      together.
+    </p><picture><img src="/images/ArduinoPowerStrip.webp" alt=
+    "Arduino Controlled Power Strip Surge Protector Picture" class=
+    "responsive"></picture> Next time I should take some progress
+    pictures. Here is a summary of the steps:
+    <ol>
+      <li>Unsoldered the switch
+      </li>
+      <li>Used a multimeter to test which 2 sections of the board
+      completes the circuit.
+      </li>
+      <li>Soldered 2 wires to the internal board
+      </li>
+      <li>Connect those to the relay board and attach both to the
+      power strip.
+      </li>
+      <li>wire up the Arduino to the relay and finish coding the
+      Arduino.
+      </li>
+    </ol>I wanted the circuit normally open since it will be off
+    most of the time. Then the relay can close and complete the
+    circuit when I remotely turn it on.<br>
+    To turn it on I just open a new tab and go to
+    http://ipAddress/$1<br>
+    To turn it of I just open a new tab and go to
+    http://ipAddress/$0
+    <p>
+      I'm not sure why a new tab has to be used and why text based
+      browsers like Lynx or Curl don't work. Can try to figure that
+      out in the future if I have time.
+    </p>
+    <p>
+      I did wait until the weekend to test it because I was
+      paranoid thatit would do something unexpected might happen
+      while I wasn’t home.
+    </p>
+    <p>
+      <b>Update:</b> It has had no problems and has been stable and
+      I’ve been using it for a few weeks now as of October 9th. All
+      the way through the end of 2019.
+    </p>Here is my Arduino Code:
+    <pre><code class="language-c">&lt;SPI.h&gt;
 #include &lt;Ethernet.h&gt;
 
 boolean incoming = 0;
@@ -206,35 +220,38 @@ switch (Ethernet.maintain()) {
   }
 */
 </code></pre>
-<p>Here are some of the useful sources I found along the way.<br>
-<a href=
-"https://www.digikey.com/en/maker/blogs/2018/how-to-get-started-with-arduino"
-class=
-"uri">https://www.digikey.com/en/maker/blogs/2018/how-to-get-started-with-arduino</a>
-<a href=
-"https://www.instructables.com/id/Arduino-Ethernet-Shield-Tutorial/">
-https://www.instructables.com/id/Arduino-Ethernet-Shield-Tutorial/</a><br>
+    <p>
+      Here are some of the useful sources I found along the
+      way.<br>
+      <a href=
+      "https://www.digikey.com/en/maker/blogs/2018/how-to-get-started-with-arduino"
+      class=
+      "uri">https://www.digikey.com/en/maker/blogs/2018/how-to-get-started-with-arduino</a>
+      <a href=
+      "https://www.instructables.com/id/Arduino-Ethernet-Shield-Tutorial/">
+      https://www.instructables.com/id/Arduino-Ethernet-Shield-Tutorial/</a><br>
 
-<a href=
-"https://codebender.cc/sketch:1138#Web%20Server.ino">https://codebender.cc/sketch:1138#Web%20Server.ino</a><br>
+      <a href=
+      "https://codebender.cc/sketch:1138#Web%20Server.ino">https://codebender.cc/sketch:1138#Web%20Server.ino</a><br>
 
-<a href=
-"https://www.arduino.cc/reference/en/language/functions/digital-io/digitalread/">
-https://www.arduino.cc/reference/en/language/functions/digital-io/digitalread/</a><br>
+      <a href=
+      "https://www.arduino.cc/reference/en/language/functions/digital-io/digitalread/">
+      https://www.arduino.cc/reference/en/language/functions/digital-io/digitalread/</a><br>
 
-<a href=
-"http://www.circuitbasics.com/setting-up-a-5v-relay-on-the-arduino/">
-http://www.circuitbasics.com/setting-up-a-5v-relay-on-the-arduino/</a><br>
+      <a href=
+      "http://www.circuitbasics.com/setting-up-a-5v-relay-on-the-arduino/">
+      http://www.circuitbasics.com/setting-up-a-5v-relay-on-the-arduino/</a><br>
 
-<a href=
-"https://randomnerdtutorials.com/guide-for-relay-module-with-arduino/">
-https://randomnerdtutorials.com/guide-for-relay-module-with-arduino/</a><br>
+      <a href=
+      "https://randomnerdtutorials.com/guide-for-relay-module-with-arduino/">
+      https://randomnerdtutorials.com/guide-for-relay-module-with-arduino/</a><br>
 
-<a href=
-"https://upload.wikimedia.org/wikipedia/commons/c/c9/Pinout_of_ARDUINO_Board_and_ATMega328PU.svg">
-https://upload.wikimedia.org/wikipedia/commons/c/c9/Pinout_of_ARDUINO_Board_and_ATMega328PU.svg</a></p>
-<script>
-hljs.highlightAll();
-</script>
-</body>
+      <a href=
+      "https://upload.wikimedia.org/wikipedia/commons/c/c9/Pinout_of_ARDUINO_Board_and_ATMega328PU.svg">
+      https://upload.wikimedia.org/wikipedia/commons/c/c9/Pinout_of_ARDUINO_Board_and_ATMega328PU.svg</a>
+    </p>
+    <script>
+    hljs.highlightAll();
+    </script>
+  </body>
 </html>
