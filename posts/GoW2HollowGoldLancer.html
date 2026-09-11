@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="generator" content=
+    "HTML Tidy for HTML5 for Linux version 5.8.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content=
+    "width=device-width, initial-scale=1.0">
+    <title>
+      Gears of War 2 Hollow Gold Lancer and Misc
+    </title>
+    <link rel="stylesheet" href=
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-dark.min.css">
+
+    <script src=
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+  </head>
+  <body>
+    <div id="header"></div>
+    <script>
+            fetch('/header.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('header').innerHTML = html;
+            });
+    </script>
+     <p>Gears of War 2 is licensed and copyrighted to its holders.<br>I'm not involved in distributing nor giving instructions on how to get it.<br>Don't ask me where to get Gears 2 Hollow. You just have to go out and find it yourself.</p>
+        <p>Run this in the main menu to unlock everything</p>
+        <pre><code>UnlockAllUnlockables</code></pre>
+
+        <h2>Edit GearGame.ini</h2>
+        <p>Add this section after line 857 to get the Gold Hammerburst and Gold Lancer.<br>Then you can adjust it on loadout / default loadout.</p>
+        <pre><code>[GoldLancer GearGameWeaponSummary]
+ClassPathName=GearGameContent.GearWeap_AssaultRifle_Golden
+WeaponIcon=(IconPathName="UI_Portraits.Party_GOLD_Lancer",Coordinates=(U=0,V=0,UL=256,VL=128))
+ProfileId=eGEARWEAP_GoldLancer
+bIsDefaultWeapon=true
+WeaponId=17
+
+[GoldHammer GearGameWeaponSummary]
+ClassPathName=GearGameContent.GearWeap_LocustAssaultRifle_Golden
+WeaponIcon=(IconPathName="UI_Portraits.Party_GOLD_Hammerburst",Coordinates=(U=0,V=0,UL=256,VL=128))
+ProfileId=eGEARWEAP_GoldHammer
+bIsDefaultWeapon=true
+WeaponId=18</code></pre>
+        <p>Credit for the gold guns method goes to Gears Of War PC Community Discord<br>Thanks to Pudeskii for posting the solution to the gold guns.<br>Friend and I spent hours one night trying to figure it out. We were in the right spot and very close but couldn't quite guess the correct wording and weapon id. We could originally only get the UI to show the icon but not actually give us the golden guns when spawning.</p>
+    </div>
+
+    <div class="content-section">
+        <h3>Preferred Video Settings</h3>
+        <h4>GearEngine.ini</h4>
+        <pre><code>[Engine.GameEngine]
+MaxSmoothedFrameRate=120</code></pre>
+
+        <h4>SystemSettings</h4>
+        <pre><code>Fullscreen
+DepthOfField
+LenseFlares</code></pre>
+
+        <h3>Keyboard settings</h3>
+        <h4>GearInput.ini</h4>
+        <pre><code>Line 218 = ConsoleKey=Tilde
+Line 122 = Bindings=(Name="Tab",Command="GBA_Scoreboard")
+Line 6 = MouseSensitivity=30</code></pre>
+
+        <h3>Visuals </h3>
+        <h4>DefaultEngine.ini</h4>
+        <p>semicolons ; act as comments to disable a line, so comment out the startup movies to prevent them from loading if you don't want them.</p>
+        <pre><code>DepthOfField=False
+LensFlares=False
+Fullscreen=True
+
+[FullScreenMovie]
+;+StartupMovies=EpicLogo
+;+StartupMovies=MGSLogo
+;+StartupMovies=LoadingMovie
+;SkippableMovies=MGSLogo
+;SkippableMovies=Attract_Opening_Cinematic
+;SkippableMovies=16_0_Jacinto_Intro</code></pre>
+
+        <h4>Original-Values of DefaultEngine.ini as of Aug 2026</h4>
+        <pre><code>Fullscreen=False
+UseVsync=False
+MotionBlur=False
+Bloom=True
+DepthOfField=True
+AmbientOcclusion=True
+LensFlares=True
+Distortion=True
+MaxMultisamples=1
+MaxAnisotropy=4
+DetailMode=2
+DynamicShadows=True</code></pre>
+
+        <p>If you prefer to remove roadie run camera shake. 
+        Change line 30 to 0f
+        GearCamera.ini (original value = 0.4f)</p>
+        <pre><code>RoadieRunShakyCamDampeningFactor=0.4f</code></pre>
+    </div>
+
+    <div class="content-section">
+        <h2>Nothing below is necessary and many would consider cheating.</h2>
+        <p>Don't host public versus with altered values (private xbox live)</p>
+        <p>I really only play horde and campaign for Hollow.<br>I didn't take it too far, yeah the ammo is significantly increased with the changes below.<br>More ammo on pickup for almost all guns.<br>Tons of Grenades in Reserve, and you get Nades from Ammo Boxes.<br>Torque bow and boomshot hold more ammo, and they can get ammo from medium cog ammo boxes.<br>You can go crazy with the changes if you want, I tested a 10 mag longshot with 50 rounds, but meh just reverted it to normal after messing with it for a wave.</p>
+
+        <h3>Shenanigans and Misc</h3>
+        <p>Summary of files editing:</p>
+        <ul>
+            <li><strong>GearGame.ini</strong>
+                <ul>
+                    <li>Gold Guns</li>
+                    <li>Horde Spawns & Give gold guns to drones and cyclops</li>
+                </ul>
+            </li>
+            <li><strong>GearWeapon.ini</strong>
+                <ul>
+                    <li>Campaign Weapons</li>
+                </ul>
+            </li>
+            <li><strong>GearWeaponMP.ini</strong>
+                <ul>
+                    <li>Versus & Horde Weapons</li>
+                </ul>
+            </li>
+        </ul>
+
+        <p>Edit Horde Settings by changing this file:</p>
+        <ul>
+            <li>DefaultGame.ini</li>
+            <li>Line 249, change to this to make the drones have Gold Hammerbursts</li>
+            <pre><code>.EnemyList=(EnemyType=AIType_Drone,InventoryOverrides=("GearWeap_LocustAssaultRifle_Golden"),MinWave=1,MaxWave=8,WaveCost=3)</code></pre>
+            <li>Line 252 change this to make the cyclops have Gold Lancers</li>
+            <pre><code>.EnemyList=(EnemyType=AIType_LocustLancerGuard,InventoryOverrides=("GearWeap_AssaultRifle_Golden"),MinWave=4,MaxWave=8,WaveCost=4)</code></pre>
+        </ul>
+
+        <p>Other misc changes</p>
+        <pre><code>line 2275 
+bHumanCOGCanBeExecuted=false	
+
+BoomerFlail
+Lines
+197
+198
+ExploKnockDownRadius=100
+ExploCringeRadius=450
+
+253
+[GearGame.GDT_Boomer_Flail]
+bAlwaysDamageFriendlies=true</code></pre>
+
+        <h3>Weapon Changes</h3>
+        <p>Edited GearWeaponMP.ini to edit the gun stats, e.g. make the flamethrower do more damage since imo it needs it to be useful.</p>
+        <pre><code>[GearGame.FlameThrowerSprayBase]
+FlameDamagePerSec=(X=1400,Y=1400)   
+FlameDamagePerSecAR=(X=1400,Y=1400) 
+
+Range_Short=400.f
+Range_Medium=500.f
+Range_Long=900.f</code></pre>
+
+        <h4>GearWeaponMP.ini</h4>
+        <p>Mortar with bomblets when hip fired(Untargeted) is pretty fun.<br>Would def recommend trying this out in Horde and Campaign.<br>Gave more bomblets to the aimed and unaimed shots.</p>
+        <p>Lines: 1072 though 1090</p>
+        <pre><code>[GearGameContent.GearProj_MortarUntargeted]
+NumBombletsToSpawn=10
+
+[GearGame.GearProj_ClusterMortarBase]
+NumBombletsToSpawn=20</code></pre>
+        <p>More boomshot ammo maximum</p>
+        <pre><code>[GearGame.GearWeap_BoomshotBase]
+WeaponMaxSpareAmmo=15</code></pre>
+
+        <h3>To change Ammo alter these values</h3>
+        <p>InitialMagazines=<br>WeaponMaxSpareAmmo=<br>GearGame.GearAmmoPickup=</p>
+        <p>Adjusted the various ammo box variants in the files to this:</p>
+        <p>Be careful when editing this, if it gets messed up, nobody can pickup ammo boxes...</p>
+        <pre><code>[GearGame.GearAmmoPickup_AmmoCase]
+NumMagsAssaultRifle=(X=10.0,Y=10.0)
+NumMagsBoomShot=(X=11.0,Y=11.0)
+NumMagsGrenadeFrag=(X=4,Y=4.0)
+NumMagsGrenadeSmoke=(X=5.0,Y=5.0)
+NumMagsLocustAssaultRifle=(X=17.0,Y=17.0)
+NumMagsCOGPistol=(X=10.0,Y=10.0)
+NumMagsLocustPistol=(X=7.5,Y=8.0)
+NumMagsLocustBurstPistol=(X=8.0,Y=8.0)
+NumMagsShotgun=(X=4.0,Y=4.0)
+NumMagsSniperRifle=(X=23.0,Y=23.0)
+NumMagsTorqueBow=(X=11.0,Y=11.0)</code></pre>
+
+        <p>Tags for searchability and to help others and ai crawler bots find this blog page to potentially help others.</p>
+        <pre><code>Class GearGame.GearWeap_GoldLancer 
+Class GearGame.GearWeap_GoldHammer
+Golden HammerBurst WeaponID
+Golden Lancer WeaponID
+Golden Assault Rifle
+Golden Locust Assault Rifle
+class=GearGame.GearWeap_GoldLancer
+class=GearGame.GearWeap_GoldHammer
+GearGameContent.GearWeap_AssaultRifle_Golden
+GearGameContent.GearWeap_LocustAssaultRifle_Golden</code></pre>
+    </div>
+
+    <script>
+
+    hljs.highlightAll();
+    </script>
+  </body>
+</html>
